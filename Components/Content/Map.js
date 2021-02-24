@@ -1,33 +1,45 @@
 import { useState, useEffect } from "react"
 import ReactMapGL, { Marker, NavigationControl } from "react-map-gl"
 
-export default function Map() {
+// export async function getStaticProps() {
+//   const res = await fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=${questKey}&location=${address}`)
+//   const result = res.json()
+//   return {
+//     props: { result },
+//   }
+// }
+export default function Map(props) {
   const navControlStyle = {
     right: 10,
     top: 10,
   }
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      setLat(position.coords.latitude)
-      console.log(position.coords.latitude)
-      setLang(position.coords.longitude)
-    })
+  const address = "923 White Knoll Dr, LA, CA 90012"
+  const [isFetching, setFetching] = useState(true)
+  useEffect(async () => {
+    await fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=${process.env.MAPQUEST_KEY}&location=${address}`)
+      .then((response) => response.json())
+      .then((result) => {
+        setFetching(false)
+        setViewport({
+          ...viewport,
+          latitude: result.results[0].locations[0].latLng.lat,
+          longitude: result.results[0].locations[0].latLng.lng,
+        })
+      })
   }, [])
-  const [lat, setLat] = useState(null)
-  const [long, setLang] = useState(null)
   const [viewport, setViewport] = useState({
     width: "60%",
     height: "100%",
-    // The latitude and longitude of the center of London
-    latitude: lat ? lat : 40.7549,
-    longitude: long ? long : -73.984,
+    latitude: 40.767386,
+    longitude: -73.88375,
     zoom: 13,
   })
-  return (
+  return isFetching ? (
+    <span>Loading...</span>
+  ) : (
     <ReactMapGL
       mapStyle="mapbox://styles/presentmoment/cklhdwg440h9117qqea2dtsgo"
-      mapboxApiAccessToken="pk.eyJ1IjoicHJlc2VudG1vbWVudCIsImEiOiJjanhpdGlhczkwNWdpM3dwbHRtMGVrdWYwIn0.xzwCmqIxkr_AfZ3YNBwy9g"
+      mapboxApiAccessToken={process.env.MAPBOX_KEY}
       {...viewport}
       onViewportChange={(nextViewport) => setViewport(nextViewport)}
     >
