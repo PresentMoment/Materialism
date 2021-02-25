@@ -1,15 +1,17 @@
 import React from 'react'
 import styled from "styled-components"
 
-export default function Search() {
+export default function Search(props) {
+  const isBreakPoint = props
+
   return (
-      <SearchStyles>Search</SearchStyles>
+      <SearchStyles isBreakPoint={isBreakPoint}>Search</SearchStyles>
   )
 }
 
-const SearchStyles = styled('span')`
+const SearchStyles = styled('span')<{isBreakPoint: boolean}>`
 font-size: 4em;
-margin-left: 20px;
+margin-left: ${(p) => p.isBreakPoint ? 'none' : '20px'};
 &:hover {
   font-style: italic;
 }

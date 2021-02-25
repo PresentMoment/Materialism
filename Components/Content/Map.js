@@ -1,14 +1,7 @@
 import { useState, useEffect } from "react"
 import ReactMapGL, { Marker, NavigationControl } from "react-map-gl"
 
-// export async function getStaticProps() {
-//   const res = await fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=${questKey}&location=${address}`)
-//   const result = res.json()
-//   return {
-//     props: { result },
-//   }
-// }
-export default function Map(props) {
+export default function Map() {
   const navControlStyle = {
     right: 10,
     top: 10,

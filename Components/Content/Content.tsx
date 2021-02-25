@@ -3,13 +3,16 @@ import dynamic from 'next/dynamic'
 import styled from "styled-components"
 import ArtistCard from './ArtistCard';
 
+import useMediaQuery from '../../Utils/useMediaQuery'
+
 const Map = dynamic(() => import("./Map"), {
   loading: () => <p>Loading...</p>,
   ssr: false
 });
 export default function Content() {
+  const isBreakPoint = useMediaQuery(425)
   return (
-    <ContentContainer>
+    <ContentContainer isBreakPoint={isBreakPoint}>
       <ContentList>
         <ArtistCard />
       </ContentList>
@@ -18,13 +21,13 @@ export default function Content() {
   )
 }
 
-const ContentContainer = styled("div")`
+const ContentContainer = styled("div")<{isBreakPoint: boolean}>`
 display: flex;
 flex-direction: row;
 height: 100%;
-margin: 10px 30px;
+margin: 10px ${(p) => p.isBreakPoint ? '4px' : '30px'};
 border: 1px solid black;
-padding: 10px;
+padding: ${(p) => p.isBreakPoint ? '4px' : '10px'};
 height: 70vh;
 `
 const ContentList = styled("div")`

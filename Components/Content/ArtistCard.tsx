@@ -1,11 +1,14 @@
 import React from 'react'
 import styled from "styled-components"
 
+import useMediaQuery from '../../Utils/useMediaQuery'
+
 export default function ArtistCard() {
+  const isBreakPoint = useMediaQuery(425)
   return (
     <>
-    <Wrapper>
-      <ArtistInfo>
+    <Wrapper isBreakPoint={isBreakPoint}>
+      <ArtistInfo isBreakPoint={isBreakPoint}>
         <span>Artist:</span>
         <span>Title:</span>
         <span>Year:</span>
@@ -17,18 +20,18 @@ export default function ArtistCard() {
   )
 }
 
-const Wrapper = styled("div")`
+const Wrapper = styled("div")<{isBreakPoint: boolean}>`
 display: flex;
 flex-direction: row;
 justify-content: space-between;
-padding: 0 20px;
+padding: 0 ${(p) => p.isBreakPoint ? '10px' : '20px'};
 `
 
-const ArtistInfo = styled("div")`
+const ArtistInfo = styled("div")<{isBreakPoint: boolean}>`
 display: flex;
 flex-direction: column;
 font-family: 'Raleway';
-font-size: 1.5em;
+font-size: ${(p) => p.isBreakPoint ? '0.7em' : '1.5em'};
 line-height: 2em;
 `
 const LineBreak =  styled('div')`

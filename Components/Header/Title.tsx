@@ -1,15 +1,22 @@
-import React from 'react'
 import styled from "styled-components"
-export default function Title() {
+import Link from "next/link";
+
+export default function Title(props) {
+  const isBreakPoint = props;
   return (
-<TitleText>MATERIAL</TitleText>
+    <Link href={{ pathname: "/" }}>
+    <a>
+
+<TitleText isBreakPoint={isBreakPoint}>MATERIAL</TitleText>
+    </a>
+    </Link>
   )
 }
 
 
-const  TitleText =  styled('span')`
+const  TitleText =  styled('span')<{isBreakPoint: boolean}>`
 font-family: 'EB Garamond', 'Raleway', serif;
-font-size: 6em;
+font-size: ${(p) => p.isBreakPoint ? '2em' : '6em'};
 font-style: italic;
 text-align: center;
 `
