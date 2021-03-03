@@ -7,17 +7,16 @@ import Tagline from "./Tagline";
 
 import useMediaQuery from '../../Utils/useMediaQuery'
 
-
-export default function Header(props) {
+export default function Header() {
   const router = useRouter();
-  const isBreakPoint = props
+  const isBreakPoint = useMediaQuery(425)
   return (
     <>
     <Nav isBreakPoint={isBreakPoint}>
-      {!isBreakPoint ?
+      {/* {!isBreakPoint ?
       <LogoContainer>
       <img src ='/logo.png' alt="" width={100} height={100} />
-      </LogoContainer> : null}
+      </LogoContainer> : null} */}
       <Search isBreakPoint={isBreakPoint} />
    
     <TextContainer isBreakPoint={isBreakPoint}>
@@ -38,13 +37,12 @@ flex-direction: ${(p) => p.isBreakPoint ? 'column-reverse' : 'row'};
 justify-content: space-between;
 margin: 20px 30px 0 20px;
 `
-const LogoContainer = styled("div")`
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
-`
-
+// const LogoContainer = styled("div")`
+// display: flex;
+// flex-direction: row;
+// align-items: center;
+// justify-content: center;
+// `
 const TextContainer = styled("div")<{isBreakPoint: boolean}>`
 display: flex;
 flex-direction: row;
