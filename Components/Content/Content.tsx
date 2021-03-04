@@ -9,14 +9,17 @@ const Map = dynamic(() => import("./Map"), {
   loading: () => <p>Loading...</p>,
   ssr: false
 });
-export default function Content() {
+
+
+export default function Content(props) {
+  const {artWorks} = props
   const isBreakPoint = useMediaQuery(425)
   return (
     <ContentContainer isBreakPoint={isBreakPoint}>
       <ContentList>
-        <ArtistCard />
+        <ArtistCard props={artWorks} />
       </ContentList>
-    <Map />
+    <Map artWorks={artWorks} />
     </ContentContainer>
   )
 }

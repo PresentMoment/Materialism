@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react"
-import ReactMapGL, { Marker, NavigationControl } from "react-map-gl"
+import ReactMapGL, { Marker, NavigationControl, GeolocateControl } from "react-map-gl"
 
-export default function Map() {
+export default function Map(props) {
+  const artWorks = props.artWorks
   const navControlStyle = {
     right: 10,
     top: 10,
   }
-  const address = "923 White Knoll Dr, LA, CA 90012"
+  const address = artWorks[0].address
   const [isFetching, setFetching] = useState(true)
   useEffect(async () => {
     await fetch(`http://open.mapquestapi.com/geocoding/v1/address?key=${process.env.MAPQUEST_KEY}&location=${address}`)
@@ -25,10 +26,10 @@ export default function Map() {
     height: "100%",
     latitude: 40.767386,
     longitude: -73.88375,
-    zoom: 13,
+    zoom: 15,
   })
   return isFetching ? (
-    <span>Loading...</span>
+    <span>Loading map...</span>
   ) : (
     <ReactMapGL
       mapStyle="mapbox://styles/presentmoment/cklhdwg440h9117qqea2dtsgo"
@@ -36,6 +37,7 @@ export default function Map() {
       {...viewport}
       onViewportChange={(nextViewport) => setViewport(nextViewport)}
     >
+      <GeolocateControl />
       <NavigationControl style={navControlStyle} />
       <Marker longitude={viewport.longitude} latitude={viewport.latitude}>
         <svg height={20} viewBox="0 0 24 24" style={{ transform: `translate(${-20 / 2}px,${-20}px)` }}>

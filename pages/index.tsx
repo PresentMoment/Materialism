@@ -1,10 +1,25 @@
+import groq from "groq";
+import client from '../client';
 import Content from "../Components/Content/Content";
 import Layout from '../Components/Layout'
 
-export default function Home() {
+
+const pageQuery = groq`
+*[_type == 'artwork']{...,artist->{name}}`;
+
+
+export default function Home(props) {
+  console.log(props.props)
   return (
     <>
-      <Layout><Content /></Layout>
+      <Layout><Content artWorks={props.props} /></Layout>
     </>
   );
+}
+
+Home.getInitialProps = async() => {
+  const res = await client.fetch(pageQuery)
+  return {
+    props: res
+  }
 }
