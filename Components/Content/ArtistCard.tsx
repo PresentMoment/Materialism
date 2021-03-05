@@ -7,19 +7,28 @@ import client from '../../client'
 const builder = imageUrlBuilder(client);
 export default function ArtistCard(props) {
   const  artWorks = props.props;
+  console.log(artWorks)
   const isBreakPoint = useMediaQuery(425);
   return (
     <>
     <Wrapper isBreakPoint={isBreakPoint}>
+      <div style={{display: 'flex', flexDirection: "column", width: '100%'}}>
+      {artWorks.map((artwork)=> {
+        return(
+          <div style={{display: 'flex', flexDirection: 'row', marginBottom: '1em'}}>
       <ArtistInfo isBreakPoint={isBreakPoint}>
-        <span>Artist: {artWorks[0].artist.name}</span>
-        <span>Title: {artWorks[0].title}</span>
-        <span>Year: {artWorks[0].year}</span>
-      </ArtistInfo>
-      <img
-          src={builder.image(artWorks[0].image).auto("format").width(200).height(200).url()}
+        <span>Artist: {artwork.artist.name}</span>
+        <span>Title: {artwork.title}</span>
+         <span>Year: {artwork.year}</span>
+         </ArtistInfo>
+         <img
+          src={builder.image(artwork.image).auto("format").width(isBreakPoint ? 200 : 100).height(isBreakPoint ? 200 : 100).url()}
           alt={""}
-        />
+          />
+          </div>
+        )
+      })}
+        </div>
     </Wrapper>
       <LineBreak />
       </>
@@ -39,6 +48,7 @@ flex-direction: column;
 font-family: 'Raleway';
 font-size: ${(p) => p.isBreakPoint ? '0.7em' : '1.5em'};
 line-height: 2em;
+flex: 1;
 `
 const LineBreak =  styled('div')`
 border-bottom: 1px solid black;

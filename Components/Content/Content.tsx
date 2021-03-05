@@ -2,7 +2,6 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import styled from "styled-components"
 import ArtistCard from './ArtistCard';
-
 import useMediaQuery from '../../Utils/useMediaQuery'
 
 const Map = dynamic(() => import("./Map"), {

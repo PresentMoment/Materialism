@@ -3,16 +3,17 @@ import client from '../client';
 import Content from "../Components/Content/Content";
 import Layout from '../Components/Layout'
 
-
 const pageQuery = groq`
 *[_type == 'artwork']{...,artist->{name}}`;
 
 
 export default function Home(props) {
-  console.log(props.props)
+  let artWorks = props.props
   return (
     <>
-      <Layout><Content artWorks={props.props} /></Layout>
+      <Layout>
+      <Content artWorks={props.props} />
+        </Layout>
     </>
   );
 }
