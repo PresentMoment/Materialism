@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react"
-import ReactMapGL, { Marker, NavigationControl, GeolocateControl } from "react-map-gl"
+import ReactMapGL, { Marker, NavigationControl, GeolocateControl, Popup } from "react-map-gl"
+import imageUrlBuilder from "@sanity/image-url";
+import client from '../../client'
 
 export default function Map(props) {
+  const builder = imageUrlBuilder(client);
   const artWorks = props.artWorks;
   const navControlStyle = {
     right: 10,
@@ -17,6 +20,8 @@ export default function Map(props) {
   const locales = []
   const [isFetching, setFetching] = useState(true)
   const [localeState, setLocaleState] = useState([])
+  const [markerClicked, setMarkerClicked] = useState(false)
+  const [popUpGeo, setPopUpGeo] = useState([])
 
     async function forLoop(address, index) {
         await fetch(
@@ -54,6 +59,7 @@ export default function Map(props) {
       return (
         geo[1].geo && 
         <Marker longitude={geo[1].geo[0]} latitude={geo[1].geo[1]}>
+          <div  onClick={() => {setMarkerClicked(true), setPopUpGeo([geo[1].geo[0], geo[1].geo[1], geo[1].image])}}>
           <svg height={20} viewBox="0 0 24 24" style={{ transform: `translate(${-20 / 2}px,${-20}px)` }}>
             <path
               d={`M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,4.5,2,10c0,2,0.6,3.9,1.6,5.4c0,0.1,0.1,0.2,0.2,0.3
@@ -61,6 +67,7 @@ c0,0,0.1,0.1,0.1,0.2c0.2,0.3,0.4,0.6,0.7,0.9c2.6,3.1,7.4,7.6,7.4,7.6s4.8-4.5,7.4
 C20.1,15.8,20.2,15.8,20.2,15.7z`}
             />
           </svg>
+          </div>
         </Marker>
       )
     })
@@ -76,6 +83,10 @@ C20.1,15.8,20.2,15.8,20.2,15.7z`}
       <GeolocateControl />
       <NavigationControl style={navControlStyle} />
       {populateMarkers}
+      {markerClicked && <Popup latitude={popUpGeo[1]} longitude={popUpGeo[0]} onClose={() => setMarkerClicked(false)} anchor="top"><div><img
+              src={builder.image(popUpGeo[2]).auto("format").width(30).height(30).url()}
+              alt={""}
+            /></div></Popup>}
     </ReactMapGL>
   )
 }
