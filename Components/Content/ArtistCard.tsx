@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from "styled-components"
+import Link from "next/link";
 import imageUrlBuilder from "@sanity/image-url";
 import useMediaQuery from '../../Utils/useMediaQuery'
 import client from '../../client'
@@ -15,6 +16,8 @@ export default function ArtistCard(props) {
       {artWorks.map((artwork)=> {
         return(
           <div key={artwork._id}>
+            <Link href={{ pathname: '/artwork/' + artwork.slug.current}}>
+              <a>
         <div style={{display: 'flex', flexDirection: 'row'}} key={artwork._id}>
             <ArtistInfo isBreakPoint={isBreakPoint} key={artwork._id}>
             <span>Artist: {artwork.artist.name}</span>
@@ -28,6 +31,8 @@ export default function ArtistCard(props) {
             </div>
             <LineBreak width='100%' />
             <div style={{height: '20px'}} />
+            </a>
+            </Link>
           </div>
         )
       })}

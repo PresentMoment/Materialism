@@ -41,5 +41,16 @@ export default {
         },
       },
     },
+    {
+      type: "slug",
+      name: "slug",
+      title: "Slug",
+      description: 'this will be the url address for the location - click the "Generate" button to auto-fill',
+      options: {
+        source: "title",
+        slugify: (input) => input.toLowerCase().replace(/\s+/g, "-").slice(0, 200),
+      },
+      validation: (Rule) => Rule.required(),
+    },
   ],
 }
