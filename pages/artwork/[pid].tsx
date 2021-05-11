@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
+
 import dynamic from 'next/dynamic'
 import groq from "groq";
 import client from "../../client";
 import { useRouter } from "next/router";
 import imageUrlBuilder from "@sanity/image-url";
-
+import styles from './[pid].module.css'
 import Layout from '../../Components/Layout'
+import { LineBreak } from "../../Components/Layout/LineBreak";
+import useWindowDimensions from "../../Utils/useWindowDimensions";
 
 const builder = imageUrlBuilder(client);
 const pageQuery = groq`
@@ -19,22 +22,24 @@ const SingleMap = dynamic(() => import("../../Components/Content/SingleMap"), {
   ssr: false
 });
 
+
 function Artwork({ config, data = {} }) {
+  const { height, width } = useWindowDimensions();
   const router = useRouter();
   return (
       <Layout>
-        <div style={{display: 'flex', flexDirection: 'row'}}>
+        <div className={styles.container}>
 
-        <div style={{display: 'flex', flexDirection: 'column'}}>
-
-        <span>Title: {data.title}</span>
-        <span>Artist: {data.artist}</span>
-        <span>Year: {data.year}</span>
+        <div className={styles.infoContainer} style={{backgroundImage: `url(${builder.image(data.image).auto("format").width(width).height(400).url()})`}}>
+        <div style={{display: 'flex', flex: 1}} />
+        <div className={styles.info}>
+          <span>{data.title}, {data.year}</span>
+        <span>{data.artist}</span>
         </div>
-        <img
-          src={builder.image(data.image).auto("format").width(400).height(400).url()}
-          alt={""} />
+        </div>
+        <LineBreak />
         <SingleMap artWorks={data} />
+        <LineBreak />
         </div>
       </Layout>
   );
@@ -58,3 +63,4 @@ export async function getStaticPaths() {
 }
 
 export default Artwork;
+

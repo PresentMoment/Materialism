@@ -9,10 +9,11 @@ const builder = imageUrlBuilder(client);
 export default function ArtistCard(props) {
   const  artWorks = props.props;
   const isBreakPoint = useMediaQuery(768);
+  const is425 = useMediaQuery(425);
   return (
     <>
     <Wrapper isBreakPoint={isBreakPoint}>
-      <div style={{display: 'flex', flexDirection: "column", width: '100%'}}>
+      <div style={{display: 'flex', flexDirection: "column", width: '100%', paddingTop: is425 ? '30px' : '0'}}>
       {artWorks.map((artwork)=> {
         return(
           <div key={artwork._id}>
@@ -20,12 +21,12 @@ export default function ArtistCard(props) {
               <a>
         <div style={{display: 'flex', flexDirection: 'row'}} key={artwork._id}>
             <ArtistInfo isBreakPoint={isBreakPoint} key={artwork._id}>
-            <span>Artist: {artwork.artist.name}</span>
-            <span>Title: {artwork.title}</span>
-            <span>Year: {artwork.year}</span>
+            <span>{artwork.artist.name}</span>
+            <span>{artwork.title}</span>
+            <span>{artwork.year}</span>
             </ArtistInfo>
             <img
-              src={builder.image(artwork.image).auto("format").width(isBreakPoint ? 100 : 200).height(isBreakPoint ? 100 : 200).url()}
+              src={builder.image(artwork.image).auto("format").width(100).height(100).url()}
               alt={""}
             />
             </div>
@@ -45,6 +46,7 @@ export default function ArtistCard(props) {
 const Wrapper = styled("div")<{isBreakPoint: boolean}>`
 display: flex;
 flex-direction: row;
+width: 100%;
 justify-content: space-between;
 padding: 0 ${(p) => p.isBreakPoint ? '10px' : '20px'};
 `

@@ -18,20 +18,26 @@ export default function Content(props) {
       <ContentList>
         <ArtistCard props={artWorks} />
       </ContentList>
+      <div style={{display: 'flex', flex: 2}}>
+
     <Map artWorks={artWorks} />
+      </div>
     </ContentContainer>
   )
 }
 
 const ContentContainer = styled("div")<{isBreakPoint: boolean}>`
 display: flex;
-flex-direction: row;
+flex-direction: ${(p) => p.isBreakPoint ? 'column-reverse' : 'row'};
 height: 100%;
 margin: 10px ${(p) => p.isBreakPoint ? '4px' : '30px'};
 border: 1px solid black;
 padding: ${(p) => p.isBreakPoint ? '4px' : '10px'};
-height: 70vh;
+height: ${(p) => p.isBreakPoint ? '85vh' :'80vh'};
 `
-const ContentList = styled("div")`
-width: 40vw;
+const ContentList = styled("div")<{isBreakPoint: boolean}>`
+width: ${(p) => p.isBreakPoint ? '40vw' : '100%'};
+display: flex;
+flex: 1;
+overflow: scroll
 `

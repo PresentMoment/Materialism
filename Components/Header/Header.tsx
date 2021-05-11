@@ -4,6 +4,7 @@ import Title from './Title'
 import LogIn  from './LogIn'
 import Search from "./Search";
 import Tagline from "./Tagline";
+import { LineBreak } from "../Layout/LineBreak";
 
 import useMediaQuery from '../../Utils/useMediaQuery'
 
@@ -17,14 +18,17 @@ export default function Header() {
       <LogoContainer>
       <img src ='/logo.png' alt="" width={100} height={100} />
       </LogoContainer> : null} */}
+      <div style={{display: 'flex', flexDirection: 'row', width: '100%',justifyContent: 'space-around' }}>
+      <Title isBreakPoint={isBreakPoint} />
+
       <Search isBreakPoint={isBreakPoint} />
    
-    <TextContainer isBreakPoint={isBreakPoint}>
-      <Title isBreakPoint={isBreakPoint} />
       <LogIn isBreakPoint={isBreakPoint} />
-    </TextContainer>
+    {/* <TextContainer isBreakPoint={isBreakPoint}>
+    </TextContainer> */}
+      </div>
     </Nav>
-    <LineBreak />
+    <LineBreak paddingBottom={30} />
     {router.pathname === '/' && !isBreakPoint ? <Tagline /> : null}
     </>
   );
@@ -35,7 +39,7 @@ font-family: 'Cormorant Garamond', serif;
 display: flex;
 flex-direction: ${(p) => p.isBreakPoint ? 'column-reverse' : 'row'};
 justify-content: space-between;
-margin: 20px 30px 0 20px;
+margin: 20px 0px 0 0px;
 `
 // const LogoContainer = styled("div")`
 // display: flex;
@@ -49,9 +53,4 @@ flex-direction: row;
 margin-top: -10px;
 text-align: center;
 justify-content: ${(p) => p.isBreakPoint ? 'space-between' : 'none'}
-`
-const LineBreak =  styled('div')`
-border-bottom: 2px solid black;
-padding-bottom: 30px;
-margin: 0 auto;
 `

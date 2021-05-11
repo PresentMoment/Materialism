@@ -2,8 +2,10 @@ import { useState, useEffect } from "react"
 import ReactMapGL, { Marker, NavigationControl, GeolocateControl, Popup } from "react-map-gl"
 import imageUrlBuilder from "@sanity/image-url";
 import client from '../../client'
+import useWindowDimensions from "../../Utils/useWindowDimensions";
 
 export default function SingleMap(props) {
+  const { height, width } = useWindowDimensions();
   const builder = imageUrlBuilder(client);
   const artWorks = props.artWorks;
   const navControlStyle = {
@@ -29,7 +31,7 @@ export default function SingleMap(props) {
   },[])
 
   const [viewport, setViewport] = useState({
-    width: "400px",
+    width: width,
     height: "400px",
     zoom: 16,
   })

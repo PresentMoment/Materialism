@@ -1,18 +1,25 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from "styled-components"
 
 export default function Search(props) {
   const isBreakPoint = props
-
+  const [clicked, setClicked] = useState(false)
   return (
-      <SearchStyles isBreakPoint={isBreakPoint}>Search</SearchStyles>
+      <div onClick={() => {setClicked(!clicked)}} style={{width: '40vw', textAlign: 'center'}}>
+
+      {clicked ? <SearchInput /> : <SearchStyles isBreakPoint={isBreakPoint}>Search</SearchStyles>}
+      </div>
   )
 }
 
 const SearchStyles = styled('span')<{isBreakPoint: boolean}>`
-font-size: 4em;
+font-size: 2em;
 margin-left: ${(p) => p.isBreakPoint ? 'none' : '20px'};
 &:hover {
   font-style: italic;
 }
+`
+const SearchInput = styled('div')`
+border: 1px solid black;
+height: 100%;
 `
