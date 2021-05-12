@@ -23,7 +23,6 @@ export default function Map(props) {
   const [localeState, setLocaleState] = useState([])
   const [markerClicked, setMarkerClicked] = useState(false)
   const [popUpGeo, setPopUpGeo] = useState([])
-
     async function forLoop(address, index) {
         await fetch(
           `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?limit=2&access_token=${process.env.MAPBOX_KEY}`
@@ -50,8 +49,8 @@ export default function Map(props) {
   const [viewport, setViewport] = useState({
     width: "100%",
     height: "100%",
-    latitude: 40.7628,
-    longitude: -73.965242,
+    latitude: artWorks[0].geo ? artWorks[0].geo[1] : 40.7628,
+    longitude: artWorks[0].geo ? artWorks[0].geo[0] : -73.965242,
     zoom: 13,
   })
   const populateMarkers = Object.entries(artWorks).map(geo => 

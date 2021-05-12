@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@babel/plugin-transform-async-to-generator": "^7.13.0",
+    "@babel/runtime": "^7.14.0",
     "@sanity/client": "^2.2.6",
     "@sanity/image-url": "^0.140.22",
     "babel-plugin-module-resolver": "^4.1.0",

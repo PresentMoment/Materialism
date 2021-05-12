@@ -33,6 +33,7 @@ export default {
       required: true,
       options: {
         hotspot: true, // <-- Defaults to false
+        metadata: ["location", "exif", "palette"],
       },
       preview: {
         select: {
