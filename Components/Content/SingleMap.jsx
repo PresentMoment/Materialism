@@ -16,8 +16,10 @@ export default function SingleMap(props) {
   const [geo, setGeo] = useState([])
   const [markerClicked, setMarkerClicked] = useState(false)
   const [popUpGeo, setPopUpGeo] = useState([])
-
     useEffect(() => {
+      props.artWorks.mainImage.metadata.location ?
+      setGeo([props.artWorks.mainImage.metadata.location.lng, props.artWorks.mainImage.metadata.location.lat])
+      :
        fetch(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${artWorks.address}.json?limit=2&access_token=${process.env.MAPBOX_KEY}`
       )

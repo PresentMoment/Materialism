@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import styled from "styled-components"
+import SearchInput from './SearchInput'
 
 export default function Search(props) {
   const isBreakPoint = props
@@ -18,8 +19,4 @@ margin-left: ${(p) => p.isBreakPoint ? 'none' : '20px'};
 &:hover {
   font-style: italic;
 }
-`
-const SearchInput = styled('div')`
-border: 1px solid black;
-height: 100%;
 `

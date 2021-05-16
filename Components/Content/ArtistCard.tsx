@@ -6,7 +6,7 @@ import useMediaQuery from '../../Utils/useMediaQuery'
 import client from '../../client'
 
 const builder = imageUrlBuilder(client);
-export default function ArtistCard(props) {
+export default function ArtistCard(props, flex) {
   const  artWorks = props.props;
   const isBreakPoint = useMediaQuery(768);
   const is425 = useMediaQuery(425);
