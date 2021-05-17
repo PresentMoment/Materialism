@@ -11,7 +11,7 @@ import { LineBreak } from "../../Components/Layout/LineBreak";
 import useWindowDimensions from "../../Utils/useWindowDimensions";
 
 import { Transition } from "react-transition-group";
-import { paddingTop } from "styled-system";
+import { zIndex } from "styled-system";
 
 const builder = imageUrlBuilder(client);
 const pageQuery = groq`
@@ -26,32 +26,63 @@ const SingleMap = dynamic(() => import("../../Components/Content/SingleMap"), {
   ssr: false
 });
 
-const duration = 1000;
-
-const defaultStyle = {
-  transition: `opacity ${duration}ms ease-in-out`,
-  opacity: 0,
-  display: "none",
-  top: -283,
-  zIndex: -1
-};
-
-const transitionStyles = {
-  entering: { opacity: 1, zIndex: 9, position: 'fixed', left: 0, top: -283, display: 'block', width: '100vw' },
-  entered: { opacity: 1, zIndex: 9, position: 'fixed', left: 0, top: -283,  display: 'block', width: '100vw' },
-  exiting: { opacity: 0, zIndex: -1, position: 'fixed', left: 0, top: -283, display: 'block', width: 0, height: 0 },
-  exited: { opacity: 0, zIndex: -1, position: 'fixed', left: 0, top: -283, display: 'block', width: 0, height: 0 },
-};
-
-
-
-
 function Artwork({ config, data = {} }) {
+  const imgHeight = data.mainImage.metadata.dimensions.height;
   const { height, width } = useWindowDimensions();
   const router = useRouter();
   const mainImage = data.mainImage
   const [fullImg, setFullImg] = useState(false)
   const [imgDimensions, setImgDimensions] = useState(0)
+  console.log(imgDimensions)
+
+  const bgStyle = {
+    transition: `height ${1000}ms ease-in-out`,
+    height: '30vh',
+    backgroundImage: `url(${builder.image(data.image).auto("format").width(width).height(imgDimensions).url()})`,
+    backgroundPosition: '0% 0%',
+    backgroundRepeat: 'no-repeat',
+    backgroundAttachment: 'fixed',
+    backgroundSize: 'cover'
+  };
+  
+  const bgTransistions = {
+    entering: { height: '100vh',
+  },
+    entered: { height: '100vh',
+  },
+    exiting: { 
+    height: '30vh',
+     },
+    exited: { 
+    height: '30vh',
+
+     },
+  };
+
+  const overlayStyle = {
+    transistion: `opacity ${1000}ms ease-in-out`,
+    height: '100%',
+    width: '100vw',
+    backgroundColor: 'black',
+    opacity: 0,
+    zIndex: 0,
+    position: 'absolute'
+  }
+
+  const overlayTransistions = {
+    entering: { opacity: 0,
+  },
+    entered: { opacity: 0,
+  },
+    exiting: { 
+    opacity: 0.3,
+     },
+    exited: { 
+      opacity: 0.3,
+
+     },
+  };
+
 
   useEffect(() => {
     if (window !== undefined){
@@ -62,12 +93,26 @@ function Artwork({ config, data = {} }) {
   return (
       <Layout>
         <div className={styles.container}>
-        <div style={{
+        <div className={styles.fade} style={{
               backgroundColor: mainImage.metadata.palette.dominant.background,
               color: mainImage.metadata.palette.dominant.foreground
             }}>
 
-        <div className={styles.infoContainer} style={{backgroundImage: `url(${builder.image(data.image).auto("format").width(width).height(400).url()})`}}>
+<Transition in={fullImg} timeout={1000}>
+{(state) => (
+            <div
+              style={{
+                ...bgStyle,
+                ...bgTransistions[state],
+              }}
+              className={styles.infoContainer}
+            >
+              <div
+                style={{
+                  ...overlayStyle,
+                  ...overlayTransistions[state],
+                }}
+              />
             <div style={{display: 'flex', flex: 1}} />
             <div className={styles.info}>
               <span onClick={() => {setFullImg(!fullImg)}} style={{cursor: 'pointer'}}>{data.title}, {data.year}</span>
@@ -78,20 +123,9 @@ function Artwork({ config, data = {} }) {
                   </a></Link>
             </div>
                 </div>
-            </div>
-          <Transition in={fullImg} timeout={duration}>
-          {(state) => (
-            <div
-              style={{
-                ...defaultStyle,
-                ...transitionStyles[state],
-              }}
-            >
-            <img onClick={() => {setFullImg(!fullImg)}} style={{cursor: 'pointer'}} src={builder.image(data.image).auto("format").width(width).height(imgDimensions).url()} /> 
-
-            </div>
           )}
-        </Transition>
+                </Transition>
+            </div>
         <LineBreak />
         <SingleMap artWorks={data} />
         <LineBreak />

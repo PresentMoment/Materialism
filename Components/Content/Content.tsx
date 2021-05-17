@@ -38,7 +38,7 @@ height: ${(p) => p.isBreakPoint ? '85vh' :'80vh'};
 `
 const ContentList = styled("div")<{isBreakPoint: boolean}>`
 width: ${(p) => p.isBreakPoint ? '40vw' : '100%'};
-height: ${(p) => p.isBreakPoint ? null : '48vh'};
+height: ${(p) => p.isBreakPoint ? '48vh': '100%'};
 display: 'flex';
 flex: 1;
 overflow: scroll
@@ -52,7 +52,7 @@ margin-left: auto;
 margin-right: auto;
 left: 0;
 right: 0;
-top: 41.7%;
+top: 41.5%;
 z-index: 9;
 background-color: transparent;
 background-image: linear-gradient(to bottom, rgba(255,0,0,0), rgba(255,255,255,1));

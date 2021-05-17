@@ -27,16 +27,13 @@ function SearchResults({ config, page }) {
   const { height, width } = useWindowDimensions();
   const router = useRouter();
   const isBreakPoint = useMediaQuery(425)
-  console.log(page)
   return (
       <Layout>
-        <span>the search results</span>
             <ContentContainer isBreakPoint={isBreakPoint}>
-        {/* <ArtistCard props={data} flex={2} />
+        <ArtistCard props={page} flex={2} />
       <div style={{display: 'flex', flex: 1}}>
 
-    <Map artWorks={data} />
-      </div> */}
+      </div>
     </ContentContainer>
       </Layout>
   );

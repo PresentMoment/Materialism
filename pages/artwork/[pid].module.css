@@ -55,8 +55,38 @@
   column-gap: 10vw;
   flex: 2;
   margin: 0 auto;
+  z-index: 2;
 }
 
 .info span:nth-child(1) {
   text-align: end;
+}
+
+@-o-keyframes fadeIt {
+  0% {
+    background-color: #ffffff;
+  }
+  50% {
+    background-color: #ad301b;
+  }
+  100% {
+    background-color: #ffffff;
+  }
+}
+@keyframes fadeIt {
+  0% {
+    background-color: #ffffff;
+  }
+  50% {
+    background-color: #ad301b;
+  }
+  100% {
+    background-color: #ffffff;
+  }
+}
+
+.fade {
+  background-image: none !important;
+  -o-animation: fadeIt 5s ease-in-out;
+  animation: fadeIt 5s ease-in-out;
 }

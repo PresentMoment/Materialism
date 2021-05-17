@@ -57,8 +57,8 @@ export default function Map(props) {
     {
       return (
         geo[1].geo && 
-        <Marker longitude={geo[1].geo[0]} latitude={geo[1].geo[1]} key={artWorks[0]._id}>
-          <div  onClick={() => {setPopUpGeo([geo[1].geo[0], geo[1].geo[1], geo[1].image, geo[1].title, geo[1].slug.current]), setMarkerClicked(true)}}>
+        <Marker longitude={geo[1].geo[0]} latitude={geo[1].geo[1]} key={geo[1]._id}>
+          <div onClick={() => {setPopUpGeo([geo[1].geo[0], geo[1].geo[1], geo[1].image, geo[1].title, geo[1].slug.current]), setMarkerClicked(true)}}>
           <svg height={20} viewBox="0 0 24 24" style={{ transform: `translate(${-20 / 2}px,${-20}px)` }}>
             <path
               d={`M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,4.5,2,10c0,2,0.6,3.9,1.6,5.4c0,0.1,0.1,0.2,0.2,0.3
