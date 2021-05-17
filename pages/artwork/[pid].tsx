@@ -10,7 +10,7 @@ import Layout from '../../Components/Layout'
 import { LineBreak } from "../../Components/Layout/LineBreak";
 import useWindowDimensions from "../../Utils/useWindowDimensions";
 
-import { Transition } from "react-transition-group";
+import { Transition, TransitionGroup } from "react-transition-group";
 import { zIndex } from "styled-system";
 
 const builder = imageUrlBuilder(client);
@@ -33,19 +33,18 @@ function Artwork({ config, data = {} }) {
   const mainImage = data.mainImage
   const [fullImg, setFullImg] = useState(false)
   const [imgDimensions, setImgDimensions] = useState(0)
-  console.log(imgDimensions)
 
   const bgStyle = {
-    transition: `height ${1000}ms ease-in-out`,
+    transition: `all ${1000}ms ease-in-out`,
     height: '30vh',
     backgroundImage: `url(${builder.image(data.image).auto("format").width(width).height(imgDimensions).url()})`,
     backgroundPosition: '0% 0%',
     backgroundRepeat: 'no-repeat',
     backgroundAttachment: 'fixed',
-    backgroundSize: 'cover'
+    backgroundSize: 'cover',
   };
   
-  const bgTransistions = {
+  const bgTransitions = {
     entering: { height: '100vh',
   },
     entered: { height: '100vh',
@@ -60,7 +59,7 @@ function Artwork({ config, data = {} }) {
   };
 
   const overlayStyle = {
-    transistion: `opacity ${1000}ms ease-in-out`,
+    transition: `all ${1000}ms ease-in-out`,
     height: '100%',
     width: '100vw',
     backgroundColor: 'black',
@@ -69,18 +68,23 @@ function Artwork({ config, data = {} }) {
     position: 'absolute'
   }
 
-  const overlayTransistions = {
-    entering: { opacity: 0,
-  },
-    entered: { opacity: 0,
-  },
-    exiting: { 
-    opacity: 0.3,
-     },
-    exited: { 
-      opacity: 0.3,
+  const overlayTransitions = {
+    entering: { opacity: 0, height: '100%'},
+    entered: { opacity: 0, height: '100%'},
+    exiting: { opacity: 0.3, height: '30vh'},
+    exited: { opacity: 0.3, height: '30vh'},
+  };
 
-     },
+  const textStyle = {
+    transition: `opacity ${1000}ms ease-in-out`,
+    opacity: 1
+  }
+
+  const textTransitions = {
+    entering: { opacity: 0},
+    entered: { opacity: 0},
+    exiting: { opacity: 1},
+    exited: { opacity: 1},
   };
 
 
@@ -97,32 +101,45 @@ function Artwork({ config, data = {} }) {
               backgroundColor: mainImage.metadata.palette.dominant.background,
               color: mainImage.metadata.palette.dominant.foreground
             }}>
-
+<Transition in={fullImg} timeout={1000}>
+{(state) => (
+            <div
+                style={{
+                  ...overlayStyle,
+                  ...overlayTransitions[state],
+                }}
+              />
+              )}
+              </Transition>
 <Transition in={fullImg} timeout={1000}>
 {(state) => (
             <div
               style={{
                 ...bgStyle,
-                ...bgTransistions[state],
+                ...bgTransitions[state],
               }}
               className={styles.infoContainer}
             >
-              <div
+              <div style={{display: 'flex', flex: 1}} />
+              <Transition in={fullImg} timeout={1000}>
+{(state) => (
+              <div 
                 style={{
-                  ...overlayStyle,
-                  ...overlayTransistions[state],
+                  ...textStyle,
+                  ...textTransitions[state],
                 }}
-              />
-            <div style={{display: 'flex', flex: 1}} />
-            <div className={styles.info}>
-              <span onClick={() => {setFullImg(!fullImg)}} style={{cursor: 'pointer'}}>{data.title}, {data.year}</span>
+                className={styles.info}
+                >
+                  
+                <span onClick={() => {setFullImg(!fullImg)}} style={{cursor: 'pointer', textAlign: 'end'}}>{data.title}, {data.year}</span>
                 <Link href={{ pathname: '/artist/' + data.artist}}>
-                  <a style={{textAlign: 'center'}}>
+                  <a style={{textAlign: 'start'}}>
     
-            <span>{data.artist}</span>
+              <span>{data.artist}</span>
                   </a></Link>
+              </div>
+)}</Transition>
             </div>
-                </div>
           )}
                 </Transition>
             </div>
