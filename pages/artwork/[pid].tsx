@@ -33,9 +33,10 @@ function Artwork({ config, data = {} }) {
   const mainImage = data.mainImage
   const [fullImg, setFullImg] = useState(false)
   const [imgDimensions, setImgDimensions] = useState(0)
+  const [hideMap, setHideMap] = useState(false)
 
   const bgStyle = {
-    transition: `all ${1000}ms ease-in-out`,
+    transition: `height ${1000}ms ease-in-out`,
     height: '30vh',
     backgroundImage: `url(${builder.image(data.image).auto("format").width(width).height(imgDimensions).url()})`,
     backgroundPosition: '0% 0%',
@@ -61,7 +62,7 @@ function Artwork({ config, data = {} }) {
   const overlayStyle = {
     transition: `all ${1000}ms ease-in-out`,
     height: '100%',
-    width: '100vw',
+    width: '100%',
     backgroundColor: 'black',
     opacity: 0,
     zIndex: 0,
@@ -87,6 +88,13 @@ function Artwork({ config, data = {} }) {
     exited: { opacity: 1},
   };
 
+  const handleExpand = () => {
+    if (fullImg) {
+      setTimeout(() => {setHideMap(false)}, 1000)
+    } else {
+      setHideMap(true)
+    }
+  }
 
   useEffect(() => {
     if (window !== undefined){
@@ -131,7 +139,7 @@ function Artwork({ config, data = {} }) {
                 className={styles.info}
                 >
                   
-                <span onClick={() => {setFullImg(!fullImg)}} style={{cursor: 'pointer', textAlign: 'end'}}>{data.title}, {data.year}</span>
+                <span onClick={() => {setFullImg(!fullImg); handleExpand()}} style={{cursor: 'pointer', textAlign: 'end'}}>{data.title}, {data.year}</span>
                 <Link href={{ pathname: '/artist/' + data.artist}}>
                   <a style={{textAlign: 'start'}}>
     
@@ -144,7 +152,7 @@ function Artwork({ config, data = {} }) {
                 </Transition>
             </div>
         <LineBreak />
-        <SingleMap artWorks={data} />
+        {!hideMap && <SingleMap artWorks={data} width={width} /> }
         <LineBreak />
         </div>
       </Layout>

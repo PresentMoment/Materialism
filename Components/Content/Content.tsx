@@ -17,8 +17,8 @@ export default function Content(props) {
     <ContentContainer isBreakPoint={isBreakPoint}>
       <ContentList>
         <ArtistCard props={artWorks} />
+      {isBreakPoint ? <GradientWrapper><Gradient /></GradientWrapper> : null}
       </ContentList>
-      {isBreakPoint ? <Gradient /> : null}
       <div style={{display: 'flex', flex: isBreakPoint ? 1 : 2}}>
 
     <Map artWorks={artWorks} />
@@ -41,19 +41,29 @@ width: ${(p) => p.isBreakPoint ? '40vw' : '100%'};
 height: ${(p) => p.isBreakPoint ? '48vh': '100%'};
 display: 'flex';
 flex: 1;
-overflow: scroll
+overflow-y: scroll;
+position: relative;
 `
 
-const Gradient = styled('div')`
+const GradientWrapper = styled('div')`
 height: 100px;
-width: 96%;
+width: 99%;
 position: absolute;
 margin-left: auto;
 margin-right: auto;
-left: 0;
-right: 0;
-top: 41.5%;
+bottom: 0;
+//left: 0;
+//right: 0;
+//top: 41.5%;
 z-index: 9;
-background-color: transparent;
-background-image: linear-gradient(to bottom, rgba(255,0,0,0), rgba(255,255,255,1));
+`
+const Gradient = styled('div')`
+height: 100px;
+width: 99%;
+position: fixed;
+margin-left: auto;
+margin-right: auto;
+z-index: 9;
+background-color: rgba(255,255,255,0);
+background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
 `

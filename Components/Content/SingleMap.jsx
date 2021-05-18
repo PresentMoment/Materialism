@@ -5,7 +5,7 @@ import client from '../../client'
 import useWindowDimensions from "../../Utils/useWindowDimensions";
 
 export default function SingleMap(props) {
-  const { height, width } = useWindowDimensions();
+  const width  = props.width
   const builder = imageUrlBuilder(client);
   const artWorks = props.artWorks;
   const navControlStyle = {
