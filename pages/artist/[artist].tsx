@@ -31,7 +31,7 @@ function Artist({ config, data = {} }) {
       <Layout>
             <ContentContainer isBreakPoint={isBreakPoint}>
         <ArtistCard props={data} flex={2} />
-      <div style={{display: 'flex', flex: 1}}>
+      <div style={{display: 'flex', flex: 1, width: '100%', height: '100%'}}>
 
     <Map artWorks={data} />
       </div>
@@ -42,7 +42,7 @@ function Artist({ config, data = {} }) {
 
 const ContentContainer = styled("div")<{isBreakPoint: boolean}>`
 display: flex;
-flex-direction: ${(p) => p.isBreakPoint ? 'column' : 'row'};
+flex-direction: ${(p) => p.isBreakPoint ? 'row' : 'column'};
 height: 100%;
 margin: 10px ${(p) => p.isBreakPoint ? '4px' : '30px'};
 border: 1px solid black;

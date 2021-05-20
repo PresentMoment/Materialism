@@ -4,9 +4,10 @@ import AddTag from './AddTag'
 
 export default function Footer() {
   return (
-    <Wrapper>
-      <AddTag />
-    </Wrapper>
+    <></>
+    // <Wrapper>
+    //   <AddTag />
+    // </Wrapper>
   )
 }
 

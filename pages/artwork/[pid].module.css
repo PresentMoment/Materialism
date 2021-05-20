@@ -64,24 +64,24 @@
 
 @-o-keyframes fadeIt {
   0% {
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0);
   }
   50% {
-    background-color: #ad301b;
+    background-color: rgb(9, 63, 94);
   }
   100% {
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0);
   }
 }
 @keyframes fadeIt {
   0% {
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0);
   }
   50% {
-    background-color: #ad301b;
+    background-color: rgb(16, 62, 88);
   }
   100% {
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0);
   }
 }
 
