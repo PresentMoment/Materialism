@@ -18,19 +18,19 @@ export default function Content(props) {
 
   useEffect(() => {
     setGradientWidth(artistCard.current.offsetWidth)
-  }, [artistCard])
+  }, [artistCard, gradientWidth])
 
   return (
     <ContentContainer isBreakPoint={isBreakPoint}>
       <ContentList isBreakPoint={isBreakPoint}>
-        <div ref={el => { artistCard.current = el}} >
+        <div ref={el => { artistCard.current = el}} style={{width: '100%'}} >
         <ArtistCard props={artWorks} />
         </div>
       <GradientWrapper gradientWidth={gradientWidth}><Gradient /></GradientWrapper>
       </ContentList>
       <div style={{display: 'flex', flex: isBreakPoint ? 1 : 2}}>
 
-    <Map artWorks={artWorks} userLocation={props.userLocation} />
+    <Map artWorks={artWorks} userlocation={props.userlocation} />
       </div>
     </ContentContainer>
   )

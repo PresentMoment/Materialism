@@ -8,7 +8,7 @@ import client from '../../client'
 export default function Map(props) {
   const builder = imageUrlBuilder(client);
   const artWorks = props.artWorks;
-  const userLocation = props.userLocation
+  const userlocation = props.userlocation
 
   const navControlStyle = {
     right: 10,
@@ -48,7 +48,7 @@ export default function Map(props) {
   useEffect(() => {
   Promise.all(arrayOfPromises).then(() => {
       //setLocaleState(locales)})
-      if (userLocation) {setViewport({...viewport, latitude: userLocation[0], longitude: userLocation[1], zoom: 15})}
+      if (userlocation) {setViewport({...viewport, latitude: userlocation[0], longitude: userlocation[1], zoom: 15})}
       else {
         setViewport({...viewport, 
         latitude: locales.length < 2 ? locales[0][1] 
@@ -59,7 +59,7 @@ export default function Map(props) {
       }})
       .then(() => (setFetching(false))
   )
-  },[userLocation]);
+  },[userlocation]);
 
   
 

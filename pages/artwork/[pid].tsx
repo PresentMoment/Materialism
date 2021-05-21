@@ -14,6 +14,7 @@ import { LineBreak } from "../../Components/Layout/LineBreak";
 import useWindowDimensions from "../../Utils/useWindowDimensions";
 import Overlay from "./Transitions/Overlay";
 import Text from "./Transitions/Text";
+import { maxHeight } from "styled-system";
 
 const builder = imageUrlBuilder(client);
 const pageQuery = groq`
@@ -46,14 +47,15 @@ function Artwork({ config, data = {} }) {
     backgroundPosition: '0% 0%',
     backgroundRepeat: 'no-repeat',
     backgroundAttachment: 'fixed',
-    backgroundSize: 'cover',
-    width: `${width}`,
+    //backgroundSize: 'cover',
+    width: `${width}px`,
+    maxHeight: `${height - 58}px`
   };
   
   const bgTransitions = {
-    entering: { height: '100vh',
+    entering: { height: `${height}px`,
   },
-    entered: { height: '100vh',
+    entered: { height: `${height}px`,
   },
     exiting: { height: '30vh',
   },
@@ -78,21 +80,16 @@ function Artwork({ config, data = {} }) {
   useEffect(() => {
     if (window !== undefined){
   
-      setImgDimensions(window.innerHeight - 58);
+      setImgDimensions(window.innerHeight);
     }
   }, [])
 
 
   return (
       <Layout>
-        <div className={styles.container}>
-
-        <div className={styles.fade}
-          style={{
-          backgroundColor: mainImage.metadata.palette.dominant.background,
-          color: mainImage.metadata.palette.dominant.foreground }}>
-
-        <Overlay fullImg={fullImg} handleDivClick={handleDivClick} />
+        <div className={styles.container} style={{maxHeight: `${height - 58}px`}}>
+        <Overlay fullImg={fullImg} handleDivClick={handleDivClick} height={height} />
+        <div className={styles.fade} />
 
         <Transition in={fullImg} timeout={1000}>
         {(state) => (
@@ -118,7 +115,6 @@ function Artwork({ config, data = {} }) {
           )}
             </Transition>
 
-        </div>
 
         {!hideMap &&
         <>

@@ -3,6 +3,7 @@
   width: 100%;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  overflow-y: hidden;
 }
 
 .container::-webkit-scrollbar {

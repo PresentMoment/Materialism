@@ -5,7 +5,7 @@ import Footer from "../Components/Footer/Footer";
 export default function Layout(props) {
   const { children } = props;
 
-  const [userLocation, setUserLocation] = useState([40.70683, -74.01243])
+  const [userlocation, setUserLocation] = useState([40.70683, -74.01243])
 
   function getLocation() {
     if (navigator.geolocation) {
@@ -20,7 +20,7 @@ export default function Layout(props) {
   return (
     <>
       <div onClick={getLocation}><Header /></div>
-      {React.Children.map(children, (child) => React.cloneElement(child, {userLocation}))}
+      {React.Children.map(children, (child) => React.cloneElement(child, {userlocation}))}
       {/* {children} */}
       {/* <Footer /> */}
     </>

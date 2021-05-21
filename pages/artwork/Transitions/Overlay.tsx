@@ -1,7 +1,7 @@
 import React from 'react'
 import { Transition } from "react-transition-group";
 
-export default function Overlay(props) {
+export default function Overlay(props, handleDivClick) {
 
   const fullImg = props.fullImg
 
@@ -12,7 +12,8 @@ export default function Overlay(props) {
     opacity: 0,
     zIndex: 0,
     position: 'absolute',
-    width: '100%'
+    width: '100%',
+    maxHeight: `${props.height - 58}px`
   }
 
   const overlayTransitions = {
