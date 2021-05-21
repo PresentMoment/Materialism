@@ -1,16 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import dynamic from 'next/dynamic'
 import styled from "styled-components"
 import groq from "groq";
 import client from "../../client";
-import { useRouter } from "next/router";
-import imageUrlBuilder from "@sanity/image-url";
 import Layout from '../../Components/Layout';
 import ArtistCard from "../../Components/Content/ArtistCard";
 import useWindowDimensions from "../../Utils/useWindowDimensions";
-import useMediaQuery from "../../Utils/useMediaQuery";
 
-const builder = imageUrlBuilder(client);
 const pageQuery = groq`
 *[_type == 'artwork' && artist -> name == $pid]{
   ...,
@@ -23,26 +19,30 @@ const Map = dynamic(() => import("../../Components/Content/Map"), {
   ssr: false
 });
 
+
 function Artist({ config, data = {} }) {
   const { height, width } = useWindowDimensions();
-  const router = useRouter();
-  const isBreakPoint = useMediaQuery(425)
-  return (
-      <Layout>
-            <ContentContainer isBreakPoint={isBreakPoint}>
-        <ArtistCard props={data} flex={2} />
-      <div style={{display: 'flex', flex: 1, width: '100%', height: '100%'}}>
+  const [ size, setSize ] = useState(null)
 
-    <Map artWorks={data} />
+  useEffect(() => {
+    setSize(width > 425 ? false : true)
+  }, [width])
+console.log(size)
+  return (
+    <Layout>
+      <ContentContainer isBreakPoint={size}>
+      <ArtistCard props={data} flex={2} />
+      <div style={{display: 'flex', width: '100%', height: '100%'}}>
+        <Map artWorks={data} />
       </div>
-    </ContentContainer>
-      </Layout>
+      </ContentContainer>
+    </Layout>
   );
 }
 
-const ContentContainer = styled("div")<{isBreakPoint: boolean}>`
+const ContentContainer = styled.div<{isBreakPoint: boolean}>`
 display: flex;
-flex-direction: ${(p) => p.isBreakPoint ? 'row' : 'column'};
+flex-direction: ${(p) => p.isBreakPoint ? 'column' : 'row'};
 height: 100%;
 margin: 10px ${(p) => p.isBreakPoint ? '4px' : '30px'};
 border: 1px solid black;

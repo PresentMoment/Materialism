@@ -1,54 +1,23 @@
 .container {
   flex-direction: column;
   width: 100%;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
 }
 
 .infoContainer {
-  width: 100%;
-  height: 30vh;
-  color: rgb(255, 255, 255);
-  font-size: 24px;
-  font-weight: 500;
-  -webkit-text-stroke: 0.5px rgba(241, 251, 147, 0.164);
-  -webkit-text-fill-color: white;
+  /* width: 100%; */
   /* padding: 0 5vw 0 5vw; */
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  flex-wrap: wrap;
-}
-@media only screen and (min-width: 426px) {
-  .infoContainer {
-    font-size: 32px;
-  }
-}
-@media only screen and (min-width: 769px) {
-  .infoContainer {
-    font-size: 48px;
-  }
+  /* overflow: hidden;
+  flex-wrap: wrap; */
 }
 
-.containerBG {
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  -webkit-transition: all 1s ease-in-out;
-  background-position: center center;
-  background-color: transparent;
-}
-.infoContainer:hover .containerBG {
-  transform: scale(1.2);
-  -webkit-transition: all 1s ease-in-out;
-}
-
-.infoWrapper {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  text-align: center;
-  transform: translateY(-50%);
-}
 .info {
   display: grid;
   grid-template-columns: 40vw 40vw;
@@ -56,6 +25,21 @@
   flex: 2;
   margin: 0 auto;
   z-index: 2;
+  color: rgb(255, 255, 255);
+  font-size: 24px;
+  font-weight: 500;
+  -webkit-text-stroke: 0.5px rgba(241, 251, 147, 0.164);
+  -webkit-text-fill-color: white;
+}
+@media only screen and (min-width: 426px) {
+  .info {
+    font-size: 32px;
+  }
+}
+@media only screen and (min-width: 769px) {
+  .info {
+    font-size: 48px;
+  }
 }
 
 .info span:nth-child(1) {
@@ -90,3 +74,25 @@
   -o-animation: fadeIt 5s ease-in-out;
   animation: fadeIt 5s ease-in-out;
 }
+
+/* .containerBG {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  -webkit-transition: all 1s ease-in-out;
+  background-position: center center;
+  background-color: rgba(255, 255, 255, 0);
+}
+.infoContainer:hover .containerBG {
+  transform: scale(1.2);
+  -webkit-transition: all 1s ease-in-out;
+} */
+
+/* .infoWrapper {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  transform: translateY(-50%);
+} */

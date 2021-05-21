@@ -15,19 +15,19 @@ export default function Content(props) {
   const isBreakPoint = useMediaQuery(425)
   return (
     <ContentContainer isBreakPoint={isBreakPoint}>
-      <ContentList>
+      <ContentList isBreakPoint={isBreakPoint}>
         <ArtistCard props={artWorks} />
-      {isBreakPoint ? <GradientWrapper><Gradient /></GradientWrapper> : null}
+      <GradientWrapper><Gradient /></GradientWrapper>
       </ContentList>
       <div style={{display: 'flex', flex: isBreakPoint ? 1 : 2}}>
 
-    <Map artWorks={artWorks} />
+    <Map artWorks={artWorks} userLocation={props.userLocation} />
       </div>
     </ContentContainer>
   )
 }
 
-const ContentContainer = styled("div")<{isBreakPoint: boolean}>`
+const ContentContainer = styled.div<{isBreakPoint: boolean}>`
 display: flex;
 flex-direction: ${(p) => p.isBreakPoint ? 'column' : 'row'};
 height: 100%;
@@ -36,10 +36,10 @@ border: 1px solid black;
 padding: ${(p) => p.isBreakPoint ? '4px' : '10px'};
 height: ${(p) => p.isBreakPoint ? '85vh' :'80vh'};
 `
-const ContentList = styled("div")<{isBreakPoint: boolean}>`
-width: ${(p) => p.isBreakPoint ? '40vw' : '100%'};
+const ContentList = styled.div<{isBreakPoint: boolean}>`
+width: ${(p) => p.isBreakPoint ? '100%' : '40vw'};
 height: ${(p) => p.isBreakPoint ? '48vh': '100%'};
-display: 'flex';
+display: flex;
 flex: 1;
 overflow-y: scroll;
 position: relative;
@@ -59,10 +59,8 @@ z-index: 9;
 `
 const Gradient = styled('div')`
 height: 100px;
-width: 99%;
+width: 94%;
 position: fixed;
-margin-left: auto;
-margin-right: auto;
 z-index: 9;
 background-color: rgba(255,255,255,0);
 background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));

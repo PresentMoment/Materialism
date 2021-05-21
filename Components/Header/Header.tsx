@@ -11,6 +11,9 @@ import useMediaQuery from '../../Utils/useMediaQuery'
 export default function Header() {
   const router = useRouter();
   const isBreakPoint = useMediaQuery(425)
+
+
+
   return (
     <>
     <Nav isBreakPoint={isBreakPoint}>
@@ -28,7 +31,7 @@ export default function Header() {
     </TextContainer> */}
       </div>
     </Nav>
-    <LineBreak paddingBottom={30} />
+    <LineBreak paddingBottom={10} />
     {router.pathname === '/' && !isBreakPoint ? <Tagline /> : null}
     </>
   );
