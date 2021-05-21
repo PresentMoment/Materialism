@@ -48,9 +48,15 @@ export default function Map(props) {
   useEffect(() => {
   Promise.all(arrayOfPromises).then(() => {
       //setLocaleState(locales)})
-      //console.log(locales.length)})
-      setViewport({...viewport, latitude: userLocation[0], longitude: userLocation[1], zoom: 15})})
-      //setViewport({...viewport, latitude: locales.length < 2 ? locales[0][1] : ((locales[0][1] + locales[1][1]) / 2), longitude: locales.length < 2 ? locales[0][0] : ((locales[0][0] + locales[1][0]) / 2), zoom: locales.length < 2 ? 17 : 12})})
+      if (userLocation) {setViewport({...viewport, latitude: userLocation[0], longitude: userLocation[1], zoom: 15})}
+      else {
+        setViewport({...viewport, 
+        latitude: locales.length < 2 ? locales[0][1] 
+        : ((locales[0][1] + locales[1][1]) / 2),
+        longitude: locales.length < 2 ? locales[0][0] 
+        : ((locales[0][0] + locales[1][0]) / 2), 
+        zoom: locales.length < 2 ? 17 : 12})
+      }})
       .then(() => (setFetching(false))
   )
   },[userLocation]);
