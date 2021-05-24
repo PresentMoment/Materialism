@@ -30,7 +30,9 @@ function SearchResults({ config, page }) {
   return (
       <Layout>
             <ContentContainer isBreakPoint={isBreakPoint}>
+        {page.length > 0 ?
         <ArtistCard props={page} flex={2} />
+        : <div style={{width: '100%', textAlign: 'center'}}><span>No Results</span></div>}
       <div style={{display: 'flex', flex: 1}}>
 
       </div>

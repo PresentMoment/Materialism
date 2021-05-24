@@ -1,3 +1,4 @@
+import React from 'react'
 import groq from "groq";
 import client from '../client';
 import Content from "../Components/Content/Content";
@@ -8,13 +9,12 @@ const pageQuery = groq`
 
 
 export default function Home(props) {
+
   let artWorks = props.props
   return (
-    <>
       <Layout>
       <Content artWorks={props.props} />
         </Layout>
-    </>
   );
 }
 

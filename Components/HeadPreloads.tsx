@@ -1,6 +1,8 @@
 import React from "react";
 import Head from "next/head";
 
+import { mediaStyles } from "./Layout/media";
+
 export default function HeadPreloads() {
   return (
     <>
@@ -60,6 +62,10 @@ export default function HeadPreloads() {
 
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+<style
+type="text/css"
+dangerouslySetInnerHTML={{__html: mediaStyles}}
+/>
 
       </Head>
     </>

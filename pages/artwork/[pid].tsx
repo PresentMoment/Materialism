@@ -89,7 +89,9 @@ function Artwork({ config, data = {} }) {
       <Layout>
         <div className={styles.container} style={{maxHeight: `${height - 58}px`}}>
         <Overlay fullImg={fullImg} handleDivClick={handleDivClick} height={height} />
-        <div className={styles.fade} />
+        <div className={styles.fade} style={{width: `${width}`, height: `${height}`,
+          backgroundColor: mainImage.metadata.palette.dominant.background,
+          color: mainImage.metadata.palette.dominant.foreground }}>
 
         <Transition in={fullImg} timeout={1000}>
         {(state) => (
@@ -115,12 +117,12 @@ function Artwork({ config, data = {} }) {
           )}
             </Transition>
 
-
+          </div>
         {!hideMap &&
         <>
-        <LineBreak />
+        <LineBreak paddingBottom={0} />
         <SingleMap artWorks={data} width={width} />
-        <LineBreak />
+        <LineBreak paddingBottom={0}/>
         </>
         }
         </div>

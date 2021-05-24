@@ -12,5 +12,6 @@ text-align: center;
 margin-top: 10px;
 font-size:  3em;
 font-weight: 500;
+cursor: pointer;
 
 `

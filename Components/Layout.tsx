@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+import { useRouter } from "next/router";
 import Header from "../Components/Header/Header";
 import Footer from "../Components/Footer/Footer";
+import Tagline from './Header/Tagline';
 
 export default function Layout(props) {
   const { children } = props;
-
+  const router = useRouter();
   const [userlocation, setUserLocation] = useState([40.70683, -74.01243])
 
   function getLocation() {
@@ -19,7 +21,8 @@ export default function Layout(props) {
 
   return (
     <>
-      <div onClick={getLocation}><Header /></div>
+    <Header />
+      {router.pathname === '/' ? <div onClick={getLocation}><Tagline /> </div> : null}
       {React.Children.map(children, (child) => React.cloneElement(child, {userlocation}))}
       {/* {children} */}
       {/* <Footer /> */}

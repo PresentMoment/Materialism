@@ -6,7 +6,7 @@ import useMediaQuery from '../../Utils/useMediaQuery'
 import client from '../../client'
 
 const builder = imageUrlBuilder(client);
-export default function ArtistCard(props, flex) {
+export default function Card(props) {
   const  artWorks = props.props;
   const isBreakPoint = useMediaQuery(768);
   const is425 = useMediaQuery(425);
@@ -16,15 +16,16 @@ export default function ArtistCard(props, flex) {
     <Wrapper isBreakPoint={isBreakPoint}>
       <div style={{display: 'flex', flexDirection: "column", width: '100%', paddingTop: is425 ? '30px' : '0'}}>
       {artWorks.map((artwork)=> {
+        const cityState = artwork.address.replace(/^[^,]+, */, '');
         return(
           <div key={artwork._id}>
             <Link href={{ pathname: '/artwork/' + artwork.slug.current}}>
               <a>
         <div style={{display: 'flex', flexDirection: 'row', maxHeight: '100px'}} key={artwork._id}>
             <ArtistInfo isBreakPoint={isBreakPoint} is950={is950} key={artwork._id}>
-            <span>{artwork.artist.name}</span>
             <span>{artwork.title}</span>
-            {/* <span>{artwork.year}</span> */}
+            <span>{artwork.year}</span>
+            <span>{cityState.substring(0, cityState.length-6)}</span>
             </ArtistInfo>
             <img
               src={builder.image(artwork.image).auto("format").width(100).height(100).url()}

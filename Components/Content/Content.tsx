@@ -12,7 +12,7 @@ const Map = dynamic(() => import("./Map"), {
 
 export default function Content(props) {
   const {artWorks} = props
-  const isBreakPoint = useMediaQuery(425)
+  const isBreakPoint = useMediaQuery(625)
   const artistCard = useRef(null);
   const [gradientWidth, setGradientWidth] = useState(null)
 

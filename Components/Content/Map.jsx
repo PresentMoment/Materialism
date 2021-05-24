@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link";
-import ReactMapGL, { Marker, NavigationControl, GeolocateControl, Popup } from "react-map-gl"
+import ReactMapGL, { Marker, NavigationControl, GeolocateControl, Popup, FlyToInterpolator } from "react-map-gl"
 import imageUrlBuilder from "@sanity/image-url";
 import client from '../../client'
 
@@ -23,7 +23,6 @@ export default function Map(props) {
   getAddresses();
   const locales = []
   const [isFetching, setFetching] = useState(true)
-  const [localeState, setLocaleState] = useState([])
   const [markerClicked, setMarkerClicked] = useState(false)
   const [popUpGeo, setPopUpGeo] = useState([])
 
@@ -47,7 +46,6 @@ export default function Map(props) {
     
   useEffect(() => {
   Promise.all(arrayOfPromises).then(() => {
-      //setLocaleState(locales)})
       if (userlocation) {setViewport({...viewport, latitude: userlocation[0], longitude: userlocation[1], zoom: 15})}
       else {
         setViewport({...viewport, 
@@ -75,8 +73,8 @@ export default function Map(props) {
     {
       return (
         geo[1].geo && 
-        <Marker longitude={geo[1].geo[0]} latitude={geo[1].geo[1]} key={geo[1]._id}>
-          <div onClick={() => {setPopUpGeo([geo[1].geo[0], geo[1].geo[1], geo[1].image, geo[1].title, geo[1].slug.current]), setMarkerClicked(true)}}>
+        <Marker longitude={geo[1].geo[0]} latitude={geo[1].geo[1]} key={geo[1]._id} onClick={() => {setPopUpGeo([geo[1].geo[0], geo[1].geo[1], geo[1].image, geo[1].title, geo[1].slug.current]), setMarkerClicked(true), setViewport({...viewport, latitude: geo[1].geo[1], longitude: geo[1].geo[0], transitionDuration: 300, transitionInerpolator: new FlyToInterpolator({speed: 1.2})})}}>
+          <div >
           <svg height={20} viewBox="0 0 24 24" style={{ transform: `translate(${-20 / 2}px,${-20}px)` }}>
             <path
               d={`M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,4.5,2,10c0,2,0.6,3.9,1.6,5.4c0,0.1,0.1,0.2,0.2,0.3
@@ -89,7 +87,7 @@ C                 20.1,15.8,20.2,15.8,20.2,15.7z`}
       )
     })
 
-  return isFetching && localeState.length < 1 ? (
+  return isFetching ? (
     <span>Loading map...</span>
   ) : (
     <ReactMapGL
@@ -101,16 +99,17 @@ C                 20.1,15.8,20.2,15.8,20.2,15.7z`}
       <GeolocateControl />
       <NavigationControl style={navControlStyle} />
       {populateMarkers}
-      {markerClicked && <Popup latitude={popUpGeo[1]} longitude={popUpGeo[0]} 
-      //onClose={() => setMarkerClicked(false)} 
+      {markerClicked && <Popup latitude={popUpGeo[1]} longitude={popUpGeo[0]}
+      closeOnClick={false} 
+      onClose={() => setMarkerClicked(false)} 
       anchor="top">
-                <div style={{maxWidth: '90px', paddingTop: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                <div style={{maxWidth: '150px', paddingTop: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <Link href={{ pathname: '/artwork/' + popUpGeo[4]}}>
               <a>
                   <img
-              src={builder.image(popUpGeo[2]).auto("format").width(70).height(70).url()}
+              src={builder.image(popUpGeo[2]).auto("format").width(140).height(140).url()}
               alt={""}
-            /><p>{popUpGeo[3]}</p>
+            /><div style={{fontSize: '13px', textAlign: 'center'}}><span>{popUpGeo[3]}</span></div>
             </a></Link>
             </div>
             </Popup>}

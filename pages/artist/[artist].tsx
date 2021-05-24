@@ -4,7 +4,7 @@ import styled from "styled-components"
 import groq from "groq";
 import client from "../../client";
 import Layout from '../../Components/Layout';
-import ArtistCard from "../../Components/Content/ArtistCard";
+import Card from "./Card";
 import useWindowDimensions from "../../Utils/useWindowDimensions";
 
 const pageQuery = groq`
@@ -19,19 +19,19 @@ const Map = dynamic(() => import("../../Components/Content/Map"), {
   ssr: false
 });
 
-
 function Artist({ config, data = {} }) {
   const { height, width } = useWindowDimensions();
   const [ size, setSize ] = useState(null)
 
   useEffect(() => {
     setSize(width > 425 ? false : true)
+    return () => {}
   }, [width])
-console.log(size)
   return (
     <Layout>
+        <ArtistHeader><span>Pieces by {data[0].artist}</span></ArtistHeader>
       <ContentContainer isBreakPoint={size}>
-      <ArtistCard props={data} flex={2} />
+      <Card props={data} flex={2} />
       <div style={{display: 'flex', width: '100%', height: '100%'}}>
         <Map artWorks={data} />
       </div>
@@ -48,6 +48,15 @@ margin: 10px ${(p) => p.isBreakPoint ? '4px' : '30px'};
 border: 1px solid black;
 padding: ${(p) => p.isBreakPoint ? '4px' : '10px'};
 height: ${(p) => p.isBreakPoint ? '85vh' :'80vh'};
+`
+
+const ArtistHeader = styled.div`
+display: flex;
+width: 100%;
+justify-content: center;
+text-align: center;
+font-size: 2em;
+padding-top: 10px;
 `
 
 export async function getStaticProps(paths) {

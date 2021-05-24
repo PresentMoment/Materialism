@@ -6,17 +6,19 @@ export default function Search(props) {
   const isBreakPoint = props
   const [clicked, setClicked] = useState(false)
   return (
-      <div onClick={() => {setClicked(!clicked)}} style={{width: '40vw', textAlign: 'center'}}>
+      <SearchContainer onClick={() => {setClicked(!clicked)}}  isBreakPoint={isBreakPoint}>
 
       {clicked ? <SearchInput /> : <SearchStyles isBreakPoint={isBreakPoint}>Search</SearchStyles>}
-      </div>
+      </SearchContainer>
   )
 }
+
+const SearchContainer = styled.div<{isBreakPoint: boolean}>`
+min-width: ${(p) => p.isBreakPoint ? '80vw': '30vw'};
+text-align: center;
+`
 
 const SearchStyles = styled('span')<{isBreakPoint: boolean}>`
 font-size: 2em;
 margin-left: ${(p) => p.isBreakPoint ? 'none' : '20px'};
-&:hover {
-  font-style: italic;
-}
 `
