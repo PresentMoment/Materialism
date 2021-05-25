@@ -9,12 +9,13 @@ import { Transition } from "react-transition-group";
 
 import styles from './[pid].module.css'
 
+import Header from "../../Components/Header/Header";
 import Layout from '../../Components/Layout'
 import { LineBreak } from "../../Components/Layout/LineBreak";
 import useWindowDimensions from "../../Utils/useWindowDimensions";
 import Overlay from "./Transitions/Overlay";
 import Text from "./Transitions/Text";
-import { maxHeight } from "styled-system";
+import Head from './Transitions/Head'
 
 const builder = imageUrlBuilder(client);
 const pageQuery = groq`
@@ -49,7 +50,7 @@ function Artwork({ config, data = {} }) {
     backgroundAttachment: 'fixed',
     //backgroundSize: 'cover',
     width: `${width}px`,
-    maxHeight: `${height - 58}px`
+    maxHeight: `${height}px`
   };
   
   const bgTransitions = {
@@ -86,13 +87,15 @@ function Artwork({ config, data = {} }) {
 
 
   return (
-      <Layout>
-        <div className={styles.container} style={{maxHeight: `${height - 58}px`}}>
+    <>
+    <Head fullImg={fullImg}>
+      <Header paddingBottom={5} />
+        </Head>
+        <div className={styles.container} style={{maxHeight: `${height}px`}}>
         <Overlay fullImg={fullImg} handleDivClick={handleDivClick} height={height} />
-        <div className={styles.fade} style={{width: `${width}`, height: `${height}`,
+        <div className={styles.fade} style={{width: `${600}`, height: `${height}`,
           backgroundColor: mainImage.metadata.palette.dominant.background,
           color: mainImage.metadata.palette.dominant.foreground }}>
-
         <Transition in={fullImg} timeout={1000}>
         {(state) => (
           <div
@@ -126,7 +129,7 @@ function Artwork({ config, data = {} }) {
         </>
         }
         </div>
-      </Layout>
+      </>
   );
 }
 

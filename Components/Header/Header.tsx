@@ -5,9 +5,8 @@ import React, { useEffect, useState } from 'react'
 import Search from "./Search";
 import { LineBreak } from "../Layout/LineBreak";
 
-export default function Header() {
+export default function Header(props) {
   const [isBreakPoint, setBreakPoint] = useState(false)
-  
   
   useEffect(() => {
     document !== undefined &&
@@ -22,7 +21,7 @@ export default function Header() {
       {/* <LogIn isBreakPoint={isBreakPoint} /> */}
       </div>
     </Nav>
-    <LineBreak paddingBottom={10} />
+    <LineBreak paddingBottom={props.paddingBottom ? props.paddingBottom : 10} />
     
     </>
   );
