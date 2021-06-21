@@ -30,7 +30,7 @@ export default function Content(props) {
       </ContentList>
       <div style={{display: 'flex', flex: isBreakPoint ? 1 : 2}}>
 
-    <Map artWorks={artWorks} userlocation={props.userlocation} />
+    {/* <Map artWorks={artWorks} userlocation={props.userlocation} /> */}
       </div>
     </ContentContainer>
   )

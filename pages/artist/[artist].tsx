@@ -33,7 +33,7 @@ function Artist({ config, data = {} }) {
       <ContentContainer isBreakPoint={size}>
       <Card props={data} flex={2} />
       <div style={{display: 'flex', width: '100%', height: '100%'}}>
-        <Map artWorks={data} />
+        {/* <Map artWorks={data} /> */}
       </div>
       </ContentContainer>
     </Layout>

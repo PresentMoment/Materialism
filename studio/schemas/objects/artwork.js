@@ -1,4 +1,4 @@
-import { string } from "prop-types"
+import GeoInput from "../../src/GeoInput"
 
 export default {
   name: "artwork",
@@ -25,6 +25,17 @@ export default {
       title: "Address",
       name: "address",
       type: "string",
+    },
+    {
+      title: "Location",
+      name: "location",
+      type: "geopoint",
+    },
+    {
+      name: "customString",
+      title: "This is a cool custom string",
+      type: "string",
+      inputComponent: GeoInput,
     },
     {
       title: "Image",
