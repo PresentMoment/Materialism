@@ -124,7 +124,7 @@ function Artwork({ config, data = {} }) {
         {!hideMap &&
         <>
         <LineBreak paddingBottom={0} />
-        {/* <SingleMap artWorks={data} width={width} /> */}
+        <SingleMap artWorks={data} width={width} />
         <LineBreak paddingBottom={0}/>
         </>
         }

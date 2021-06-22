@@ -12,24 +12,11 @@ export default function SingleMap(props) {
     right: 10,
     top: 10,
   }
- 
   const [geo, setGeo] = useState([])
   const [markerClicked, setMarkerClicked] = useState(false)
   const [popUpGeo, setPopUpGeo] = useState([])
     useEffect(() => {
-      props.artWorks.mainImage.metadata.location ?
-      setGeo([props.artWorks.mainImage.metadata.location.lng, props.artWorks.mainImage.metadata.location.lat])
-      :
-       fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${artWorks.address}.json?limit=2&access_token=${process.env.MAPBOX_KEY}`
-      )
-        .then((response) => response.json())
-        .then((result) => {
-          setGeo(result.features[0].center)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      setGeo([props.artWorks.location.lng, props.artWorks.location.lat])
   },[])
 
   const [viewport, setViewport] = useState({
@@ -42,7 +29,7 @@ export default function SingleMap(props) {
   return (
     geo.length > 0 ?
     <ReactMapGL
-      mapStyle="mapbox://styles/presentmoment/cklzzsyil014p17qrlk3x48y2"
+      mapStyle="mapbox://styles/jawsjawsjaws/ckq7ymef20qlw18nwfxt7w4wk"
       mapboxApiAccessToken={process.env.MAPBOX_KEY}
       {...viewport}
       onViewportChange={(nextViewport) => setViewport(nextViewport)}
