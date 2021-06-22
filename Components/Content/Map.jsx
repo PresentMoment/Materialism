@@ -9,71 +9,46 @@ export default function Map(props) {
   const builder = imageUrlBuilder(client);
   const artWorks = props.artWorks;
   const userlocation = props.userlocation
-
+  
   const navControlStyle = {
     right: 10,
     top: 10,
   }
-  const addresses = []
-  const getAddresses = () => {
-    artWorks.map((address) => {
-      addresses.push(address.address)
-    })
-  }
-  getAddresses();
-  const locales = []
   const [isFetching, setFetching] = useState(true)
   const [markerClicked, setMarkerClicked] = useState(false)
   const [popUpGeo, setPopUpGeo] = useState([])
-
-  async function forLoop(address, index) {
-    await fetch(
-      `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?limit=2&access_token=${process.env.MAPBOX_KEY}`
-    )
-      .then((response) => response.json())
-      .then((result) => {
-        artWorks[index].geo = result.features[0].center,
-        locales.push(result.features[0].center)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-  const arrayOfPromises = [];
-  for(const [index, address] of addresses.entries()){
-    arrayOfPromises.push(forLoop(address, index))
-  }
-    
   useEffect(() => {
-  Promise.all(arrayOfPromises).then(() => {
       if (userlocation) {setViewport({...viewport, latitude: userlocation[0], longitude: userlocation[1], zoom: 15})}
       else {
         setViewport({...viewport, 
-        latitude: locales.length < 2 ? locales[0][1] 
-        : ((locales[0][1] + locales[1][1]) / 2),
-        longitude: locales.length < 2 ? locales[0][0] 
-        : ((locales[0][0] + locales[1][0]) / 2), 
-        zoom: locales.length < 2 ? 17 : 12})
-      }})
-      .then(() => (setFetching(false))
-  )
-  },[userlocation]);
-
-  
+        latitude: artWorks.length < 2 ? artWorks[0].location.lat 
+        : ((artWorks[0].location.lat  + artWorks[1].location.lat ) / 2),
+        longitude: artWorks.length < 2 ? artWorks[0].location.lng
+        : ((artWorks[0].location.lng + artWorks[1].location.lng) / 2), 
+        zoom: artWorks.length < 2 ? 17 : 12})
+      }}
+  ,[userlocation]);
 
   const [viewport, setViewport] = useState({
     width: "100%",
     height: "100%",
     zoom: 15,
-    latitude: 40.7628,
-    longitude: -73.965242,
+    latitude: artWorks[0].location.lat,
+    longitude: artWorks[0].location.lng,
   })
 
-  const populateMarkers = Object.entries(artWorks).map(geo => 
+  const populateMarkers = Object.entries(artWorks).map(artwork => 
     {
       return (
-        geo[1].geo && 
-        <Marker longitude={geo[1].geo[0]} latitude={geo[1].geo[1]} key={geo[1]._id} onClick={() => {setPopUpGeo([geo[1].geo[0], geo[1].geo[1], geo[1].image, geo[1].title, geo[1].slug.current]), setMarkerClicked(true), setViewport({...viewport, latitude: geo[1].geo[1], longitude: geo[1].geo[0], transitionDuration: 300, transitionInerpolator: new FlyToInterpolator({speed: 1.2})})}}>
+        <Marker 
+              longitude={artwork[1].location.lng} 
+              latitude={artwork[1].location.lat} 
+              key={artwork[1]._id} 
+              onClick={() => {setPopUpGeo([artwork[1].location.lng, artwork[1].location.lat, artwork[1].image, artwork[1].title, artwork[1].slug.current]), 
+                setMarkerClicked(true), 
+                setViewport({...viewport, latitude: artwork[1].location.lat, longitude: artwork[1].location.lng, 
+                transitionDuration: 300, 
+                transitionInerpolator: new FlyToInterpolator({speed: 1.2})})}}>
           <div >
           <svg height={20} viewBox="0 0 24 24" style={{ transform: `translate(${-20 / 2}px,${-20}px)` }}>
             <path
@@ -87,11 +62,9 @@ C                 20.1,15.8,20.2,15.8,20.2,15.7z`}
       )
     })
 
-  return isFetching ? (
-    <span>Loading map...</span>
-  ) : (
+  return (
     <ReactMapGL
-      mapStyle="mapbox://styles/presentmoment/cklzzsyil014p17qrlk3x48y2"
+      mapStyle="mapbox://styles/jawsjawsjaws/ckq7ymef20qlw18nwfxt7w4wk"
       mapboxApiAccessToken={process.env.MAPBOX_KEY}
       {...viewport}
       onViewportChange={(nextViewport) => setViewport(nextViewport)}
