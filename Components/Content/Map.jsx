@@ -9,25 +9,29 @@ export default function Map(props) {
   const builder = imageUrlBuilder(client);
   const artWorks = props.artWorks;
   const userlocation = props.userlocation
-  
+
   const navControlStyle = {
     right: 10,
     top: 10,
   }
+
   const [isFetching, setFetching] = useState(true)
   const [markerClicked, setMarkerClicked] = useState(false)
   const [popUpGeo, setPopUpGeo] = useState([])
   useEffect(() => {
-      if (userlocation) {setViewport({...viewport, latitude: userlocation[0], longitude: userlocation[1], zoom: 15})}
-      else {
-        setViewport({...viewport, 
-        latitude: artWorks.length < 2 ? artWorks[0].location.lat 
-        : ((artWorks[0].location.lat  + artWorks[1].location.lat ) / 2),
+    if (userlocation) { setViewport({ ...viewport, latitude: userlocation[0], longitude: userlocation[1], zoom: 15 }) }
+    else {
+      setViewport({
+        ...viewport,
+        latitude: artWorks.length < 2 ? artWorks[0].location.lat
+          : ((artWorks[0].location.lat + artWorks[1].location.lat) / 2),
         longitude: artWorks.length < 2 ? artWorks[0].location.lng
-        : ((artWorks[0].location.lng + artWorks[1].location.lng) / 2), 
-        zoom: artWorks.length < 2 ? 17 : 12})
-      }}
-  ,[userlocation]);
+          : ((artWorks[0].location.lng + artWorks[1].location.lng) / 2),
+        zoom: artWorks.length < 2 ? 17 : 12
+      })
+    }
+  }
+    , [userlocation]);
 
   const [viewport, setViewport] = useState({
     width: "100%",
@@ -37,30 +41,34 @@ export default function Map(props) {
     longitude: artWorks[0].location.lng,
   })
 
-  const populateMarkers = Object.entries(artWorks).map(artwork => 
-    {
-      return (
-        <Marker 
-              longitude={artwork[1].location.lng} 
-              latitude={artwork[1].location.lat} 
-              key={artwork[1]._id} 
-              onClick={() => {setPopUpGeo([artwork[1].location.lng, artwork[1].location.lat, artwork[1].image, artwork[1].title, artwork[1].slug.current]), 
-                setMarkerClicked(true), 
-                setViewport({...viewport, latitude: artwork[1].location.lat, longitude: artwork[1].location.lng, 
-                transitionDuration: 300, 
-                transitionInerpolator: new FlyToInterpolator({speed: 1.2})})}}>
-          <div >
-          <svg height={20} viewBox="0 0 24 24" style={{ transform: `translate(${-20 / 2}px,${-20}px)` }}>
+  const populateMarkers = Object.entries(artWorks).map(artwork => {
+    return (
+      <Marker
+        longitude={artwork[1].location.lng}
+        latitude={artwork[1].location.lat}
+        key={artwork[1]._id}
+        onClick={() => {
+          setPopUpGeo([artwork[1].location.lng, artwork[1].location.lat, artwork[1].image, artwork[1].title, artwork[1].slug.current]),
+            setMarkerClicked(true),
+            setViewport({
+              ...viewport, latitude: artwork[1].location.lat, longitude: artwork[1].location.lng,
+              transitionDuration: 300,
+              transitionInerpolator: new FlyToInterpolator({ speed: 1.2 })
+            })
+        }}>
+        <div >
+          <img slt="" src='/logomarker.png' />
+          {/* <svg height={20} viewBox="0 0 24 24" style={{ transform: `translate(${-20 / 2}px,${-20}px)` }}>
             <path
               d={`M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,4.5,2,10c0,2,0.6,3.9,1.6,5.4c0,0.1,0.1,0.2,0.2,0.3
                   c0,0,0.1,0.1,0.1,0.2c0.2,0.3,0.4,0.6,0.7,0.9c2.6,3.1,7.4,7.6,7.4,7.6s4.8-4.5,7.4-7.5c0.2-0.3,0.5-0.6,0.7-0.9
 C                 20.1,15.8,20.2,15.8,20.2,15.7z`}
             />
-          </svg>
-          </div>
-        </Marker>
-      )
-    })
+          </svg> */}
+        </div>
+      </Marker>
+    )
+  })
 
   return (
     <ReactMapGL
@@ -73,19 +81,19 @@ C                 20.1,15.8,20.2,15.8,20.2,15.7z`}
       <NavigationControl style={navControlStyle} />
       {populateMarkers}
       {markerClicked && <Popup latitude={popUpGeo[1]} longitude={popUpGeo[0]}
-      closeOnClick={false} 
-      onClose={() => setMarkerClicked(false)} 
-      anchor="top">
-                <div style={{maxWidth: '150px', paddingTop: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-        <Link href={{ pathname: '/artwork/' + popUpGeo[4]}}>
-              <a>
-                  <img
-              src={builder.image(popUpGeo[2]).auto("format").width(140).height(140).url()}
-              alt={""}
-            /><div style={{fontSize: '13px', textAlign: 'center'}}><span>{popUpGeo[3]}</span></div>
+        closeOnClick={false}
+        onClose={() => setMarkerClicked(false)}
+        anchor="top">
+        <div style={{ maxWidth: '150px', paddingTop: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Link href={{ pathname: '/artwork/' + popUpGeo[4] }}>
+            <a>
+              <img
+                src={builder.image(popUpGeo[2]).auto("format").width(140).height(140).url()}
+                alt={""}
+              /><div style={{ fontSize: '13px', textAlign: 'center' }}><span>{popUpGeo[3]}</span></div>
             </a></Link>
-            </div>
-            </Popup>}
+        </div>
+      </Popup>}
     </ReactMapGL>
   )
 }

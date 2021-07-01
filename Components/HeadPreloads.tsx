@@ -7,7 +7,7 @@ export default function HeadPreloads() {
   return (
     <>
       <Head>
-        <title>Material</title>
+        <title>Materialism</title>
         <link
           rel="preload"
           href="/fonts/EB_Garamond/static/EBGaramond-Regular.ttf"

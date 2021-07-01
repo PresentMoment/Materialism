@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import dynamic from 'next/dynamic'
+import { NextSeo } from "next-seo";
 import styled from "styled-components"
 import groq from "groq";
 import client from "../../client";
@@ -29,6 +30,10 @@ function Artist({ config, data = {} }) {
   }, [width])
   return (
     <Layout>
+                <NextSeo
+        title={data[0].artist}
+        description="Materialism - art within reach"
+      />
         <ArtistHeader><span>Pieces by {data[0].artist}</span></ArtistHeader>
       <ContentContainer isBreakPoint={size}>
       <Card props={data} flex={2} />

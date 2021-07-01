@@ -16,7 +16,7 @@ export default function Title(props) {
 
 <TitleText isBreakPoint={isBreakPoint}>
   <Media lessThan='sm'>M</Media>
-  <Media greaterThanOrEqual='sm'>Material</Media>
+  <Media greaterThanOrEqual='sm'>Materialism</Media>
 </TitleText>
     </a>
     </Link>

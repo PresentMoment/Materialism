@@ -76,6 +76,43 @@
   animation: fadeIt 5s ease-in-out;
 }
 
+.shareContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.clickShare {
+  display: flex;
+  flex-direction: row;
+}
+
+.clickShare span {
+  font-size: 2.3rem;
+  margin-top: 6px;
+  margin-left: -5px;
+  cursor: pointer;
+}
+
+.shareIcons {
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+}
+
+.shareIcons span {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  margin-left: 8px;
+  font-style: italic;
+}
+
+.expandSpan {
+  font-size: 2.3rem;
+  padding-top: 6px;
+  padding-right: 6px;
+  cursor: pointer;
+}
+
 /* .containerBG {
   width: 100%;
   height: 100%;

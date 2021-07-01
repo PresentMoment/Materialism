@@ -25,7 +25,6 @@ export default function Layout(props) {
       {router.pathname === '/' ? <div onClick={getLocation}><Tagline /> </div> : null}
       {React.Children.map(children, (child) => React.cloneElement(child, {userlocation}))}
       {/* {children} */}
-      <Footer />
     </>
   )
 }

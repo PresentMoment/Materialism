@@ -1,5 +1,6 @@
 import React from "react";
 import dynamic from 'next/dynamic'
+import { NextSeo } from "next-seo";
 import styled from "styled-components"
 import groq from "groq";
 import client from "../../client";
@@ -26,9 +27,16 @@ const Map = dynamic(() => import("../../Components/Content/Map"), {
 function SearchResults({ config, page }) {
   const { height, width } = useWindowDimensions();
   const router = useRouter();
-  const isBreakPoint = useMediaQuery(425)
+  const isBreakPoint = useMediaQuery(425);
+  const searchQuery = router.query.q;
   return (
       <Layout>
+                        <NextSeo
+        title={searchQuery.split(' ')
+        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+        .join(' ')}
+        description="Materialism - art within reach"
+      />
             <ContentContainer isBreakPoint={isBreakPoint}>
         {page.length > 0 ?
         <ArtistCard props={page} flex={2} />
