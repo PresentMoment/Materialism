@@ -31,7 +31,12 @@ const SingleMap = dynamic(() => import("../../Components/Content/SingleMap"), {
   ssr: false
 });
 
-function Artwork({ config, data = {} }) {
+type ArtworkProps = {
+  config: any,
+  data: any
+}
+
+function Artwork({ config, data = {} }: ArtworkProps) {
 
   const imgHeight = data.mainImage.metadata.dimensions.height;
   const { height, width } = useWindowDimensions();

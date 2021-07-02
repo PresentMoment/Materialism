@@ -28,7 +28,7 @@ function SearchResults({ config, page }) {
   const { height, width } = useWindowDimensions();
   const router = useRouter();
   const isBreakPoint = useMediaQuery(425);
-  const searchQuery = router.query.q;
+  const searchQuery = router.query.q as string;
   return (
       <Layout>
         <NextSeo
