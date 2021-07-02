@@ -31,13 +31,13 @@ function SearchResults({ config, page }) {
   const searchQuery = router.query.q;
   return (
       <Layout>
-                        <NextSeo
+        <NextSeo
         title={searchQuery.split(' ')
         .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
         .join(' ')}
         description="Materialism - art within reach"
       />
-            <ContentContainer isBreakPoint={isBreakPoint}>
+         <ContentContainer isBreakPoint={isBreakPoint}>
         {page.length > 0 ?
         <ArtistCard props={page} flex={2} />
         : <div style={{width: '100%', textAlign: 'center'}}><span>No Results</span></div>}

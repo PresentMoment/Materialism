@@ -29,6 +29,7 @@ flex-direction: column;
 margin: 0 auto;
 justify-content: center;
 flex: 1;
+width: 100%;
 `
 
 const FooterLinks = styled("div")`

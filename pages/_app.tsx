@@ -1,5 +1,4 @@
 import { AppProps } from 'next/app'
-import Footer from '../Components/Footer/Footer'
 import HeadPreloads from '../Components/HeadPreloads'
 import '../styles/globals.css'
 
@@ -11,7 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     display: flex;
     flex-direction: column;
   }
-`}</style><HeadPreloads /><Component {...pageProps} /><Footer /></>
+`}</style><HeadPreloads /><Component {...pageProps} /></>
 }
 
 export default MyApp

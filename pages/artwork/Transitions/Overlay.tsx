@@ -17,8 +17,8 @@ export default function Overlay(props) {
   }
 
   const overlayTransitions = {
-    entering: { opacity: 0, height: '100%'},
-    entered: { opacity: 0, height: '100%'},
+    entering: { opacity: 0, height: '100%', zIndex: 99},
+    entered: { opacity: 0, height: '100%', zIndex: 99},
     exiting: { opacity: 0.3, height: '30vh'},
     exited: { opacity: 0.3, height: '30vh'},
   };

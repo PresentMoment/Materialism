@@ -11,12 +11,12 @@ import { NextSeo } from "next-seo";
 import styles from './[pid].module.css'
 
 import Header from "../../Components/Header/Header";
-import Layout from '../../Components/Layout'
 import { LineBreak } from "../../Components/Layout/LineBreak";
 import useWindowDimensions from "../../Utils/useWindowDimensions";
 import Overlay from "./Transitions/Overlay";
 import Text from "./Transitions/Text";
 import Head from './Transitions/Head'
+import Expand from "../../Components/Layout/Expand";
 
 const builder = imageUrlBuilder(client);
 const pageQuery = groq`
@@ -181,7 +181,14 @@ function Artwork({ config, data = {} }) {
       </div>
 }
         <div style={{display: 'flex', flex: 6}} />
-        <span onClick={() => {setFullImg(!fullImg); handleExpand()}} className={styles.expandSpan}>Expand</span>
+        <div style={{display: 'flex', flexDirection: 'row', cursor: 'pointer'}} onClick={() => {setFullImg(!fullImg); handleExpand()}} >
+
+        <span className={styles.expandSpan}>Expand</span>
+        <div style={{width: '20px', paddingTop: '12px', paddingLeft: '3px', marginRight: '8px'}}>
+
+        <Expand />
+        </div>
+        </div>
         </div>
         </div>
       </>
