@@ -5,6 +5,6 @@ module.exports = {
     SANITY_ENDPOINT: "https://mquooija.api.sanity.io/v1/data/query/production",
     SANITY_WRITE_TOKEN:
       "skmeYUwAwWByftWVAheyq955zKCgr001ln4FJj05MhH5I4Bn7H4Xt0RoFoR5jSh1JyTrz883sjD1omus9eZvmG8W3JYgxeaiM4k6DIiXPVnB6T08szhJdk6EifY3S5eF5haZf39LuVlbQtZtRs0l5ZDDlTvNVp5JPVrqitLtHAmMmgf870Ui",
-    BASE_URL: "http://localhost:3000",
+    BASE_URL: "https://materialism.netlify.app",
   },
 }
