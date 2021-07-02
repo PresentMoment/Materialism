@@ -42,7 +42,7 @@ function addAnArtWork({data = {}}) {
   )
 }
 
-export async function getServerSideProps() {
+export async function getInitialProps() {
   const res = await client.fetch(artistQuery);
   const json = await res;
   return { props: { data: json } };

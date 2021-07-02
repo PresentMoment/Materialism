@@ -32,7 +32,7 @@ function SearchResults({ config, page }) {
   return (
       <Layout>
         <NextSeo
-        title={searchQuery.split(' ')
+        title={searchQuery && searchQuery.split(' ')
         .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
         .join(' ')}
         description="Materialism - art within reach"
