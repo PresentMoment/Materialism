@@ -15,7 +15,7 @@ export default function Card(props) {
     <>
     <Wrapper isBreakPoint={isBreakPoint}>
       <div style={{display: 'flex', flexDirection: "column", width: '100%', paddingTop: is425 ? '30px' : '0'}}>
-      {artWorks.map((artwork)=> {
+      {artWorks && artWorks.map((artwork)=> {
         const cityState = artwork.address.replace(/^[^,]+, */, '');
         return(
           <div key={artwork._id}>
