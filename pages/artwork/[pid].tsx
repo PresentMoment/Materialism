@@ -100,18 +100,24 @@ function Artwork({ config, data = {} }: ArtworkProps) {
         title={data.title + " by " + data.artist}
         description="Materialism - art within reach"
         openGraph={{
+          type: 'website',
           url: `${process.env.BASE_URL+router.asPath}`,
           title: 'Materialism',
           description: 'Materialism - art within reach',
           images: [
             {
-              url: `url(${builder.image(data.image).auto("format").width(800).height(600).url()})`,
+              url: `${mainImage.url}`,
               width: 800,
               height: 600,
               alt: `${data.title + " by " + data.artist}`,
             },
           ],
           site_name: 'Materialism',
+        }}
+        twitter={{
+          // handle: '@handle',
+          site: `${process.env.BASE_URL}`,
+          cardType: "summary_large_image",
         }}
       />
     <Head fullImg={fullImg}>
@@ -164,14 +170,14 @@ function Artwork({ config, data = {} }: ArtworkProps) {
         {showShare &&
         <div className={styles.shareIcons}>
 
-        <a href={`https://www.pinterest.com/pin/create/button/?url=${process.env.BASE_URL+router.asPath}&media=${mainImage.url}&description=${data.title} by ${data.artist} on Materialism`}>
+        <a href={`https://www.pinterest.com/pin/create/button/?url=${process.env.BASE_URL+router.asPath}&media=${mainImage.url}&description=${data.title} by ${data.artist} on Materialism`} target="_blank" rel="noopener noreferrer">
         <svg width={32} height={32} viewBox="0 0 62 62" fill="none">
     <path
       d="M32,16c-8.8,0-16,7.2-16,16c0,6.6,3.9,12.2,9.6,14.7c0-1.1,0-2.5,0.3-3.7 c0.3-1.3,2.1-8.7,2.1-8.7s-0.5-1-0.5-2.5c0-2.4,1.4-4.1,3.1-4.1c1.5,0,2.2,1.1,2.2,2.4c0,1.5-0.9,3.7-1.4,5.7 c-0.4,1.7,0.9,3.1,2.5,3.1c3,0,5.1-3.9,5.1-8.5c0-3.5-2.4-6.1-6.7-6.1c-4.9,0-7.9,3.6-7.9,7.7c0,1.4,0.4,2.4,1.1,3.1 c0.3,0.3,0.3,0.5,0.2,0.9c-0.1,0.3-0.3,1-0.3,1.3c-0.1,0.4-0.4,0.6-0.8,0.4c-2.2-0.9-3.3-3.4-3.3-6.1c0-4.5,3.8-10,11.4-10 c6.1,0,10.1,4.4,10.1,9.2c0,6.3-3.5,11-8.6,11c-1.7,0-3.4-0.9-3.9-2c0,0-0.9,3.7-1.1,4.4c-0.3,1.2-1,2.5-1.6,3.4 c1.4,0.4,3,0.7,4.5,0.7c8.8,0,16-7.2,16-16C48,23.2,40.8,16,32,16z"
       fill="#000000"
       />
   </svg>          </a>
-        <a href={`https://twitter.com/intent/tweet?original_referer=${process.env.BASE_URL+router.asPath}&text=${data.title} by ${data.artist} on Materialism&url=${process.env.BASE_URL+router.asPath}`}>
+        <a href={`https://twitter.com/intent/tweet?original_referer=${process.env.BASE_URL+router.asPath}&text=${data.title} by ${data.artist} on Materialism&url=${process.env.BASE_URL+router.asPath}`} target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 -3 18 18" height={26}><path d="M6.26 15a8.63 8.63 0 0 1-4.64-1.35c.24.015.48.015.72 0a6.09 6.09 0 0 0 3.76-1.3 3 3 0 0 1-2.83-2.1c.188.032.379.048.57.05a3 3 0 0 0 .8-.11 3 3 0 0 1-2.43-3c.42.233.89.363 1.37.38a3 3 0 0 1-1.34-2.49 3 3 0 0 1 .4-1.52 8.6 8.6 0 0 0 6.24 3.16A3.84 3.84 0 0 1 8.81 6a3 3 0 0 1 5.24-2A6 6 0 0 0 16 3.22a3.06 3.06 0 0 1-1.36 1.68 6 6 0 0 0 1.74-.48A6.1 6.1 0 0 1 14.87 6v.39A8.56 8.56 0 0 1 6.26 15" fillRule="evenodd"></path></svg>
         </a>
         <CopyToClipboard

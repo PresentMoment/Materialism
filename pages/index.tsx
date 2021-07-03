@@ -6,7 +6,11 @@ import Layout from '../Components/Layout'
 import getGeos from '../Utils/GetGeos';
 
 const pageQuery = groq`
-*[_type == 'artwork']{...,artist->{name}}`;
+*[_type == 'artwork']{...,
+ artist->{name},
+'random': 
+(dateTime(now()) - dateTime(_createdAt)) % $rndInt
+} | order(random desc)`;
 
 
 export default function Home(props) {
@@ -25,7 +29,8 @@ export default function Home(props) {
 }
 
 Home.getInitialProps = async() => {
-  const res = await client.fetch(pageQuery)
+  const rndInt = Math.floor(Math.random() * 99) + 2;
+  const res = await client.fetch(pageQuery, {rndInt})
   return {
     props: res
   }
