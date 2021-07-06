@@ -17,6 +17,7 @@ export default function SingleMap(props) {
   const [popUpGeo, setPopUpGeo] = useState([])
     useEffect(() => {
       setGeo([props.artWorks.location.lng, props.artWorks.location.lat])
+      
   },[])
 
   const [viewport, setViewport] = useState({
@@ -24,7 +25,6 @@ export default function SingleMap(props) {
     height: "400px",
     zoom: 16,
   })
-
 
   return (
     geo.length > 0 ?

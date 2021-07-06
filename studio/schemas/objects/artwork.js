@@ -32,12 +32,6 @@ export default {
       type: "geopoint",
     },
     {
-      name: "customString",
-      title: "This is a cool custom string",
-      type: "string",
-      inputComponent: GeoInput,
-    },
-    {
       title: "Image",
       name: "image",
       type: "image",

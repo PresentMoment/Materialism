@@ -26,7 +26,7 @@ export default function getGeos(artWorks){
             return;
           })
           .catch((err) => {
-            console.error('Oh no, the update failed: ', err.message)
+            console.error(err.message)
           })
       })
       .catch((error) => {

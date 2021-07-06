@@ -19,7 +19,7 @@ export default function Map(props) {
   const [markerClicked, setMarkerClicked] = useState(false)
   const [popUpGeo, setPopUpGeo] = useState([])
   useEffect(() => {
-    if (userlocation) { setViewport({ ...viewport, latitude: userlocation[0], longitude: userlocation[1], zoom: 15 }) }
+    if (userlocation[0] !== undefined) { setViewport({ ...viewport, height: '100%', latitude: userlocation[0], longitude: userlocation[1], zoom: 15 }) }
     else {
       setViewport({
         ...viewport,
@@ -79,7 +79,7 @@ C                 20.1,15.8,20.2,15.8,20.2,15.7z`}
       {...viewport}
       onViewportChange={(nextViewport) => setViewport(nextViewport)}
     >
-      <GeolocateControl />
+      {/* <GeolocateControl /> */}
       <NavigationControl style={navControlStyle} />
       {populateMarkers}
       {markerClicked && <Popup latitude={popUpGeo[1]} longitude={popUpGeo[0]}

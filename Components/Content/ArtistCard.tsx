@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect, useCallback } from 'react'
 import styled from "styled-components"
 import Link from "next/link";
 import imageUrlBuilder from "@sanity/image-url";
@@ -7,15 +7,20 @@ import client from '../../client'
 
 const builder = imageUrlBuilder(client);
 export default function ArtistCard(props, flex) {
-  const  artWorks = props.props;
+  //const  artWorks = props.props;
   const isBreakPoint = useMediaQuery(768);
   const is425 = useMediaQuery(425);
-  const is950 = useMediaQuery(950)
+  const is950 = useMediaQuery(950);
+  const [artWorks, setArtWorks] = useState(props.props);
+  useEffect(() => {
+    setArtWorks(props.props)
+  }, [props.props])
   return (
     <>
     <Wrapper isBreakPoint={isBreakPoint}>
       <div style={{display: 'flex', flexDirection: "column", width: '100%', paddingTop: is425 ? '30px' : '0'}}>
-      {artWorks.map((artwork)=> {
+      {
+      artWorks.map((artwork)=> {
         return(
           <div key={artwork._id}>
             <Link href={{ pathname: '/artwork/' + artwork.slug.current}}>

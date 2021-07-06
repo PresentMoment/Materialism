@@ -15,13 +15,17 @@ export default function Content(props) {
   const isBreakPoint = useMediaQuery(625)
   const artistCard = useRef(null);
   const [gradientWidth, setGradientWidth] = useState(null)
+  const [findLocale, setFindLocale] = useState(true)
 
   useEffect(() => {
-    setGradientWidth(artistCard.current.offsetWidth)
-  }, [artistCard, gradientWidth])
+    console.log(props.userlocation[0])
+    setGradientWidth(artistCard.current.offsetWidth);
+    props.userlocation[0] !== undefined ? setFindLocale(false) : null;
+  }, [artistCard, gradientWidth, props.userlocation])
+
 
   return (
-    <ContentContainer isBreakPoint={isBreakPoint}>
+    <ContentContainer isBreakPoint={isBreakPoint} findLocale={findLocale}>
       <ContentList isBreakPoint={isBreakPoint}>
         <div ref={el => { artistCard.current = el}} style={{width: '100%'}} >
         <ArtistCard props={artWorks} />
@@ -36,14 +40,19 @@ export default function Content(props) {
   )
 }
 
-const ContentContainer = styled.div<{isBreakPoint: boolean}>`
+const ContentContainer = styled.div<{isBreakPoint: boolean, findLocale: boolean}>`
 display: flex;
 flex-direction: ${(p) => p.isBreakPoint ? 'column' : 'row'};
 height: 100%;
 margin: 10px ${(p) => p.isBreakPoint ? '4px' : '30px'};
 border: 1px solid black;
 padding: ${(p) => p.isBreakPoint ? '4px' : '10px'};
-height: ${(p) => p.isBreakPoint ? '85vh' :'80vh'};
+height: ${(p) => 
+  !p.isBreakPoint && !p.findLocale && '88vh' ||
+  !p.isBreakPoint && p.findLocale && '83vh' ||
+  p.isBreakPoint && p.findLocale && '86vh' ||
+  p.isBreakPoint && !p.findLocale && '89vh'
+};
 `
 const ContentList = styled.div<{isBreakPoint: boolean}>`
 width: ${(p) => p.isBreakPoint ? '100%' : '40vw'};

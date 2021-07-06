@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import groq from "groq";
 import client from '../client';
 import Content from "../Components/Content/Content";
 import Layout from '../Components/Layout'
 import getGeos from '../Utils/GetGeos';
+import Distance from '../Utils/Distance';
 
 const pageQuery = groq`
 *[_type == 'artwork']{...,
@@ -14,16 +15,38 @@ const pageQuery = groq`
 
 
 export default function Home(props) {
-  let artWorks = props.props
+  //let artWorks = props.props
+
+  const [artWorks, setArtworks] = useState(props.props)
+  const [userlocation, setUserLocation] = useState([undefined, undefined])
+  const [geoFetched, setGeoFetched] = useState(false)
+
+  function getLocation() {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    // }).then(setGeoFetched(true))
+    // promise
+    // if (navigator.geolocation) {
+    // } else { return }
+}
+
+  function showPosition(position) {
+    const promise = new Promise((res, rej) => {
+    setUserLocation([position.coords.latitude, position.coords.longitude])
+    }).then(setGeoFetched(true));
+    promise;
+  }
 
   //checks if artWorks have street address, if not, reverse geocodes and updates backend
   useEffect(() => {
     getGeos(artWorks)
-  }, [])
+    if(
+    userlocation[0] !== undefined) { const sortedWorks = Distance(userlocation, artWorks); return (setArtworks(sortedWorks)) };
+    }, 
+    [userlocation, artWorks])
 
   return (
-      <Layout>
-      <Content artWorks={artWorks} />
+      <Layout getLocation={getLocation} userlocation={userlocation}>
+      <Content artWorks={artWorks} userlocation={userlocation} />
         </Layout>
   );
 }
