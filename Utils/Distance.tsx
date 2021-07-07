@@ -15,10 +15,10 @@
 }
 
 export default function Distance(userlocation, artWorks){
-	
+
 	for (let key in artWorks){
-	let val = artWorks[key];
-	let distance = getDistanceFromLatLonInKm(userlocation[0], 
+		let val = artWorks[key];
+		let distance = getDistanceFromLatLonInKm(userlocation[0], 
   userlocation[1],val.location.lat,
   val.location.lng)
   //Attaching returned distance from function to array elements
