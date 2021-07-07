@@ -5,6 +5,8 @@ import Content from "../Components/Content/Content";
 import Layout from '../Components/Layout'
 import getGeos from '../Utils/GetGeos';
 import Distance from '../Utils/Distance';
+import { LocationProvider } from '../Utils/locationContext';
+import useLocalStorage from '../Utils/useLocalStorage'
 
 const pageQuery = groq`
 *[_type == 'artwork']{...,
@@ -18,7 +20,7 @@ export default function Home(props) {
   //let artWorks = props.props
 
   const [artWorks, setArtworks] = useState(props.props)
-  const [userlocation, setUserLocation] = useState([undefined, undefined])
+  const [userlocation, setUserLocation] = useLocalStorage("userlocation", [undefined, undefined])
   const [geoFetched, setGeoFetched] = useState(false)
 
   function getLocation() {
@@ -46,9 +48,11 @@ export default function Home(props) {
     [userlocation, artWorks])
 
   return (
+      <LocationProvider value={userlocation}>
       <Layout getLocation={getLocation} userlocation={userlocation}>
       <Content artWorks={artWorks} userlocation={userlocation} />
         </Layout>
+      </LocationProvider>
   );
 }
 
