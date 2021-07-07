@@ -19,7 +19,7 @@ export default function Map(props) {
   const [markerClicked, setMarkerClicked] = useState(false)
   const [popUpGeo, setPopUpGeo] = useState([])
   useEffect(() => {
-    if (userlocation[0] !== undefined) { setViewport({ ...viewport, height: '100%', latitude: userlocation[0], longitude: userlocation[1], zoom: 15 }) }
+    if (userlocation && userlocation[0] !== undefined) { setViewport({ ...viewport, height: '100%', latitude: userlocation[0], longitude: userlocation[1], zoom: 15 }) }
     else {
       setViewport({
         ...viewport,

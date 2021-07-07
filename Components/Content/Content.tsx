@@ -18,7 +18,6 @@ export default function Content(props) {
   const [findLocale, setFindLocale] = useState(true)
 
   useEffect(() => {
-    console.log(props.userlocation[0])
     setGradientWidth(artistCard.current.offsetWidth);
     props.userlocation[0] !== undefined ? setFindLocale(false) : null;
   }, [artistCard, gradientWidth, props.userlocation])
