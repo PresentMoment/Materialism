@@ -33,7 +33,7 @@ export default function Home(props) {
     //let setGeoFetched: any;
     const promise = new Promise((res, rej) => {
     setUserLocation([position.coords.latitude, position.coords.longitude])
-    }).then(setGeoFetched(true));
+    }).then(() => setGeoFetched(true));
     promise;
   }
 
