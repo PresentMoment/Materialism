@@ -49,8 +49,8 @@ padding: ${(p) => p.isBreakPoint ? '4px' : '10px'};
 height: ${(p) => 
   !p.isBreakPoint && !p.findLocale && '88vh' ||
   !p.isBreakPoint && p.findLocale && '83vh' ||
-  p.isBreakPoint && p.findLocale && '80vh' ||
-  p.isBreakPoint && !p.findLocale && '84vh'
+  p.isBreakPoint && p.findLocale && '65vh' ||
+  p.isBreakPoint && !p.findLocale && '70vh'
 };
 `
 const ContentList = styled.div<{isBreakPoint: boolean}>`

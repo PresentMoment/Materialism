@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <>
     <Wrapper>
-      <div style={{display: 'flex', flex: 1}}>{" "}</div>
+      {/* <div style={{display: 'flex', flex: 1}}>{" "}</div> */}
       <FooterLinks>
       <Link href={{ pathname: '/about/'}}>
       <a><span>About</span></a></Link><Link href={{ pathname: '/contact/'}}>
@@ -28,7 +28,6 @@ display: flex;
 flex-direction: column;
 margin: 0 auto;
 justify-content: center;
-flex: 1;
 width: 100%;
 `
 
@@ -38,5 +37,5 @@ flex-direction: row;
 width: 100%;
 justify-content: space-around;
 font-size: 2.3rem;
-margin-bottom: 30px;
+margin-bottom: 10px;
 `
