@@ -52,7 +52,7 @@ height: 100%;
 margin: 10px ${(p) => p.isBreakPoint ? '4px' : '30px'};
 border: 1px solid black;
 padding: ${(p) => p.isBreakPoint ? '4px' : '10px'};
-height: ${(p) => p.isBreakPoint ? '85vh' :'80vh'};
+height: ${(p) => p.isBreakPoint ? '80vh' :'90vh'};
 `
 
 const ArtistHeader = styled.div`

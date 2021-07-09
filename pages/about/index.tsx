@@ -8,8 +8,7 @@ function about({data = {}}) {
     <Layout>
       <Container>
       <AboutText>
-
-      <span>I started this site as a blah bhahb bha bhbhdhb bhdhbd hbhdhb dhfhbhd fhbhd fhbhdhf bhdhf bhdhf  hh h hdfhib dhfh hf fhhf bvvhd ih fhf hifhif fhfh bfhfh fhf hf fhfh d</span>
+      <span>Materialism </span>
       </AboutText>
       </Container>
     </Layout>
