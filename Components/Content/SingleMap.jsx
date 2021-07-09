@@ -22,7 +22,7 @@ export default function SingleMap(props) {
 
   const [viewport, setViewport] = useState({
     width: width,
-    height: "300px",
+    height: "220px",
     zoom: 16,
   })
 

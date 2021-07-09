@@ -93,19 +93,6 @@
   cursor: pointer;
 }
 
-.shareIcons {
-  display: flex;
-  flex-direction: row;
-  cursor: pointer;
-}
-
-.shareIcons span {
-  font-size: 1.2rem;
-  margin-top: 10px;
-  margin-left: 8px;
-  font-style: italic;
-}
-
 .expandSpan {
   font-size: 2.3rem;
   padding-top: 6px;

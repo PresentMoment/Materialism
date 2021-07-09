@@ -9,6 +9,7 @@ import { Transition } from "react-transition-group";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { NextSeo } from "next-seo";
 import styles from './[pid].module.css'
+import styled from "styled-components"
 
 import Header from "../../Components/Header/Header";
 import { LineBreak } from "../../Components/Layout/LineBreak";
@@ -51,7 +52,7 @@ function Artwork({ config, data = {} }: ArtworkProps) {
 
   const bgStyle = {
     transition: `height ${1000}ms ease-in-out`,
-    height: '30vh',
+    height: '42vh',
     backgroundImage: `url(${builder.image(data.image).auto("format").width(width).height(imgDimensions).url()})`,
     backgroundPosition: '0% 0%',
     backgroundRepeat: 'no-repeat',
@@ -66,9 +67,9 @@ function Artwork({ config, data = {} }: ArtworkProps) {
   },
     entered: { height: `${height}px`,
   },
-    exiting: { height: '30vh',
+    exiting: { height: '42vh',
   },
-    exited: { height: '30vh',
+    exited: { height: '42vh',
   },
   };
 
@@ -121,7 +122,7 @@ function Artwork({ config, data = {} }: ArtworkProps) {
         }}
       />
     <Head fullImg={fullImg}>
-      <Header paddingBottom={5} />
+      <Header paddingBottom={0} />
         </Head>
         <div className={styles.container} style={{maxHeight: `${height}px`}}>
         <Overlay fullImg={fullImg} handleDivClick={handleDivClick} height={height} />
@@ -168,7 +169,7 @@ function Artwork({ config, data = {} }: ArtworkProps) {
         <span>Share</span>
         </div>
         {showShare &&
-        <div className={styles.shareIcons}>
+        <ShareIcons width={width}>
 
         <a href={`https://www.pinterest.com/pin/create/button/?url=${process.env.BASE_URL+router.asPath}&media=${mainImage.url}&description=${data.title} by ${data.artist} on Materialism`} target="_blank" rel="noopener noreferrer">
         <svg width={32} height={32} viewBox="0 0 62 62" fill="none">
@@ -189,7 +190,7 @@ function Artwork({ config, data = {} }: ArtworkProps) {
           <span>copy to clipboard</span>
         }
         </CopyToClipboard>
-      </div>
+      </ShareIcons>
 }
         <div style={{display: 'flex', flex: 6}} />
         <div style={{display: 'flex', flexDirection: 'row', cursor: 'pointer'}} onClick={() => {setFullImg(!fullImg); handleExpand()}} >
@@ -224,3 +225,15 @@ export async function getStaticPaths() {
 }
 
 export default Artwork;
+
+const ShareIcons = styled.div<{width: number}>`
+display: flex;
+flex-direction: row;
+cursor: pointer;
+& span {
+  font-size: 1.2rem;
+  margin-top:${(p) => p.width <= 320 ? '3px' : '10px'};
+  margin-left: 8px;
+  font-style: italic;
+}
+`
