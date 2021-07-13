@@ -55,9 +55,9 @@ function SearchResults({ config, page }) {
         <GradientWrapper gradientWidth={gradientWidth}><Gradient /></GradientWrapper>
       </ContentList>
         : <div style={{width: '100%', textAlign: 'center'}}><span>No Results</span></div>}
-      <div style={{display: 'flex', flex: 1}}>
+      {/* <div style={{display: 'flex', flex: 1}}>
 
-      </div>
+      </div> */}
     </ContentContainer>
       </Layout>
   );
@@ -75,7 +75,7 @@ height: ${(p) => p.isBreakPoint ? '90vh' :'80vh'};
 
 const ContentList = styled.div<{isBreakPoint: boolean}>`
 width: ${(p) => p.isBreakPoint ? '100%' : '40vw'};
-height: ${(p) => p.isBreakPoint ? '48vh': '100%'};
+height: ${(p) => '100%'};
 display: flex;
 flex: 1;
 overflow-y: scroll;

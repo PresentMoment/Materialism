@@ -49,6 +49,7 @@ const Wrapper = styled("div")<{isBreakPoint: boolean}>`
 display: flex;
 flex-direction: row;
 width: 100%;
+height: 70%;
 justify-content: space-between;
 padding: 0 ${(p) => p.isBreakPoint ? '10px' : '20px'};
 `
