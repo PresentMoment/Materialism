@@ -13,6 +13,7 @@ const Map = dynamic(() => import("./Map"), {
 export default function Content(props) {
   const {artWorks} = props
   const isBreakPoint = useMediaQuery(625)
+  const isMobile = useMediaQuery(425);
   const artistCard = useRef(null);
   const [gradientWidth, setGradientWidth] = useState(null)
   const [findLocale, setFindLocale] = useState(true)
@@ -29,9 +30,9 @@ export default function Content(props) {
         <div ref={el => { artistCard.current = el}} style={{width: '100%'}} >
         <ArtistCard props={artWorks} />
         </div>
-      <GradientWrapper gradientWidth={gradientWidth}><Gradient /></GradientWrapper>
+      <GradientWrapper gradientWidth={gradientWidth} isMobile={isMobile}><Gradient isMobile={isMobile} /></GradientWrapper>
       </ContentList>
-      <div style={{display: 'flex', flex: isBreakPoint ? 1 : 2}}>
+      <div style={{display: 'flex', flex: isBreakPoint ? 1 : 2, width: isMobile ? '97.5%': '100%'}}>
 
     <Map artWorks={artWorks} userlocation={props.userlocation} />
       </div>
@@ -49,8 +50,8 @@ padding: ${(p) => p.isBreakPoint ? '4px' : '10px'};
 height: ${(p) => 
   !p.isBreakPoint && !p.findLocale && '88vh' ||
   !p.isBreakPoint && p.findLocale && '83vh' ||
-  p.isBreakPoint && p.findLocale && '77vh' ||
-  p.isBreakPoint && !p.findLocale && '83vh'
+  p.isBreakPoint && p.findLocale && '63vh' ||
+  p.isBreakPoint && !p.findLocale && '68vh'
 };
 `
 const ContentList = styled.div<{isBreakPoint: boolean}>`
@@ -62,8 +63,8 @@ overflow-y: scroll;
 position: relative;
 `
 
-const GradientWrapper = styled.div<{gradientWidth: number}>`
-height: 100px;
+const GradientWrapper = styled.div<{gradientWidth: number, isMobile: boolean}>`
+height: ${(p) => p.isMobile ? '50px' : '100px'};
 width: ${(p) => p.gradientWidth}px;
 position: absolute;
 margin-left: auto;
@@ -74,8 +75,8 @@ bottom: 0;
 //top: 41.5%;
 z-index: 9;
 `
-const Gradient = styled('div')`
-height: 100px;
+const Gradient = styled.div<{isMobile: boolean}>`
+height: ${(p) => p.isMobile ? '50px' : '100px'};
 width: inherit;
 position: fixed;
 z-index: 9;
