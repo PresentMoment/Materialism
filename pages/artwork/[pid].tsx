@@ -52,7 +52,7 @@ function Artwork({ config, data = {} }: ArtworkProps) {
 
   const bgStyle = {
     transition: `height ${1000}ms ease-in-out`,
-    height: '42vh',
+    height: '52vh',
     backgroundImage: `url(${builder.image(data.image).auto("format").width(width).height(imgDimensions).url()})`,
     backgroundPosition: '0% 0%',
     backgroundRepeat: 'no-repeat',
@@ -67,9 +67,9 @@ function Artwork({ config, data = {} }: ArtworkProps) {
   },
     entered: { height: `${height}px`,
   },
-    exiting: { height: '42vh',
+    exiting: { height: '52vh',
   },
-    exited: { height: '42vh',
+    exited: { height: '52vh',
   },
   };
 
@@ -124,7 +124,7 @@ function Artwork({ config, data = {} }: ArtworkProps) {
     <Head fullImg={fullImg}>
       <Header paddingBottom={0} />
         </Head>
-        <div className={styles.container} style={{maxHeight: `${height}px`}}>
+        <div className={styles.container} style={{maxHeight: `${height}px`, minHeight: `${height - 100}px`}}>
         <Overlay fullImg={fullImg} handleDivClick={handleDivClick} height={height} />
         <div className={styles.fade} style={{width: `${600}`, height: `${height}`,
           backgroundColor: mainImage.metadata.palette.dominant.background,

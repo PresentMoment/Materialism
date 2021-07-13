@@ -27,7 +27,7 @@ export default function ArtistCard(props, flex) {
               <a>
         <div style={{display: 'flex', flexDirection: 'row', maxHeight: '100px'}} key={artwork._id}>
             <ArtistInfo isBreakPoint={isBreakPoint} is950={is950} key={artwork._id}>
-            <span>{artwork.artist.name}</span>
+            <span>{artwork.artist.name && artwork.artist.name || artwork.name && artwork.name}</span>
             <span>{artwork.title}</span>
             </ArtistInfo>
             <img
