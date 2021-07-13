@@ -52,7 +52,7 @@ function Artwork({ config, data = {} }: ArtworkProps) {
 
   const bgStyle = {
     transition: `height ${1000}ms ease-in-out`,
-    height: '52vh',
+    height: '42vh',
     backgroundImage: `url(${builder.image(data.image).auto("format").width(width).height(imgDimensions).url()})`,
     backgroundPosition: '0% 0%',
     backgroundRepeat: 'no-repeat',
@@ -67,9 +67,9 @@ function Artwork({ config, data = {} }: ArtworkProps) {
   },
     entered: { height: `${height}px`,
   },
-    exiting: { height: '52vh',
+    exiting: { height: '42vh',
   },
-    exited: { height: '52vh',
+    exited: { height: '42vh',
   },
   };
 

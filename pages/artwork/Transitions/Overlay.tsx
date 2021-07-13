@@ -20,8 +20,8 @@ export default function Overlay(props) {
   const overlayTransitions = {
     entering: { opacity: 0, height: '100%', zIndex: 99},
     entered: { opacity: 0, height: '100%', zIndex: 99},
-    exiting: { opacity: 0.3, height: '52vh'},
-    exited: { opacity: 0.3, height: '52vh'},
+    exiting: { opacity: 0.3, height: '42vh'},
+    exited: { opacity: 0.3, height: '42vh'},
   };
 
   return (
