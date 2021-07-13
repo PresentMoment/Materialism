@@ -17,6 +17,7 @@ export default function Card(props) {
       <div style={{display: 'flex', flexDirection: "column", width: '100%', paddingTop: is425 ? '30px' : '0'}}>
       {artWorks && artWorks.map((artwork)=> {
         const cityState = artwork.address.replace(/^[^,]+, */, '');
+        const cityClean = cityState.match(/([A-Za-z]+(?: [A-Za-z]+)*),? ([A-Za-z]{2})/)
         return(
           <div key={artwork._id}>
             <Link href={{ pathname: '/artwork/' + artwork.slug.current}}>
@@ -25,7 +26,7 @@ export default function Card(props) {
             <ArtistInfo isBreakPoint={isBreakPoint} is950={is950} key={artwork._id}>
             <span>{artwork.title}</span>
             <span>{artwork.year}</span>
-            <span>{cityState.substring(0, cityState.length-6)}</span>
+            <span>{cityClean[0]}</span>
             </ArtistInfo>
             <img
               src={builder.image(artwork.image).auto("format").width(100).height(100).url()}
@@ -49,7 +50,7 @@ const Wrapper = styled("div")<{isBreakPoint: boolean}>`
 display: flex;
 flex-direction: row;
 width: 100%;
-height: 70%;
+overflow: scroll;
 justify-content: space-between;
 padding: 0 ${(p) => p.isBreakPoint ? '10px' : '20px'};
 `
