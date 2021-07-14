@@ -17,7 +17,7 @@ export default function Layout(props) {
   return (
     <>
     <Header />
-    {props.errMsg && props.errMsg.length > 0 && <div style={{textAlign: 'center', padding: '0 50px'}}><span style={{fontSize: '3rem', fontWeight: 500}}>{props.errMsg[0]}</span><span style={{fontSize: '1rem', fontStyle: 'italic'}}>{props.errMsg[1]}</span></div>}
+    {props.errMsg && props.errMsg.length > 0 && <div style={{textAlign: 'center', padding: '0 20px'}}><span style={{fontSize: '3rem', fontWeight: 500}}>{props.errMsg[0]}</span><div /><span style={{fontSize: '1rem', fontStyle: 'italic'}}>{props.errMsg[1]}</span></div>}
       {!locErr && router.pathname === '/' && props.userlocation !== 'undefined' ? <div onClick={props.getLocation}><Tagline userlocation={props.userlocation[0]} /> </div> : null}
       {React.Children.map(children, (child) => React.cloneElement(child))}
       {/* {children} */}
