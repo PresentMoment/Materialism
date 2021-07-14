@@ -20,13 +20,19 @@ export default function Home(props) {
   const [artWorks, setArtworks] = useState(props.props)
   const [userlocation, setUserLocation] = useState([undefined, undefined])
   const [geoFetched, setGeoFetched] = useState(false)
+  const [errMsg, setErrMsg] = useState('')
 
   function getLocation() {
-      navigator.geolocation.getCurrentPosition(showPosition);
+    const options = {timeout: 7000}
+      navigator.geolocation.getCurrentPosition(showPosition, locationError, options);
     // }).then(setGeoFetched(true))
     // promise
     // if (navigator.geolocation) {
     // } else { return }
+}
+
+function locationError(err){
+  setErrMsg(`${err.code}: ${err.message}`)
 }
 
   function showPosition(position) {
@@ -47,6 +53,7 @@ export default function Home(props) {
 
   return (
       <Layout getLocation={getLocation} userlocation={userlocation}>
+        <span>{errMsg}</span>
       <Content artWorks={artWorks} userlocation={userlocation} />
         </Layout>
   );
