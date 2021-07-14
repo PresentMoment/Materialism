@@ -32,7 +32,7 @@ export default function Home(props) {
 }
 
 function locationError(err){
-  setErrMsg([`Location service not available in this browser`, '(try viewing Materialism in Chrome or Safari'])
+  setErrMsg([`Location service not available in this browser`, '(try viewing Materialism in Chrome or Safari)'])
 }
 
   function showPosition(position) {
