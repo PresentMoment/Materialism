@@ -20,7 +20,7 @@ export default function Home(props) {
   const [artWorks, setArtworks] = useState(props.props)
   const [userlocation, setUserLocation] = useState([undefined, undefined])
   const [geoFetched, setGeoFetched] = useState(false)
-  const [errMsg, setErrMsg] = useState('')
+  const [errMsg, setErrMsg] = useState([])
 
   function getLocation() {
     const options = {timeout: 7000}
@@ -32,7 +32,7 @@ export default function Home(props) {
 }
 
 function locationError(err){
-  setErrMsg(`${err.code}: ${err.message}`)
+  setErrMsg([`Location service not available in this browser`, '(try viewing Materialism in Chrome or Safari'])
 }
 
   function showPosition(position) {
@@ -52,8 +52,7 @@ function locationError(err){
     [userlocation, artWorks])
 
   return (
-      <Layout getLocation={getLocation} userlocation={userlocation}>
-        <span>{errMsg}</span>
+      <Layout getLocation={getLocation} userlocation={userlocation} errMsg={errMsg}>
       <Content artWorks={artWorks} userlocation={userlocation} />
         </Layout>
   );
