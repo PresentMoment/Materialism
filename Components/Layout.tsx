@@ -10,8 +10,8 @@ export default function Layout(props) {
   return (
     <>
     <Header />
-    {props.errMsg.length > 0 && <><span style={{fontSize: '3rem', fontWeight: 500}}>{props.errMsg[0]}</span><span style={{fontSize: '1rem', fontStyle: 'italic'}}>{props.errMsg[1]}</span></>}
-      {router.pathname === '/' && props.errMsg.length > 0 && props.userlocation !== 'undefined' ? <div onClick={props.getLocation}><Tagline userlocation={props.userlocation[0]} /> </div> : null}
+    {props.errMsg && props.errMsg.length > 0 && <><span style={{fontSize: '3rem', fontWeight: 500}}>{props.errMsg[0]}</span><span style={{fontSize: '1rem', fontStyle: 'italic'}}>{props.errMsg[1]}</span></>}
+      {router.pathname === '/' && props.userlocation !== 'undefined' ? <div onClick={props.getLocation}><Tagline userlocation={props.userlocation[0]} /> </div> : null}
       {React.Children.map(children, (child) => React.cloneElement(child))}
       {/* {children} */}
       {router.pathname === '/' &&<Footer />}
