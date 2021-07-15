@@ -39,21 +39,34 @@ type ArtworkProps = {
 
 function Artwork({ config, data = {} }: ArtworkProps) {
 
-  const imgHeight = data.mainImage.metadata.dimensions.height;
   const { height, width } = useWindowDimensions();
   const router = useRouter();
   const mainImage = data.mainImage
 
   const [fullImg, setFullImg] = useState(false)
   const [imgDimensions, setImgDimensions] = useState(0)
+  const [imgWidth, setImgWidth] = useState(0);
   const [hideMap, setHideMap] = useState(false)
   const [showShare, setShare] = useState(false)
   const [isCopied, setIsCopied] = useState(false);
 
+  const aspectRatio = (height, width, data) => {
+    let result = "";
+    if (height > width && data.mainImage.metadata.dimensions.aspectRatio > 1)
+      {result = "scale"}
+    else if (height > width && data.mainImage.metadata.dimensions.aspectRatio < 1)
+      {result = "crop"}
+    else if (height < width && data.mainImage.metadata.dimensions.aspectRatio > 1)
+      {result = "crop"}
+    else if (height < width && data.mainImage.metadata.dimensions.aspectRatio < 1)
+      {result =  "scale"}
+    return result;
+  }
+
   const bgStyle = {
     transition: `height ${1000}ms ease-in-out`,
     height: '42vh',
-    backgroundImage: `url(${builder.image(data.image).auto("format").width(width).height(imgDimensions).url()})`,
+    backgroundImage: `url(${builder.image(data.image).auto("format").width(imgWidth).height(imgDimensions).fit('scale').url()})`,
     backgroundPosition: '0% 0%',
     backgroundRepeat: 'no-repeat',
     backgroundAttachment: 'fixed',
@@ -89,7 +102,7 @@ function Artwork({ config, data = {} }: ArtworkProps) {
 
   useEffect(() => {
     if (window !== undefined){
-  
+      setImgWidth(window.innerWidth );
       setImgDimensions(window.innerHeight);
     }
   }, [])
