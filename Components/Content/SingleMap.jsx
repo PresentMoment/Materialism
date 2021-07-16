@@ -1,28 +1,24 @@
 import { useState, useEffect } from "react"
-import ReactMapGL, { Marker, NavigationControl, GeolocateControl, Popup } from "react-map-gl"
-import imageUrlBuilder from "@sanity/image-url";
-import client from '../../client'
-import useWindowDimensions from "../../Utils/useWindowDimensions";
+import ReactMapGL, { Marker, NavigationControl, GeolocateControl } from "react-map-gl"
+import Directions from "./Directions"
 
 export default function SingleMap(props) {
   const width  = props.width
-  const builder = imageUrlBuilder(client);
-  const artWorks = props.artWorks;
+  const height = props.height
   const navControlStyle = {
     right: 10,
     top: 10,
   }
+
   const [geo, setGeo] = useState([])
-  const [markerClicked, setMarkerClicked] = useState(false)
-  const [popUpGeo, setPopUpGeo] = useState([])
+
     useEffect(() => {
       setGeo([props.artWorks.location.lng, props.artWorks.location.lat])
-      
-  },[])
+  },[width])
 
   const [viewport, setViewport] = useState({
     width: width,
-    height: "220px",
+    height:  height,
     zoom: 16,
   })
 
@@ -38,9 +34,9 @@ export default function SingleMap(props) {
     >
       <GeolocateControl />
       <NavigationControl style={navControlStyle} />
+      <Directions data={props.artWorks} />
       <Marker longitude={geo[0]} latitude={geo[1]}>
-          <div  
-          //onClick={() => {setPopUpGeo([geo[0], geo[1], geo[1].image, geo[1].title]), setMarkerClicked(true)}}
+          <div
           >
           <svg height={50} viewBox="0 0 24 24" style={{ transform: `translate(${-20 / 2}px,${-20}px)` }}>
             <path

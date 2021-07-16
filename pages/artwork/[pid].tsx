@@ -66,11 +66,10 @@ function Artwork({ config, data = {} }: ArtworkProps) {
   const bgStyle = {
     transition: `height ${1000}ms ease-in-out`,
     height: '42vh',
-    backgroundImage: `url(${builder.image(data.image).auto("format").width(imgWidth).height(imgDimensions).fit('scale').url()})`,
+    backgroundImage: `url(${builder.image(data.image).auto("format").width(imgWidth).height(imgDimensions).dpr(1).url()})`,
     backgroundPosition: '0% 0%',
     backgroundRepeat: 'no-repeat',
     backgroundAttachment: 'fixed',
-    //backgroundSize: 'cover',
     width: `${width}px`,
     maxHeight: `${height}px`
   };
@@ -167,10 +166,9 @@ function Artwork({ config, data = {} }: ArtworkProps) {
             </Transition>
 
           </div>
-       {/* {!hideMap && */}
         <>
         <LineBreak paddingBottom={0} />
-        <SingleMap artWorks={data} width={width} />
+        <SingleMap artWorks={data} width={width} height={width > 425 ? `42vh` : 220} />
         <LineBreak paddingBottom={0}/>
         </>
         {/* } */}
