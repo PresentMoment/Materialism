@@ -11,7 +11,7 @@ const Map = dynamic(() => import("./Map"), {
 
 
 export default function Content(props) {
-  const {artWorks} = props
+  const {artWorks} = props;
   const isBreakPoint = useMediaQuery(625)
   const isMobile = useMediaQuery(425);
   const artistCard = useRef(null);

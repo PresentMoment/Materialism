@@ -8,7 +8,9 @@ function contact({data = {}}) {
     <Layout>
       <Container>
         <ContactText>
-      <span>Find me fund ,e find me fjnd eme</span>
+      <span><a href="mailto:materialismnyc@gmail.com" target="_blank" rel="noopener noreferrer">materialismnyc@gmail.com</a></span>
+      <div />
+      <span><a href='https://www.instagram.com/materialism.nyc/' target="_blank" rel="noopener noreferrer">Instagram: @materialism.nyc</a></span>
         </ContactText>
       </Container>
     </Layout>
@@ -25,8 +27,9 @@ padding-top: 10vh;
 font-size: 2rem;
 margin-left: auto;
 margin-right: auto;
-width: 10vw;
+width: 80vw;
 text-align: center;
+line-height: 4rem;
 `
 
 export default contact;

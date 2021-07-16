@@ -2,7 +2,7 @@ import { AppProps } from 'next/app'
 import HeadPreloads from '../Components/HeadPreloads'
 import '../styles/globals.css'
 
-function MyApp({ Component, pageProps }: AppProps) {
+function Materialism({ Component, pageProps }: AppProps) {
   return <><style jsx global>{`
   #__next {
     height: 100vh;
@@ -13,4 +13,4 @@ function MyApp({ Component, pageProps }: AppProps) {
 `}</style><HeadPreloads /><Component {...pageProps} /></>
 }
 
-export default MyApp
+export default Materialism
