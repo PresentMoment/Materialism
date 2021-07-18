@@ -20,9 +20,17 @@ const Map = dynamic(() => import("../../Components/Content/Map"), {
   ssr: false
 });
 
-function Artist({ config, data = {} }) {
+function Artist({ config, data }) {
   const { height, width } = useWindowDimensions();
   const [ size, setSize ] = useState(null)
+  const [clickedWork, setClickedWork] = useState([])
+
+  const clickedPopUp = (artworkID) => {
+    var res = data.filter(obj => {
+      return obj._id === artworkID
+    })
+    setClickedWork(res)
+  }
 
   useEffect(() => {
     setSize(width > 425 ? false : true)
@@ -36,10 +44,10 @@ function Artist({ config, data = {} }) {
       />
         <ArtistHeader><span>Pieces by {data[0].artist}</span></ArtistHeader>
       <ContentContainer isBreakPoint={size}>
-      <Card props={data} flex={2} />
+      <Card props={data} flex={2} clickedWork={clickedWork} />
       <div style={{display: 'flex', flex: 2}} />
       <div style={{display: 'flex', width: size ? '97.5%' : '100%', height: size ? '300px': '100%'}}>
-        <Map artWorks={data} />
+        <Map artWorks={data} passIDtoContent={clickedPopUp} />
       </div>
       </ContentContainer>
     </Layout>

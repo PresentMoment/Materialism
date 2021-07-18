@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from "styled-components"
 import Link from "next/link";
 import imageUrlBuilder from "@sanity/image-url";
@@ -11,6 +11,13 @@ export default function Card(props) {
   const isBreakPoint = useMediaQuery(768);
   const is425 = useMediaQuery(425);
   const is950 = useMediaQuery(950)
+  const [clickedArt, setClickedArt] = useState({});
+
+  useEffect(() => {
+    console.log(props.clickedWork)
+    setClickedArt(props.clickedWork)
+  }, [props.clickedWork])
+
   return (
     <>
     <Wrapper isBreakPoint={isBreakPoint}>
@@ -22,7 +29,7 @@ export default function Card(props) {
           <div key={artwork._id}>
             <Link href={{ pathname: '/artwork/' + artwork.slug.current}}>
               <a>
-        <div style={{display: 'flex', flexDirection: 'row', maxHeight: '100px'}} key={artwork._id}>
+        <div style={{backgroundColor: clickedArt[0] && clickedArt[0]._id == artwork._id ? '#e6e6e6' : 'transparent', border: clickedArt[0] && clickedArt[0]._id == artwork._id ? '1px solid #919191' : 'none', display: 'flex', flexDirection: 'row', maxHeight: '100px'}} key={artwork._id}>
             <ArtistInfo isBreakPoint={isBreakPoint} is950={is950} key={artwork._id}>
             <span>{artwork.title}</span>
             <span>{artwork.year}</span>

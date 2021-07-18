@@ -17,6 +17,14 @@ export default function Content(props) {
   const artistCard = useRef(null);
   const [gradientWidth, setGradientWidth] = useState(null)
   const [findLocale, setFindLocale] = useState(true)
+  const [clickedWork, setClickedWork] = useState([])
+
+  const clickedPopUp = (artworkID) => {
+    var res = artWorks.filter(obj => {
+      return obj._id === artworkID
+    })
+    setClickedWork(res)
+  }
 
   useEffect(() => {
     setGradientWidth(artistCard.current.offsetWidth);
@@ -28,13 +36,13 @@ export default function Content(props) {
     <ContentContainer isBreakPoint={isBreakPoint} findLocale={findLocale}>
       <ContentList isBreakPoint={isBreakPoint}>
         <div ref={el => { artistCard.current = el}} style={{width: '100%'}} >
-        <ArtistCard props={artWorks} />
+        <ArtistCard props={artWorks} clickedWork={clickedWork} />
         </div>
       <GradientWrapper gradientWidth={gradientWidth} isMobile={isMobile}><Gradient isMobile={isMobile} /></GradientWrapper>
       </ContentList>
       <div style={{display: 'flex', flex: isBreakPoint ? 1 : 2, width: isMobile ? '97.5%': '100%'}}>
 
-    <Map artWorks={artWorks} userlocation={props.userlocation} />
+    <Map artWorks={artWorks} userlocation={props.userlocation} passIDtoContent={clickedPopUp} />
       </div>
     </ContentContainer>
   )

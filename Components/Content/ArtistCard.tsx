@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback } from 'react'
+import React, {useState, useEffect, useRef } from 'react'
 import styled from "styled-components"
 import Link from "next/link";
 import imageUrlBuilder from "@sanity/image-url";
@@ -6,15 +6,18 @@ import useMediaQuery from '../../Utils/useMediaQuery'
 import client from '../../client'
 
 const builder = imageUrlBuilder(client);
-export default function ArtistCard(props, flex) {
-  //const  artWorks = props.props;
+export default function ArtistCard(props) {
   const isBreakPoint = useMediaQuery(768);
   const is425 = useMediaQuery(425);
   const is950 = useMediaQuery(950);
   const [artWorks, setArtWorks] = useState(props.props);
+
+  const clickRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     setArtWorks(props.props)
-  }, [props.props])
+    clickRef.current !== undefined && clickRef.current.scrollIntoView();
+  }, [props.props, props.clickedWork, clickRef])
   return (
     <>
     <Wrapper isBreakPoint={isBreakPoint}>
@@ -22,10 +25,10 @@ export default function ArtistCard(props, flex) {
       {
       artWorks.map((artwork)=> {
         return(
-          <div key={artwork._id}>
+          <div key={artwork._id} ref={props.clickedWork[0] && props.clickedWork[0]._id == artwork._id ? clickRef : null}>
             <Link href={{ pathname: '/artwork/' + artwork.slug.current}}>
               <a>
-        <div style={{display: 'flex', flexDirection: 'row', maxHeight: '100px'}} key={artwork._id}>
+        <div style={{backgroundColor: props.clickedWork[0] && props.clickedWork[0]._id == artwork._id ? '#e6e6e6' : 'transparent', border: props.clickedWork[0] && props.clickedWork[0]._id == artwork._id ? '1px solid #919191' : 'none', display: 'flex', flexDirection: 'row', maxHeight: '100px'}} key={artwork._id}>
             <ArtistInfo isBreakPoint={isBreakPoint} is950={is950} key={artwork._id}>
             <span>{artwork.artist.name && artwork.artist.name || artwork.name && artwork.name}</span>
             <span>{artwork.title}</span>
