@@ -40,10 +40,10 @@ export default function Content(props) {
         </div>
       <GradientWrapper gradientWidth={gradientWidth} isMobile={isMobile}><Gradient isMobile={isMobile} /></GradientWrapper>
       </ContentList>
-      <div style={{display: 'flex', flex: isBreakPoint ? 1 : 2, width: isMobile ? '97.5%': '100%'}}>
+      <MapWrapper isBreakPoint={isBreakPoint} isMobile={isMobile}>
 
     <Map artWorks={artWorks} userlocation={props.userlocation} passIDtoContent={clickedPopUp} />
-      </div>
+      </MapWrapper>
     </ContentContainer>
   )
 }
@@ -69,6 +69,12 @@ display: flex;
 flex: 1;
 overflow-y: scroll;
 position: relative;
+`
+
+const MapWrapper = styled.div<{isBreakPoint: boolean, isMobile: boolean}>`
+display: flex;
+flex: ${(p) => p.isBreakPoint ? 1 : 2};
+width: ${(p) => p.isMobile ? `97.5%` : `100%`};
 `
 
 const GradientWrapper = styled.div<{gradientWidth: number, isMobile: boolean}>`

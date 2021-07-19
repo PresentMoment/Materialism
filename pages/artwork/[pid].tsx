@@ -8,9 +8,9 @@ import imageUrlBuilder from "@sanity/image-url";
 import { Transition } from "react-transition-group";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { NextSeo } from "next-seo";
-import styles from './[pid].module.css'
 import styled from "styled-components"
 
+import styles from './[pid].module.css'
 import Header from "../../Components/Header/Header";
 import { LineBreak } from "../../Components/Layout/LineBreak";
 import useWindowDimensions from "../../Utils/useWindowDimensions";
@@ -133,6 +133,7 @@ function Artwork({ config, data = {} }: ArtworkProps) {
           cardType: "summary_large_image",
         }}
       />
+
     <Head fullImg={fullImg}>
       <Header paddingBottom={0} />
         </Head>
@@ -149,10 +150,10 @@ function Artwork({ config, data = {} }: ArtworkProps) {
           ...bgTransitions[state],
           }}
           >
-            <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
-            <div style={{display: 'flex', flex: 1}} />
+            <TextContainer>
+            <Spacer flex={1} />
             <Text fullImg={fullImg}>
-              <span onClick={() => {setFullImg(!fullImg); handleExpand()}} style={{cursor: 'pointer', textAlign: 'end'}}>{data.title}, {data.year}</span>
+              <TextSpan onClick={() => {setFullImg(!fullImg); handleExpand()}}>{data.title}, {data.year}</TextSpan>
               <Link href={{ pathname: '/artist/' + data.artist}}>
                 <a style={{textAlign: 'start'}}>
                 <span>{data.artist}</span>
@@ -160,7 +161,7 @@ function Artwork({ config, data = {} }: ArtworkProps) {
               </Link>
             </Text>
             
-          </div>  
+          </TextContainer>  
           </div>
           )}
             </Transition>
@@ -203,15 +204,11 @@ function Artwork({ config, data = {} }: ArtworkProps) {
         </CopyToClipboard>
       </ShareIcons>
 }
-        <div style={{display: 'flex', flex: 6}} />
-        <div style={{display: 'flex', flexDirection: 'row', cursor: 'pointer'}} onClick={() => {setFullImg(!fullImg); handleExpand()}} >
-
+        <Spacer flex={6} />
+        <ExpandWrapper onClick={() => {setFullImg(!fullImg); handleExpand()}} >
         <span className={styles.expandSpan}>Expand</span>
-        <div style={{width: '20px', paddingTop: '12px', paddingLeft: '3px', marginRight: '8px'}}>
-
-        <Expand />
-        </div>
-        </div>
+        <ExpandContainer><Expand /></ExpandContainer>
+        </ExpandWrapper>
         </div>
         </div>
       </>
@@ -236,6 +233,35 @@ export async function getStaticPaths() {
 }
 
 export default Artwork;
+
+const TextContainer = styled.div`
+display: flex;
+flex-direction: column;
+height: 100%;
+`
+
+const TextSpan = styled.span`
+cursor: pointer;
+text-align: end;
+`
+
+const Spacer = styled.div<{flex: number}>`
+display: ${(p) => p.flex};
+flex: 6;
+`
+
+const ExpandWrapper = styled.div`
+display: flex;
+flex-direction: row;
+cursor: pointer;
+`
+
+const ExpandContainer = styled.div`
+width: 20px;
+padding-top: 12px;
+padding-left: 3px;
+margin-right: 8px;
+`
 
 const ShareIcons = styled.div<{width: number}>`
 display: flex;

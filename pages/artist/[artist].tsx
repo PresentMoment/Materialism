@@ -36,16 +36,17 @@ function Artist({ config, data }) {
     setSize(width > 425 ? false : true)
     return () => {}
   }, [width])
+
   return (
     <Layout>
-                <NextSeo
+      <NextSeo
         title={data[0].artist}
         description="Materialism - art within reach"
       />
         <ArtistHeader><span>Pieces by {data[0].artist}</span></ArtistHeader>
       <ContentContainer isBreakPoint={size}>
       <Card props={data} flex={2} clickedWork={clickedWork} />
-      <div style={{display: 'flex', flex: 2}} />
+      <Spacer />
       <div style={{display: 'flex', width: size ? '97.5%' : '100%', height: size ? '300px': '100%'}}>
         <Map artWorks={data} passIDtoContent={clickedPopUp} />
       </div>
@@ -71,6 +72,11 @@ justify-content: center;
 text-align: center;
 font-size: 2em;
 padding-top: 10px;
+`
+
+const Spacer = styled.div`
+display: flex;
+flex: 2;
 `
 
 export async function getStaticProps(paths) {

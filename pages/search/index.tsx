@@ -55,9 +55,6 @@ function SearchResults({ config, page }) {
         <GradientWrapper gradientWidth={gradientWidth}><Gradient /></GradientWrapper>
       </ContentList>
         : <div style={{width: '100%', textAlign: 'center'}}><span>No Results</span></div>}
-      {/* <div style={{display: 'flex', flex: 1}}>
-
-      </div> */}
     </ContentContainer>
       </Layout>
   );

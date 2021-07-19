@@ -16,19 +16,19 @@ export default function ArtistCard(props) {
 
   useEffect(() => {
     setArtWorks(props.props)
-    clickRef.current !== undefined && clickRef.current.scrollIntoView();
+    clickRef.current !== null && clickRef.current.scrollIntoView();
   }, [props.props, props.clickedWork, clickRef])
   return (
     <>
     <Wrapper isBreakPoint={isBreakPoint}>
-      <div style={{display: 'flex', flexDirection: "column", width: '100%', paddingTop: is425 ? '30px' : '0'}}>
+      <List is425={is425}>
       {
       artWorks.map((artwork)=> {
         return(
           <div key={artwork._id} ref={props.clickedWork[0] && props.clickedWork[0]._id == artwork._id ? clickRef : null}>
             <Link href={{ pathname: '/artwork/' + artwork.slug.current}}>
               <a>
-        <div style={{backgroundColor: props.clickedWork[0] && props.clickedWork[0]._id == artwork._id ? '#e6e6e6' : 'transparent', border: props.clickedWork[0] && props.clickedWork[0]._id == artwork._id ? '1px solid #919191' : 'none', display: 'flex', flexDirection: 'row', maxHeight: '100px'}} key={artwork._id}>
+            <InfoWrapper clickedWork={props.clickedWork[0]} artwork={artwork}>
             <ArtistInfo isBreakPoint={isBreakPoint} is950={is950} key={artwork._id}>
             <span>{artwork.artist.name && artwork.artist.name || artwork.name && artwork.name}</span>
             <span>{artwork.title}</span>
@@ -37,7 +37,7 @@ export default function ArtistCard(props) {
               src={builder.image(artwork.image).auto("format").width(100).height(100).url()}
               alt={""}
             />
-            </div>
+            </InfoWrapper>
             <LineBreak width='100%' />
             <div style={{height: '20px'}} />
             </a>
@@ -45,7 +45,7 @@ export default function ArtistCard(props) {
           </div>
         )
       })}
-        </div>
+        </List>
     </Wrapper>
       </>
   )
@@ -73,4 +73,28 @@ border-bottom: 1px solid black;
 padding-bottom: 20px;
 margin: 0 auto;
 width: ${(p) => p.width};
+`
+
+const List = styled.div<{is425: boolean}>`
+display: flex;
+flex-direction: column;
+width: 100%;
+padding-top:${(p) => p.is425 ? `30px` : `0`};
+`
+
+type clickedWork = {
+  _id: string;
+}
+
+type artwork = {
+  _id: string
+}
+
+const InfoWrapper = styled.div<{clickedWork, artwork}>`
+background-color:${(p) => p.clickedWork && p.clickedWork._id == p.artwork._id ?  `#e6e6e6` : `transparent`};
+border-bottom: ${(p) => p.clickedWork && p.clickedWork._id == p.artwork._id ? `3px solid #919191` : `none`};
+font-weight: ${(p) => p.clickedWork && p.clickedWork._id == p.artwork._id ? `700` : `500`};
+display: flex;
+flex-direction: row;
+max-height: 100px;
 `
