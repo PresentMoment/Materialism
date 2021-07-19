@@ -246,8 +246,8 @@ text-align: end;
 `
 
 const Spacer = styled.div<{flex: number}>`
-display: ${(p) => p.flex};
-flex: 6;
+display: flex;
+flex: ${(p) => p.flex};
 `
 
 const ExpandWrapper = styled.div`

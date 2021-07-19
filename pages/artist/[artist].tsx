@@ -46,10 +46,16 @@ function Artist({ config, data }) {
         <ArtistHeader><span>Pieces by {data[0].artist}</span></ArtistHeader>
       <ContentContainer isBreakPoint={size}>
       <Card props={data} flex={2} clickedWork={clickedWork} />
+      {width < 768 ?
+      <></>
+    : 
+      <>
       <Spacer />
       <div style={{display: 'flex', width: size ? '97.5%' : '100%', height: size ? '300px': '100%'}}>
         <Map artWorks={data} passIDtoContent={clickedPopUp} />
       </div>
+      </>
+    }
       </ContentContainer>
     </Layout>
   );

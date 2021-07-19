@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import Title from './Title'
-import LogIn  from './LogIn'
 import React, { useEffect, useState } from 'react'
 import Search from "./Search";
 import { LineBreak } from "../Layout/LineBreak";
@@ -16,9 +15,8 @@ export default function Header(props) {
     <>
     <Nav isBreakPoint={isBreakPoint}>
       <div style={{display: 'flex', flexDirection: 'row', width: '100%',justifyContent: 'space-around' }}>
-      <Title isBreakPoint={isBreakPoint} />
+      <Title />
       <Search isBreakPoint={isBreakPoint} />
-      {/* <LogIn isBreakPoint={isBreakPoint} /> */}
       </div>
     </Nav>
     <LineBreak paddingBottom={props.paddingBottom ? props.paddingBottom : 10} />

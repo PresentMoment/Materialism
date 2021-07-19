@@ -9,6 +9,10 @@ const Map = dynamic(() => import("./Map"), {
   ssr: false
 });
 
+const MobileMap = dynamic(() => import("./MobileMap"), {
+  loading: () => <p>Loading...</p>,
+  ssr: false
+});
 
 export default function Content(props) {
   const {artWorks} = props;
@@ -34,6 +38,21 @@ export default function Content(props) {
 
   return (
     <ContentContainer isBreakPoint={isBreakPoint} findLocale={findLocale}>
+      {isBreakPoint ?
+      props.view == 'list' ?
+      <ContentList isBreakPoint={isBreakPoint}>
+        <div ref={el => { artistCard.current = el}} style={{width: '100%'}} >
+        <ArtistCard props={artWorks} clickedWork={clickedWork} />
+        </div>
+      <GradientWrapper gradientWidth={gradientWidth} isMobile={isMobile}><Gradient isMobile={isMobile} /></GradientWrapper>
+      </ContentList>
+      :
+      props.view == 'map' &&
+      <MapWrapper isBreakPoint={isBreakPoint} isMobile={isMobile}>
+      <MobileMap artWorks={artWorks} userlocation={props.userlocation} passIDtoContent={clickedPopUp} />
+      </MapWrapper>
+      :
+      <>
       <ContentList isBreakPoint={isBreakPoint}>
         <div ref={el => { artistCard.current = el}} style={{width: '100%'}} >
         <ArtistCard props={artWorks} clickedWork={clickedWork} />
@@ -41,9 +60,10 @@ export default function Content(props) {
       <GradientWrapper gradientWidth={gradientWidth} isMobile={isMobile}><Gradient isMobile={isMobile} /></GradientWrapper>
       </ContentList>
       <MapWrapper isBreakPoint={isBreakPoint} isMobile={isMobile}>
-
-    <Map artWorks={artWorks} userlocation={props.userlocation} passIDtoContent={clickedPopUp} />
+        <Map artWorks={artWorks} userlocation={props.userlocation} passIDtoContent={clickedPopUp} />
       </MapWrapper>
+      </>
+      }
     </ContentContainer>
   )
 }
@@ -64,7 +84,7 @@ height: ${(p) =>
 `
 const ContentList = styled.div<{isBreakPoint: boolean}>`
 width: ${(p) => p.isBreakPoint ? '100%' : '40vw'};
-height: ${(p) => p.isBreakPoint ? '48vh': '100%'};
+height: ${(p) => p.isBreakPoint ? '62vh': '100%'};
 display: flex;
 flex: 1;
 overflow-y: scroll;
