@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import ReactMapGL, { Marker, NavigationControl, GeolocateControl } from "react-map-gl"
 import Directions from "./Directions"
 
@@ -10,32 +10,25 @@ export default function SingleMap(props) {
     top: 10,
   }
 
-  const [geo, setGeo] = useState([])
-
-    useEffect(() => {
-      setGeo([props.artWorks.location.lng, props.artWorks.location.lat])
-  },[width])
-
   const [viewport, setViewport] = useState({
     width: width,
     height:  height,
     zoom: 16,
+    latitude: props.artWorks.location.lat,
+    longitude: props.artWorks.location.lng,
   })
 
   return (
-    geo.length > 0 ?
     <ReactMapGL
       mapStyle="mapbox://styles/jawsjawsjaws/ckq7ymef20qlw18nwfxt7w4wk"
       mapboxApiAccessToken={process.env.MAPBOX_KEY}
       {...viewport}
       onViewportChange={(nextViewport) => setViewport(nextViewport)}
-      latitude={geo[1]}
-      longitude={geo[0]}
     >
       <GeolocateControl />
       <NavigationControl style={navControlStyle} />
       <Directions data={props.artWorks} />
-      <Marker longitude={geo[0]} latitude={geo[1]}>
+      <Marker longitude={props.artWorks.location.lng} latitude={props.artWorks.location.lat}>
           <div
           >
           <svg height={50} viewBox="0 0 24 24" style={{ transform: `translate(${-20 / 2}px,${-20}px)` }}>
@@ -48,6 +41,5 @@ C20.1,15.8,20.2,15.8,20.2,15.7z`}
           </div>
         </Marker>
       </ReactMapGL>
-    : null
   )
 }
