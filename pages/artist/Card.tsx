@@ -14,7 +14,6 @@ export default function Card(props) {
   const [clickedArt, setClickedArt] = useState({});
 
   useEffect(() => {
-    console.log(props.clickedWork)
     setClickedArt(props.clickedWork)
   }, [props.clickedWork])
 

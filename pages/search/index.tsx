@@ -26,6 +26,7 @@ function SearchResults({ page }) {
   const [gradientWidth, setGradientWidth] = useState(null)
 
   useEffect(() => {
+    console.log(artistCard.current.offsetWidth)
     setGradientWidth(artistCard.current.offsetWidth);
   }, [artistCard])
   return (
@@ -44,7 +45,7 @@ function SearchResults({ page }) {
 
         <SearchCard props={page} flex={2} />
         </div>
-        <GradientWrapper gradientWidth={gradientWidth}><Gradient /></GradientWrapper>
+        {gradientWidth !== null && <GradientWrapper gradientWidth={gradientWidth}><Gradient /></GradientWrapper>}
       </ContentList>
         : <div style={{width: '100%', textAlign: 'center'}}><span>No Results</span></div>}
     </ContentContainer>
