@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from "react";
-import dynamic from 'next/dynamic'
 import { NextSeo } from "next-seo";
 import styled from "styled-components"
 import groq from "groq";
@@ -7,8 +6,7 @@ import client from "../../client";
 import { useRouter } from "next/router";
 import imageUrlBuilder from "@sanity/image-url";
 import Layout from '../../Components/Layout';
-import SearchCard from "./SearchCard";
-import useWindowDimensions from "../../Utils/useWindowDimensions";
+import SearchCard from "../../Components/Content/SearchCard";
 import useMediaQuery from "../../Utils/useMediaQuery";
 
 const builder = imageUrlBuilder(client);
