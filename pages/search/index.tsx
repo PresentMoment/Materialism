@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React from "react";
 import { NextSeo } from "next-seo";
 import styled from "styled-components"
 import groq from "groq";
@@ -22,13 +22,7 @@ function SearchResults({ page }) {
   const router = useRouter();
   const isBreakPoint = useMediaQuery(425);
   const searchQuery = router.query.q as string;
-  const artistCard = useRef(null);
-  const [gradientWidth, setGradientWidth] = useState(null)
 
-  useEffect(() => {
-    console.log(artistCard.current.offsetWidth)
-    setGradientWidth(artistCard.current.offsetWidth);
-  }, [artistCard])
   return (
       <Layout>
         <NextSeo
@@ -41,11 +35,11 @@ function SearchResults({ page }) {
          
         {page.length > 0 ?
         <ContentList isBreakPoint={isBreakPoint}>
-        <div ref={el => { artistCard.current = el}} style={{width: '100%'}} >
+        <div style={{width: '100%'}} >
 
         <SearchCard props={page} flex={2} />
         </div>
-        {gradientWidth !== null && <GradientWrapper gradientWidth={gradientWidth}><Gradient /></GradientWrapper>}
+        <GradientWrapper gradientWidth={'93%'}><Gradient /></GradientWrapper>
       </ContentList>
         : <div style={{width: '100%', textAlign: 'center'}}><span>No Results</span></div>}
     </ContentContainer>
@@ -72,9 +66,9 @@ overflow-y: scroll;
 position: relative;
 `
 
-const GradientWrapper = styled.div<{gradientWidth: number}>`
+const GradientWrapper = styled.div<{gradientWidth: string}>`
 height: 100px;
-width: ${(p) => p.gradientWidth}px;
+width: ${(p) => p.gradientWidth};
 position: absolute;
 margin-left: auto;
 margin-right: auto;
