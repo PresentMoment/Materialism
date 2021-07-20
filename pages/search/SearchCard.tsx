@@ -6,11 +6,13 @@ import useMediaQuery from '../../Utils/useMediaQuery'
 import client from '../../client'
 
 const builder = imageUrlBuilder(client);
+
+
 export default function SearchCard(props) {
   const isBreakPoint = useMediaQuery(768);
   const is425 = useMediaQuery(425);
   const is950 = useMediaQuery(950);
-
+  
   return (
     <>
     <Wrapper isBreakPoint={isBreakPoint}>

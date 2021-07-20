@@ -19,13 +19,8 @@ const pageQuery = groq`
   "mainImage": image.asset->
   }`;
 
-const Map = dynamic(() => import("../../Components/Content/Map"), {
-  loading: () => <p>Loading...</p>,
-  ssr: false
-});
 
-function SearchResults({ config, page }) {
-  const { height, width } = useWindowDimensions();
+function SearchResults({ page }) {
   const router = useRouter();
   const isBreakPoint = useMediaQuery(425);
   const searchQuery = router.query.q as string;
@@ -34,8 +29,7 @@ function SearchResults({ config, page }) {
 
   useEffect(() => {
     setGradientWidth(artistCard.current.offsetWidth);
-  }, [artistCard, gradientWidth])
-
+  }, [artistCard])
   return (
       <Layout>
         <NextSeo
