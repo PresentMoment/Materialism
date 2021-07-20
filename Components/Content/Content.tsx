@@ -42,7 +42,7 @@ export default function Content(props) {
       props.view == 'list' ?
       <ContentList isBreakPoint={isBreakPoint}>
         <div ref={el => { artistCard.current = el}} style={{width: '100%'}} >
-        <ArtistCard props={artWorks} clickedWork={clickedWork} />
+        <ArtistCard artWorks={artWorks} clickedWork={clickedWork} />
         </div>
       <GradientWrapper gradientWidth={gradientWidth} isMobile={isMobile}><Gradient isMobile={isMobile} /></GradientWrapper>
       </ContentList>
@@ -55,7 +55,7 @@ export default function Content(props) {
       <>
       <ContentList isBreakPoint={isBreakPoint}>
         <div ref={el => { artistCard.current = el}} style={{width: '100%'}} >
-        <ArtistCard props={artWorks} clickedWork={clickedWork} />
+        <ArtistCard artWorks={artWorks} clickedWork={clickedWork} />
         </div>
       <GradientWrapper gradientWidth={gradientWidth} isMobile={isMobile}><Gradient isMobile={isMobile} /></GradientWrapper>
       </ContentList>

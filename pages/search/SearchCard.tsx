@@ -6,27 +6,26 @@ import useMediaQuery from '../../Utils/useMediaQuery'
 import client from '../../client'
 
 const builder = imageUrlBuilder(client);
-export default function ArtistCard(props) {
+export default function SearchCard(props) {
   const isBreakPoint = useMediaQuery(768);
   const is425 = useMediaQuery(425);
   const is950 = useMediaQuery(950);
-
-  const clickRef = useRef<HTMLDivElement>(null);
+  const [artWorks, setArtWorks] = useState(props.props);
 
   useEffect(() => {
-    clickRef.current !== null && clickRef.current.scrollIntoView();
-  }, [props.clickedWork, clickRef])
+    setArtWorks(props.props)
+  }, [props.props])
   return (
     <>
     <Wrapper isBreakPoint={isBreakPoint}>
       <List is425={is425}>
       {
-      props.artWorks.map((artwork)=> {
+      artWorks.map((artwork)=> {
         return(
-          <div key={artwork._id} ref={props.clickedWork[0] && props.clickedWork[0]._id == artwork._id ? clickRef : null}>
+          <div key={artwork._id}>
             <Link href={{ pathname: '/artwork/' + artwork.slug.current}}>
               <a>
-            <InfoWrapper clickedWork={props.clickedWork[0]} artwork={artwork}>
+            <InfoWrapper>
             <ArtistInfo isBreakPoint={isBreakPoint} is950={is950} key={artwork._id}>
             <span>{artwork.artist.name && artwork.artist.name || artwork.name && artwork.name}</span>
             <span>{artwork.title}</span>
@@ -80,18 +79,7 @@ width: 100%;
 padding-top:${(p) => p.is425 ? `30px` : `0`};
 `
 
-type clickedWork = {
-  _id: string;
-}
-
-type artwork = {
-  _id: string
-}
-
-const InfoWrapper = styled.div<{clickedWork, artwork}>`
-background-color:${(p) => p.clickedWork && p.clickedWork._id == p.artwork._id ?  `#e6e6e6` : `transparent`};
-border-bottom: ${(p) => p.clickedWork && p.clickedWork._id == p.artwork._id ? `3px solid #919191` : `none`};
-font-weight: ${(p) => p.clickedWork && p.clickedWork._id == p.artwork._id ? `700` : `500`};
+const InfoWrapper = styled.div`
 display: flex;
 flex-direction: row;
 max-height: 100px;

@@ -7,7 +7,7 @@ import client from "../../client";
 import { useRouter } from "next/router";
 import imageUrlBuilder from "@sanity/image-url";
 import Layout from '../../Components/Layout';
-import ArtistCard from "../../Components/Content/ArtistCard";
+import SearchCard from "./SearchCard";
 import useWindowDimensions from "../../Utils/useWindowDimensions";
 import useMediaQuery from "../../Utils/useMediaQuery";
 
@@ -50,7 +50,7 @@ function SearchResults({ config, page }) {
         <ContentList isBreakPoint={isBreakPoint}>
         <div ref={el => { artistCard.current = el}} style={{width: '100%'}} >
 
-        <ArtistCard props={page} flex={2} />
+        <SearchCard props={page} flex={2} />
         </div>
         <GradientWrapper gradientWidth={gradientWidth}><Gradient /></GradientWrapper>
       </ContentList>
