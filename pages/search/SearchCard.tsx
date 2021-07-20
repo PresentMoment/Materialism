@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef } from 'react'
+import React from 'react'
 import styled from "styled-components"
 import Link from "next/link";
 import imageUrlBuilder from "@sanity/image-url";
@@ -10,17 +10,13 @@ export default function SearchCard(props) {
   const isBreakPoint = useMediaQuery(768);
   const is425 = useMediaQuery(425);
   const is950 = useMediaQuery(950);
-  const [artWorks, setArtWorks] = useState(props.props);
 
-  useEffect(() => {
-    setArtWorks(props.props)
-  }, [props.props])
   return (
     <>
     <Wrapper isBreakPoint={isBreakPoint}>
       <List is425={is425}>
       {
-      artWorks.map((artwork)=> {
+      props.props.map((artwork)=> {
         return(
           <div key={artwork._id}>
             <Link href={{ pathname: '/artwork/' + artwork.slug.current}}>
