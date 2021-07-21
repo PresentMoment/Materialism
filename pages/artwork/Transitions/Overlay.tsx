@@ -13,7 +13,7 @@ export default function Overlay(props) {
     zIndex: 0,
     position: 'absolute',
     width: '100%',
-    maxHeight: `${props.height - 58}px`,
+    maxHeight: `${props.height}px`,
     cursor: 'pointer'
   }
 

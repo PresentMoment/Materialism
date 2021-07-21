@@ -5,6 +5,7 @@ export default function Directions(props) {
   const lat = props.data.location.lat;
   const lng = props.data.location.lng;
   const [isFetching, setIsFetching] = useState(false);
+  const [locError, setLocError] = useState(false);
 
   const fetchUserLocation = () => {
     setIsFetching(true)
@@ -14,7 +15,8 @@ export default function Directions(props) {
     });
   }
   function locationError(err){
-    console.log([`Location service not available in this browser`, '(try viewing Materialism in Chrome or Safari)'])
+    setLocError(true);
+    console.log('Location service not available in this browser (try viewing Materialism in Chrome or Safari)')
   }
   
     function showPosition(position) {
@@ -28,10 +30,11 @@ export default function Directions(props) {
   }
   return (
     <Container onClick={handleClick}>
-      {/* <a target="_blank"  */}
-    {/* href={`https://www.google.com/maps/dir/?api=1&destination=${lat}%2C${lng}${userlocation[0] !== undefined ? `&origin=${userlocation[0]}%2C${userlocation[1]}` : ''}`} rel="noopener noreferrer"> */}
-    <span>{!isFetching ? 'Directions' : 'Fetching location...map will open in new window'}</span>
-    {/* </a> */}
+    {locError ? <span>Location service not available in this browser (try viewing Materialism in Chrome or Safari)</span>
+  :
+  <span>{!isFetching ? 'Directions' : 'Fetching location...map will open in new window'}</span>
+  }
+
     </Container>
   )
 }
