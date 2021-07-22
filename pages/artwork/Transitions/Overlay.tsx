@@ -6,7 +6,7 @@ export default function Overlay(props) {
   const fullImg = props.fullImg
 
   const overlayStyle = {
-    transition: `all ${1000}ms ease-in-out`,
+    transition: `opacity ${1000}ms ease-in-out, height ${1000}ms ease-in-out`,
     height: '100%',
     backgroundColor: 'black',
     opacity: 0,

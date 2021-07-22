@@ -40,7 +40,7 @@ function Artist({ config, data }) {
   return (
     <Layout>
       <NextSeo
-        title={data[0].artist}
+        title={data[0].artist + ' - Materialism'}
         description="Materialism - art within reach"
       />
         <ArtistHeader><span>Pieces by {data[0].artist}</span></ArtistHeader>

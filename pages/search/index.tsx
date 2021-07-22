@@ -28,9 +28,10 @@ function SearchResults({ page }) {
         <NextSeo
         title={searchQuery && searchQuery.split(' ')
         .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-        .join(' ')}
+        .join(' ') + ' - Materialism'}
         description="Materialism - art within reach"
       />
+      <ResultsHeader><span>Results for <span style={{fontStyle: 'italic'}}>{router.query.q}</span></span></ResultsHeader>
          <ContentContainer isBreakPoint={isBreakPoint}>
          
         {page.length > 0 ?
@@ -82,6 +83,15 @@ position: fixed;
 z-index: 9;
 background-color: rgba(255,255,255,0);
 background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
+`
+
+const ResultsHeader = styled.div`
+display: flex;
+width: 100%;
+justify-content: center;
+text-align: center;
+font-size: 2em;
+padding-top: 10px;
 `
 
 SearchResults.getInitialProps = async (context) => {
