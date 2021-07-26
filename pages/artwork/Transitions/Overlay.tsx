@@ -6,10 +6,11 @@ export default function Overlay(props) {
   const fullImg = props.fullImg
 
   const overlayStyle = {
-    transition: `all 1000ms cubic-bezier(0.47, 0, 0.75, 0.72)`,
+    transition: `height 1000ms cubic-bezier(0.47, 0, 0.75, 0.72), opacity 1000ms ease`,
+    height: '100%',
+    backgroundColor: 'black',
     opacity: 0,
     zIndex: 0,
-    backgroundColor: 'black',
     position: 'absolute',
     width: '100%',
     maxHeight: `${props.height}px`,
