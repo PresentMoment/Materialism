@@ -7,7 +7,6 @@ export default function Overlay(props) {
 
   const overlayStyle = {
     transition: `all 1000ms cubic-bezier(0.47, 0, 0.75, 0.72)`,
-    height: '100%',
     opacity: 0,
     zIndex: 0,
     backgroundColor: 'black',

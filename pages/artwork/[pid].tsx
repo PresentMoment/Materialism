@@ -54,7 +54,7 @@ function Artwork({ config, data = {} }: ArtworkProps) {
 
   const handleExpand = () => {
     if (fullImg) {
-      setTimeout(() => {setHideMap(false)}, 800)
+      setTimeout(() => {setHideMap(false)}, 1000)
     } else {
       setTimeout(() => {setHideMap(true)}, 10)
     }
@@ -108,7 +108,7 @@ function Artwork({ config, data = {} }: ArtworkProps) {
         <div className={styles.fade} style={{
           backgroundColor: mainImage.metadata.palette.dominant.background,
           color: mainImage.metadata.palette.dominant.foreground }}>
-        <CSSTransition in={fullImg} timeout={600}>
+        <CSSTransition in={fullImg} timeout={1000}>
           {(state) => <Animation state={state} style={{
             backgroundImage: `url(${builder.image(data.image).auto("format").width(imgWidth).height(height).dpr(1).url()})`,
           }}>
