@@ -14,7 +14,7 @@ export default function Tagline(userlocation) {
   }, [userlocation])
 
   const tagStyle = {
-    transition: `font-size ${1000}ms ease-in-out`,
+    transition: `font-size ${1000}ms cubic-bezier(0.47, 0, 0.75, 0.72)`,
     fontSize: '3rem'
   };
   

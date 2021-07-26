@@ -16,7 +16,7 @@ export default function Directions(props) {
   }
   function locationError(err){
     setLocError(true);
-    console.log('Location service not available in this browser (try viewing Materialism in Chrome or Safari)')
+    console.log('Location service not available in this browser (try viewing Materialism in Chrome or Firefox)')
   }
   
     function showPosition(position) {
@@ -30,7 +30,7 @@ export default function Directions(props) {
   }
   return (
     <Container onClick={handleClick}>
-    {locError ? <span>Location service not available in this browser (try viewing Materialism in Chrome or Safari)</span>
+    {locError ? <span>Location service not available in this browser (try viewing Materialism in Chrome or Firefox)</span>
   :
   <span>{!isFetching ? 'Directions' : 'Fetching location...map will open in new window'}</span>
   }

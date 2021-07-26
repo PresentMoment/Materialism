@@ -79,7 +79,7 @@ type artwork = {
 const InfoContainer = styled.div<{clickedArt, artwork}>`
 background-color: ${(p) => p.clickedArt && p.clickedArt._id == p.artwork._id ? `#e6e6e6` : `transparent`};
 border-bottom: ${(p) => p.clickedArt && p.clickedArt._id == p.artwork._id ? `3px solid #919191` : `none`};
-font-weight: ${(p) => p.clickedArt && p.clickedArt._id == p.artwork._id ? `700` : `500`};
+font-weight: ${(p) => p.clickedArt && p.clickedArt._id == p.artwork._id ? `600` : `500`};
 display: flex;
 flex-direction: row;
 max-height: 100px;

@@ -11,6 +11,8 @@ function contact({data = {}}) {
       <span><a href="mailto:materialismnyc@gmail.com" target="_blank" rel="noopener noreferrer">materialismnyc@gmail.com</a></span>
       <div />
       <span><a href='https://www.instagram.com/materialism.nyc/' target="_blank" rel="noopener noreferrer">Instagram: @materialism.nyc</a></span>
+      <div />
+      <span><a href='https://www.are.na/robert-girardin/public-areas' target="_blank" rel="noopener noreferrer">our Are.na channel</a></span>  
         </ContactText>
       </Container>
     </Layout>

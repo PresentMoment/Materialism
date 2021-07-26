@@ -6,7 +6,7 @@ export default function Head(props) {
   const fullImg = props.fullImg
 
   const headerStyle = {
-    transition: `height ${1000}ms ease-in-out`,
+    transition: `height ${1000}ms cubic-bezier(0.47, 0, 0.75, 0.72)`,
     height: '58px',
     overflow: 'hidden'
   };

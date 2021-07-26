@@ -23,7 +23,7 @@ export default function Title() {
 
 
 const  TitleText =  styled('span')`
-font-family: 'EB Garamond', 'Raleway', serif;
+font-family: 'EB Garamond', 'CormorantGaramond', serif;
 font-size: 3em;
 font-style: italic;
 text-align: center;

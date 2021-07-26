@@ -7,7 +7,7 @@ export default function Text(props) {
 const fullImg = props.fullImg
 
   const textStyle = {
-    transition: `opacity ${1000}ms ease-in-out`,
+    transition: `opacity ${1000}ms cubic-bezier(0.47, 0, 0.75, 0.72)`,
     opacity: 1
   }
 
