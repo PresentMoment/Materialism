@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react'
 import styled from "styled-components"
 import Layout from '../../Components/Layout';
@@ -12,7 +13,9 @@ function contact({data = {}}) {
       <div />
       <span><a href='https://www.instagram.com/materialism.nyc/' target="_blank" rel="noopener noreferrer">Instagram: @materialism.nyc</a></span>
       <div />
-      <span><a href='https://www.are.na/robert-girardin/public-areas' target="_blank" rel="noopener noreferrer">our Are.na channel</a></span>  
+      <span><a href='https://www.are.na/robert-girardin/public-areas' target="_blank" rel="noopener noreferrer">our Are.na channel</a></span>
+      <Spacer />
+      <span>Want to suggest an artwork for Materialism?<div /><Link href={{ pathname: '/contact/form/'}}>Use our suggestion form</Link></span>
         </ContactText>
       </Container>
     </Layout>
@@ -33,5 +36,8 @@ width: 80vw;
 text-align: center;
 line-height: 4rem;
 `
+
+const Spacer = styled.div`
+height: 80px;`
 
 export default contact;

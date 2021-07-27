@@ -7,7 +7,7 @@ export default function Head(props) {
 
   const headerStyle = {
     transition: `height ${1000}ms cubic-bezier(0.47, 0, 0.75, 0.72)`,
-    height: '58px',
+    height: '63px',
     overflow: 'hidden'
   };
   
@@ -16,9 +16,9 @@ export default function Head(props) {
   },
     entered: { height: '0px',
   },
-    exiting: { height: '58px',
+    exiting: { height: '63px',
   },
-    exited: { height: '58px',
+    exited: { height: '63px',
   },
   };
 
