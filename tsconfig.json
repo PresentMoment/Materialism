@@ -24,7 +24,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "Components/Content/Map.jsx"  ],
+, "Components/Content/Map.jsx", "Components/Forms/SuggestForm.jsx"  ],
   "exclude": [
     "node_modules",
     "Utils/Distance.tsx"
