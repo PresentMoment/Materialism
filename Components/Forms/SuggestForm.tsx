@@ -1,10 +1,8 @@
-import { useRouter } from "next/router";
 import styled from "styled-components"
 
 import { useForm } from "../../Utils/useForm";
 
 export default function SuggestForm() {
-  const router = useRouter();
 
   const {
     handleSubmit,
@@ -18,11 +16,6 @@ export default function SuggestForm() {
   return (
     <section>
       <div>
-        {router.query.success == "true" ? (
-          <div>
-            <span>Submitted!</span>
-          </div>
-        ) : (
           <Container>
             <Heading>Is there an artwork you would like to see on Materialism?</Heading><div />
             <Sub>Please, let us know:</Sub>
@@ -30,12 +23,9 @@ export default function SuggestForm() {
             <Form
               onSubmit={handleSubmit}
               name="suggest"
-              method="POST"
-              content-type="application/x-www-form-urlencoded"
               data-netlify="true"
-              action="/suggestion?success=true"
             >
-              <Input type="hidden" name="form-name" value="suggest" />
+              <input type="hidden" name="form-name" value="suggest" />
                 <label>
                   <Input type="text" name="title" onChange={handleChange('title')} placeholder="Artwork Title (optional)" />
                 </label>
@@ -58,7 +48,6 @@ export default function SuggestForm() {
                 <Button type="submit">SUBMIT</Button>
             </Form>
           </Container>
-        )}
       </div>
     </section>
   );

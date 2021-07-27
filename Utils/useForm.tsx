@@ -1,9 +1,12 @@
 import { useState } from 'react'
+import { useRouter } from "next/router";
 
 export const useForm = (options) => {
 
   const [data, setData] = useState(options?.initialValues || {});
   const [errors, setErrors] = useState({});
+
+  const router = useRouter();
 
   const handleChange = (
     key,
@@ -24,8 +27,8 @@ export const useForm = (options) => {
       method: 'POST',
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams(data).toString()
-    }).then(() => console.log('Form successfully submitted')).catch((error) =>
-      alert(error))
+    }).then(() => router.push('/thankyou')).catch((error) =>
+      console.log(error))
   };
 
   return {
