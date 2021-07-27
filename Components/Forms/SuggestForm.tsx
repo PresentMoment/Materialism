@@ -1,17 +1,6 @@
 import styled from "styled-components"
 
-import { useForm } from "../../Utils/useForm";
-
 export default function SuggestForm() {
-
-  const {
-    handleSubmit,
-    handleChange,
-    data,
-    errors,
-  } = useForm({
-    onSubmit: () => console.log('submitted')
-  });
 
   return (
     <section>
@@ -21,29 +10,31 @@ export default function SuggestForm() {
             <Sub>Please, let us know:</Sub>
             <Spacer />
             <Form
-              onSubmit={handleSubmit}
+              method="POST"
+              content-type="application/x-www-form-urlencoded"
               name="suggest"
               data-netlify="true"
+              action="/contact/thankyou"
             >
               <input type="hidden" name="form-name" value="suggest" />
                 <label>
-                  <Input type="text" name="title" onChange={handleChange('title')} placeholder="Artwork Title (optional)" />
+                  <Input type="text" name="title" placeholder="Artwork Title (optional)" />
                 </label>
               <Sub>Enter an address for the work; or paste in a Google Maps link to the work:</Sub>
               <label>
-                <Input type="text" name="address" onChange={handleChange('address')} placeholder="Address" />
+                <Input type="text" name="address" placeholder="Address" />
               </label>
               <label>
-                <Input type="url" name="map-link" onChange={handleChange('map-link')} placeholder="Google Maps Link" />
+                <Input type="url" name="map-link" placeholder="Google Maps Link" />
               </label>
                 <label>
-                  <Input type="name" name="name" onChange={handleChange('name')} placeholder="Your Name (optional)" />
+                  <Input type="name" name="name" placeholder="Your Name (optional)" />
                 </label>
                 <label>
-                  <Input type="email" name="email" onChange={handleChange('email')} placeholder="Your Email (optional)" />
+                  <Input type="email" name="email" placeholder="Your Email (optional)" />
                 </label>
                 <label>
-                  <Comments type="text" name="comments" onChange={handleChange('comments')} placeholder="Anything else you would like to say" />
+                  <Comments type="text" name="comments" placeholder="Anything else you would like to say" />
                 </label>
                 <Button type="submit">SUBMIT</Button>
             </Form>
