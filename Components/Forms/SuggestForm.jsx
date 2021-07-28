@@ -46,11 +46,8 @@ export default function SuggestForm() {
             <Form
               id="suggest"
               onSubmit={handleSubmit}
-              // method="POST"
-              // content-type="application/x-www-form-urlencoded"
               name="suggest"
               data-netlify="true"
-              // action="/contact/thankyou"
             >
               <input type="hidden" name="form-name" value="suggest" />
                 <label>

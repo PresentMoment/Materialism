@@ -17,7 +17,6 @@ const pageQuery = groq`
 
 
 export default function Home(props) {
-  //let artWorks = props.props
 
   const [artWorks, setArtworks] = useState(props.props)
   const [userlocation, setUserLocation] = useState([undefined, undefined])

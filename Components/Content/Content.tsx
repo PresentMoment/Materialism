@@ -104,9 +104,6 @@ position: absolute;
 margin-left: auto;
 margin-right: auto;
 bottom: 0;
-//left: 0;
-//right: 0;
-//top: 41.5%;
 z-index: 9;
 `
 const Gradient = styled.div<{isMobile: boolean}>`

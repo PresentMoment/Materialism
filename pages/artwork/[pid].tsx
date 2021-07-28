@@ -193,10 +193,6 @@ export async function getStaticPaths() {
 export default Artwork;
 
 const Animation = styled.div<{state: string}>`
-// -webkit-transform: translate3d(0, 0, 0);
-// transform: translate3d(0, 0, 0);
-// -webkit-transform-style: preserve-3d;
-// transform-style: preserve-3d;
 background-position: 0% 0%;
 background-repeat: no-repeat;
 background-attachment: fixed;
