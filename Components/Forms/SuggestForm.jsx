@@ -140,6 +140,7 @@ height: 10px;
 const Heading = styled.span`
 font-size: 1.8rem;
 padding-bottom: 14px;
+text-align: center;
 `
 
 const Sub = styled.span`
