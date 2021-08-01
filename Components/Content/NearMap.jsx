@@ -1,9 +1,16 @@
 import { useState, useEffect } from "react"
-import ReactMapGL, { Marker, NavigationControl, FlyToInterpolator } from "react-map-gl"
+import Link from "next/link";
+import ReactMapGL, { Marker, NavigationControl, Popup, FlyToInterpolator } from "react-map-gl"
+import imageUrlBuilder from "@sanity/image-url";
+import client from '../../client'
 
-export default function Map(props) {
+export default function NearMap(props) {
+  const width  = props.width;
+  const height = props.height;
+  const zoom = props.zoom;
   const artWorks = props.artWorks;
-  const userlocation = props.userlocation
+  const userlocation = props.userlocation;
+  const builder = imageUrlBuilder(client);
 
   const navControlStyle = {
     right: 10,
@@ -11,30 +18,28 @@ export default function Map(props) {
   }
 
   useEffect(() => {
-    if (userlocation && userlocation[0] !== undefined) { setViewport({ ...viewport, height: '100%', latitude: userlocation[0], longitude: userlocation[1], zoom: 15 }) }
-    else {
       setViewport({
         ...viewport,
         latitude: artWorks.length < 2 ? artWorks[0].location.lat
           : ((artWorks[0].location.lat + artWorks[1].location.lat) / 2),
         longitude: artWorks.length < 2 ? artWorks[0].location.lng
           : ((artWorks[0].location.lng + artWorks[1].location.lng) / 2),
-        zoom: artWorks.length < 2 ? 17 : 12
+        zoom: zoom
       })
-    }
     return () => {setViewport({...viewport})}
   }
     , [userlocation]);
 
   const [viewport, setViewport] = useState({
-    width: "100%",
-    height: "100%",
-    zoom: 15,
+    width: width,
+    height: height,
+    zoom: zoom,
     latitude: artWorks[0].location.lat,
     longitude: artWorks[0].location.lng,
   })
 
-  const [markerClicked, setMarkerClicked] = useState(null)
+  const [markerClicked, setMarkerClicked] = useState(false);
+  const [popUpGeo, setPopUpGeo] = useState([]);
 
   const populateMarkers = Object.entries(artWorks).map(artwork => {
     return (
@@ -43,16 +48,17 @@ export default function Map(props) {
         latitude={artwork[1].location.lat}
         key={artwork[1]._id}
         onClick={() => {
+          setPopUpGeo([artwork[1].location.lng, artwork[1].location.lat, artwork[1].image, artwork[1].title, artwork[1].slug.current]),
           props.passIDtoContent(artwork[1]._id),
-          setMarkerClicked(artwork[1]._id)
+          setMarkerClicked(true)
             setViewport({
               ...viewport, latitude: artwork[1].location.lat, longitude: artwork[1].location.lng,
-              zoom: 17,
+              zoom: 16,
               transitionDuration: 300,
               transitionInerpolator: new FlyToInterpolator({ speed: 1.2 })
             })
         }}>
-          <svg height={artwork[1]._id && artwork[1]._id == markerClicked ? 50 : 20} viewBox="0 0 24 26" style={{ 
+          <svg height={20} viewBox="0 0 24 26" style={{ 
           transform: `translate(${-20 / 2}px,${-20}px)`, overflow: 'visible' }}>
             <path style={{fill: 'black',
               stroke: '#a3a3a3',
@@ -76,6 +82,20 @@ C                 20.1,15.8,20.2,15.8,20.2,15.7z`}
     >
       <NavigationControl style={navControlStyle} />
       {populateMarkers}
+      {markerClicked && <Popup latitude={popUpGeo[1]} longitude={popUpGeo[0]}
+        closeOnClick={false}
+        onClose={() => setMarkerClicked(false)}
+        anchor="top">
+        <div style={{ maxWidth: '150px', paddingTop: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Link href={{ pathname: '/artwork/' + popUpGeo[4] }}>
+            <a>
+              <img
+                src={builder.image(popUpGeo[2]).auto("format").width(140).height(140).url()}
+                alt={""}
+              /><div style={{ fontSize: '13px', textAlign: 'center' }}><span>{popUpGeo[3]}</span></div>
+            </a></Link>
+        </div>
+      </Popup>}
     </ReactMapGL>
   )
 }
