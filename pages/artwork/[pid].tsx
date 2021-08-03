@@ -69,6 +69,23 @@ function Artwork({ config, data = {} }: ArtworkProps) {
   const [isCopied, setIsCopied] = useState(false);
   const [nearWorks, setNearWorks] = useState([]);
   const [fetching, setFetching] = useState(false);
+  const [image, setImage] = useState("");
+
+  function useScreenOrientation() {
+    if (process.browser){
+      const [orientation, setOrientation] = useState(window.orientation);
+      
+      useEffect(() => {
+        const handleOrientationChange= () => setOrientation(window.orientation);
+        window.addEventListener('orientationchange', handleOrientationChange);
+        return () => window.removeEventListener('orientationchange', handleOrientationChange);
+      }, []);
+      
+      return orientation;
+    }
+  }
+
+  const orient = useScreenOrientation();
   
   const handleExpand = () => {
     if (fullImg) {
@@ -108,12 +125,19 @@ function Artwork({ config, data = {} }: ArtworkProps) {
     } else {return}
   }
 
+  
   useEffect(() => {
+    let agent = navigator.userAgent;
+    var isDesktop = /Linux/i.test(agent)
+    setImage(`url(${builder.image(data.image).auto("format").width(imgWidth).height(height).dpr(1).url()})`)
+    if ((window.orientation == 90 || window.orientation == -90) && !isDesktop ){
+      setImage(`url(${builder.image(data.image).auto("format").width(imgWidth).height(height).dpr(1).url()})`)
+    }
     if (window !== undefined){
       setImgWidth(window.innerWidth );
       setHeight(window.innerHeight);
     }
-  }, [])
+  }, [imgWidth, height, orient])
 
 
   return (
@@ -151,7 +175,7 @@ function Artwork({ config, data = {} }: ArtworkProps) {
           color: mainImage.metadata.palette.dominant.foreground }}>
         <CSSTransition in={fullImg} timeout={1000}>
           {(state) => <Animation state={state} style={{
-            backgroundImage: `url(${builder.image(data.image).auto("format").width(imgWidth).height(height).dpr(1).url()})`,
+            backgroundImage: `${image}`,
           }}>
             
           <TextContainer>
