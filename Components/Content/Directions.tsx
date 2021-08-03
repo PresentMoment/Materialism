@@ -10,7 +10,9 @@ export default function Directions(props) {
   const fetchUserLocation = () => {
     setIsFetching(true)
     const options = {timeout: 7000}
-    navigator.geolocation.getCurrentPosition(showPosition, locationError, options);
+    return new Promise(() => {
+      navigator.geolocation.getCurrentPosition(showPosition, locationError, options);
+    });
   }
   function locationError(err){
     setLocError(true);
@@ -19,7 +21,7 @@ export default function Directions(props) {
   
     function showPosition(position) {
       setIsFetching(false)
-      var win = window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat}%2C${lng}&origin=${position.coords.latitude}%2C${position.coords.longitude}`, '_blank');
+      var win = window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat}%2C${lng}&origin=${position.coords.latitude}%2C${position.coords.longitude}`, '_blank', "modal=yes");
       win.focus();
     }
 
