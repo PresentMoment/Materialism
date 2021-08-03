@@ -70,6 +70,11 @@ function Artwork({ config, data = {} }: ArtworkProps) {
   const [nearWorks, setNearWorks] = useState([]);
   const [fetching, setFetching] = useState(false);
   const [image, setImage] = useState("");
+  const [ popClicked, setPopClicked] = useState(0);
+
+  const popUpClick = () => {
+    setPopClicked(popClicked + 1)
+  }
 
   function useScreenOrientation() {
     if (process.browser){
@@ -127,6 +132,7 @@ function Artwork({ config, data = {} }: ArtworkProps) {
 
   
   useEffect(() => {
+    console.log(router)
     let agent = navigator.userAgent;
     var isDesktop = /Linux/i.test(agent)
     setImage(`url(${builder.image(data.image).auto("format").width(imgWidth).height(height).dpr(1).url()})`)
@@ -137,7 +143,7 @@ function Artwork({ config, data = {} }: ArtworkProps) {
       setImgWidth(window.innerWidth );
       setHeight(window.innerHeight);
     }
-  }, [imgWidth, height, orient])
+  }, [imgWidth, height, orient, popClicked, router.asPath])
 
 
   return (
@@ -200,7 +206,7 @@ function Artwork({ config, data = {} }: ArtworkProps) {
           nearWorks.length < 1 ?
           <SingleMap artWorks={data} width={width} height={width > 425 ? `42vh` : 220} />
           :
-          <NearMap artWorks={nearWorks} width={width} height={width > 425 ? `42vh` : 220}
+          <NearMap popUpClick={popUpClick} artWorks={nearWorks} width={width} height={width > 425 ? `42vh` : 220}
             zoom={15}
           />
         }

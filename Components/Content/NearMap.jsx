@@ -49,7 +49,7 @@ export default function NearMap(props) {
         key={artwork[1]._id}
         onClick={() => {
           setPopUpGeo([artwork[1].location.lng, artwork[1].location.lat, artwork[1].image, artwork[1].title, artwork[1].slug.current]),
-          setMarkerClicked(true)
+          setMarkerClicked(true);
             setViewport({
               ...viewport, latitude: artwork[1].location.lat, longitude: artwork[1].location.lng,
               zoom: 16,
