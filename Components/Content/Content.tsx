@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import styled from "styled-components"
+
 import ArtistCard from './ArtistCard';
 import useMediaQuery from '../../Utils/useMediaQuery'
 
@@ -19,15 +20,25 @@ export default function Content(props) {
   const isBreakPoint = useMediaQuery(625)
   const isMobile = useMediaQuery(425);
   const artistCard = useRef(null);
+  const contentList = useRef(null);
   const [gradientWidth, setGradientWidth] = useState(null)
   const [findLocale, setFindLocale] = useState(true)
   const [clickedWork, setClickedWork] = useState([])
+  const [scrollBottom, setScrollBottom] = useState(false)
 
   const clickedPopUp = (artworkID) => {
     var res = artWorks.filter(obj => {
       return obj._id === artworkID
     })
     setClickedWork(res)
+  }
+
+  const handleScroll = () => {
+    if (contentList.current.scrollHeight - contentList.current.scrollTop < 1200){
+      setScrollBottom(true)
+    } else if (contentList.current.scrollHeight - contentList.current.scrollTop > 1200){
+      setScrollBottom(false)
+    }
   }
 
   useEffect(() => {
@@ -40,11 +51,17 @@ export default function Content(props) {
     <ContentContainer isBreakPoint={isBreakPoint} findLocale={findLocale}>
       {isBreakPoint ?
       props.view == 'list' ?
-      <ContentList isBreakPoint={isBreakPoint}>
-        <div ref={el => { artistCard.current = el}} style={{width: '100%'}} >
+      <ContentList 
+        isBreakPoint={isBreakPoint} 
+        onScroll={handleScroll}
+        ref={el => { contentList.current = el}}
+        >
+        <div ref={el => { artistCard.current = el}} style={{width: '100%'}}>
         <ArtistCard artWorks={artWorks} clickedWork={clickedWork} />
         </div>
+      {!scrollBottom ?
       <GradientWrapper gradientWidth={gradientWidth} isMobile={isMobile}><Gradient isMobile={isMobile} /></GradientWrapper>
+      : null}
       </ContentList>
       :
       props.view == 'map' &&
@@ -53,12 +70,18 @@ export default function Content(props) {
       </MapWrapper>
       :
       <>
-      <ContentList isBreakPoint={isBreakPoint}>
+      <ContentList 
+        isBreakPoint={isBreakPoint} 
+        onScroll={handleScroll}
+        ref={el => { contentList.current = el}}
+        >
         <div ref={el => { artistCard.current = el}} style={{width: '100%'}} >
         <ArtistCard artWorks={artWorks} clickedWork={clickedWork} />
         </div>
-      <GradientWrapper gradientWidth={gradientWidth} isMobile={isMobile}><Gradient isMobile={isMobile} /></GradientWrapper>
-      </ContentList>
+        {!scrollBottom ?
+        <GradientWrapper gradientWidth={gradientWidth} isMobile={isMobile}><Gradient isMobile={isMobile} /></GradientWrapper>
+        : null}
+        </ContentList>
       <MapWrapper isBreakPoint={isBreakPoint} isMobile={isMobile}>
         <Map artWorks={artWorks} userlocation={props.userlocation} passIDtoContent={clickedPopUp} />
       </MapWrapper>
@@ -98,7 +121,7 @@ width: ${(p) => p.isMobile ? `97.5%` : `100%`};
 `
 
 const GradientWrapper = styled.div<{gradientWidth: number, isMobile: boolean}>`
-height: ${(p) => p.isMobile ? '50px' : '100px'};
+height: ${(p) => p.isMobile ? '50px' : '99px'};
 width: ${(p) => p.gradientWidth}px;
 position: absolute;
 margin-left: auto;
