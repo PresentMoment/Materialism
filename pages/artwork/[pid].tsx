@@ -10,6 +10,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { NextSeo } from "next-seo";
 import styled from "styled-components"
 
+import { useAppContext } from '../../Utils/state'
 import Distance from '../../Utils/Distance';
 import styles from './[pid].module.css'
 import Header from "../../Components/Header/Header";
@@ -54,6 +55,7 @@ type ArtworkProps = {
 
 
 function Artwork({ config, data = {} }: ArtworkProps) {
+  const artContext = useAppContext();
   
   const { width } = useWindowDimensions();
   const router = useRouter();
@@ -67,14 +69,6 @@ function Artwork({ config, data = {} }: ArtworkProps) {
   const [isCopied, setIsCopied] = useState(false);
   const [nearWorks, setNearWorks] = useState([]);
   const [fetching, setFetching] = useState(false);
-  const [clickedWork, setClickedWork] = useState([])
-
-  const clickedPopUp = (artworkID) => {
-    var res = nearWorks.filter(obj => {
-      return obj._id === artworkID
-    })
-    setClickedWork(res)
-  }
   
   const handleExpand = () => {
     if (fullImg) {
@@ -97,7 +91,15 @@ function Artwork({ config, data = {} }: ArtworkProps) {
     }));
     setFetching(false);
     };
-    query();
+    if (artContext.works.length > 0){
+      const sortedNearBy = Distance([data.location.lat, data.location.lng], artContext.works);
+      setNearWorks(sortedNearBy.filter(obj => {
+        return obj.distance < 0.5
+      }));
+      setFetching(false);
+    } else {
+      query();
+    }
   }
 
   const handleDivClick = () => {
@@ -115,7 +117,7 @@ function Artwork({ config, data = {} }: ArtworkProps) {
 
 
   return (
-  <>
+      <>
     <NextSeo
       title={data.title + " by " + data.artist}
       description="Materialism - art within reach"
@@ -139,7 +141,6 @@ function Artwork({ config, data = {} }: ArtworkProps) {
         cardType: "summary_large_image",
       }}
     />
-
     <Head fullImg={fullImg}>
       <Header paddingBottom={0} />
         </Head>
@@ -177,7 +178,6 @@ function Artwork({ config, data = {} }: ArtworkProps) {
           :
           <NearMap artWorks={nearWorks} width={width} height={width > 425 ? `42vh` : 220}
             zoom={15}
-            passIDtoContent={clickedPopUp} 
           />
         }
         <LineBreak paddingBottom={0}/>
@@ -223,7 +223,7 @@ function Artwork({ config, data = {} }: ArtworkProps) {
         </ExpandWrapper>
         </div>
         </div>
-      </>
+        </>
   );
 }
 

@@ -1,9 +1,18 @@
 import { AppProps } from 'next/app'
+import { useState, useEffect } from 'react'
 import NextNprogress from 'nextjs-progressbar';
+
+import { AppWrapper } from '../Utils/state'
+import { WorksProvider } from '../Utils/worksContext';
 import HeadPreloads from '../Components/HeadPreloads'
 import '../styles/globals.css'
 
+
 function Materialism({ Component, pageProps }: AppProps) {
+  const [artData, setArtData] = useState([]);
+  useEffect(() => {
+      pageProps.props && setArtData(pageProps.props)
+  }, [])
   return <><style jsx global>{`
   #__next {
     height: 100vh;
@@ -19,7 +28,10 @@ function Materialism({ Component, pageProps }: AppProps) {
           height={3}
           showOnShallow={true}
         />
-<Component {...pageProps} /></>
+        <AppWrapper works={artData}>
+            <Component {...pageProps} />
+        </AppWrapper>
+        </>
 }
 
-export default Materialism
+export default Materialism;
