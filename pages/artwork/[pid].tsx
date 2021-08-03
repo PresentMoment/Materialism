@@ -10,6 +10,8 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { NextSeo } from "next-seo";
 import styled from "styled-components"
 
+import { useAppContext } from '../../Utils/state'
+import Distance from '../../Utils/Distance';
 import styles from './[pid].module.css'
 import Header from "../../Components/Header/Header";
 import { LineBreak } from "../../Components/Layout/LineBreak";
@@ -29,7 +31,18 @@ const pageQuery = groq`
   "mainImage": image.asset->
 }`;
 
+const nearQuery = groq`
+*[_type == 'artwork']{...,
+ artist->{name},
+}`
+
+
 const SingleMap = dynamic(() => import("../../Components/Content/SingleMap"), {
+  loading: () => <p>Loading...</p>,
+  ssr: false
+});
+
+const NearMap = dynamic(() => import("../../Components/Content/NearMap"), {
   loading: () => <p>Loading...</p>,
   ssr: false
 });
@@ -39,24 +52,53 @@ type ArtworkProps = {
   data: any
 }
 
-function Artwork({ config, data = {} }: ArtworkProps) {
 
+
+function Artwork({ config, data = {} }: ArtworkProps) {
+  const artContext = useAppContext();
+  
   const { width } = useWindowDimensions();
   const router = useRouter();
   const mainImage = data.mainImage
-
+  
   const [fullImg, setFullImg] = useState(false)
   const [height, setHeight] = useState(0)
   const [imgWidth, setImgWidth] = useState(0);
   const [hideMap, setHideMap] = useState(false)
   const [showShare, setShare] = useState(false)
   const [isCopied, setIsCopied] = useState(false);
-
+  const [nearWorks, setNearWorks] = useState([]);
+  const [fetching, setFetching] = useState(false);
+  
   const handleExpand = () => {
     if (fullImg) {
       setTimeout(() => {setHideMap(false)}, 1000)
     } else {
       setTimeout(() => {setHideMap(true)}, 10)
+    }
+  }
+  
+  const nearBy = () => {
+    setFetching(true);
+    let result;
+    const query = async () => {
+    const res = await client.fetch(nearQuery);
+    const json = await res;
+    result = json;
+    const sortedNearBy = Distance([data.location.lat, data.location.lng], result);
+    setNearWorks(sortedNearBy.filter(obj => {
+      return obj.distance < 0.5
+    }));
+    setFetching(false);
+    };
+    if (artContext.works.length > 0){
+      const sortedNearBy = Distance([data.location.lat, data.location.lng], artContext.works);
+      setNearWorks(sortedNearBy.filter(obj => {
+        return obj.distance < 0.5
+      }));
+      setFetching(false);
+    } else {
+      query();
     }
   }
 
@@ -75,7 +117,7 @@ function Artwork({ config, data = {} }: ArtworkProps) {
 
 
   return (
-  <>
+      <>
     <NextSeo
       title={data.title + " by " + data.artist}
       description="Materialism - art within reach"
@@ -99,7 +141,6 @@ function Artwork({ config, data = {} }: ArtworkProps) {
         cardType: "summary_large_image",
       }}
     />
-
     <Head fullImg={fullImg}>
       <Header paddingBottom={0} />
         </Head>
@@ -131,7 +172,14 @@ function Artwork({ config, data = {} }: ArtworkProps) {
           </div>
         <>
         <LineBreak paddingBottom={0} />
-        <SingleMap artWorks={data} width={width} height={width > 425 ? `42vh` : 220} />
+        {
+          nearWorks.length < 1 ?
+          <SingleMap artWorks={data} width={width} height={width > 425 ? `42vh` : 220} />
+          :
+          <NearMap artWorks={nearWorks} width={width} height={width > 425 ? `42vh` : 220}
+            zoom={15}
+          />
+        }
         <LineBreak paddingBottom={0}/>
         </>
         {/* } */}
@@ -140,7 +188,7 @@ function Artwork({ config, data = {} }: ArtworkProps) {
 
         <svg width={34} height={44} viewBox="0 0 24 24"><path d="M8.547 3.817L5.704 6.203a.25.25 0 0 1-.361-.042l-.3-.401a.25.25 0 0 1 .036-.338l3.579-3.123a.5.5 0 0 1 .672.013l.005.005.017.014 3.6 3.175a.25.25 0 0 1 .035.337l-.3.402a.25.25 0 0 1-.361.042L9.534 3.945V8H13.5a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-6a.5.5 0 0 1 .5-.5h4.047V3.817zm0 5.183H5v5h8V9H9.534v2.75a.25.25 0 0 1-.25.25h-.487a.25.25 0 0 1-.25-.25V9z" fillRule="evenodd"></path>
           </svg>
-        <span>Share</span>
+        {!showShare && <span>Share</span>}
         </div>
         {showShare &&
         <ShareIcons width={width}>
@@ -162,14 +210,20 @@ function Artwork({ config, data = {} }: ArtworkProps) {
         </CopyToClipboard>
       </ShareIcons>
 }
-        <Spacer flex={6} />
+        <Spacer flex={3} />
+        {
+          nearWorks.length < 1 ?
+          <span className={styles.expandSpan} onClick={() => nearBy()}> {fetching ? 'Fetching...' : 'Near By'} </span>
+          : null
+        }
+        <Spacer flex={3} />
         <ExpandWrapper onClick={() => {setFullImg(!fullImg); handleExpand()}} >
         <span className={styles.expandSpan}>Expand</span>
         <ExpandContainer><Expand /></ExpandContainer>
         </ExpandWrapper>
         </div>
         </div>
-      </>
+        </>
   );
 }
 
