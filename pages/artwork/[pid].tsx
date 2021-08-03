@@ -132,7 +132,6 @@ function Artwork({ config, data = {} }: ArtworkProps) {
 
   
   useEffect(() => {
-    console.log(router)
     let agent = navigator.userAgent;
     var isDesktop = /Linux/i.test(agent)
     setImage(`url(${builder.image(data.image).auto("format").width(imgWidth).height(height).dpr(1).url()})`)
@@ -153,8 +152,9 @@ function Artwork({ config, data = {} }: ArtworkProps) {
       description="Materialism - art within reach"
       openGraph={{
         type: 'website',
+        locale: 'en_IE',
         url: `${process.env.BASE_URL+router.asPath}`,
-        title: 'Materialism',
+        title: `${data.title + " by " + data.artist} - Materialism`,
         description: 'Materialism - art within reach',
         images: [
           {

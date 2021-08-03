@@ -4,7 +4,6 @@ import { TextInput } from "@sanity/ui"
 import PatchEvent, { set, unset } from "@sanity/form-builder/PatchEvent"
 
 const GeoInput = React.forwardRef((props, ref) => {
-  console.log(props)
   const {
     type, // Schema information
     value, // Current field value
