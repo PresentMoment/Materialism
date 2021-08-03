@@ -10,9 +10,7 @@ export default function Directions(props) {
   const fetchUserLocation = () => {
     setIsFetching(true)
     const options = {timeout: 7000}
-    return new Promise(() => {
-      navigator.geolocation.getCurrentPosition(showPosition, locationError, options);
-    });
+    navigator.geolocation.getCurrentPosition(showPosition, locationError, options);
   }
   function locationError(err){
     setLocError(true);
