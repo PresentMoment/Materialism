@@ -24,6 +24,7 @@ import Pintrest from "./SVGs/Pintrest";
 import Twitter from "./SVGs/Twitter";
 
 const builder = imageUrlBuilder(client);
+
 const pageQuery = groq`
 *[_type == 'artwork' && slug.current == $pid]{
   ...,
@@ -56,13 +57,12 @@ type ArtworkProps = {
 
 function Artwork({ config, data = {} }: ArtworkProps) {
   const artContext = useAppContext();
-  
   const { width } = useWindowDimensions();
   const router = useRouter();
   const mainImage = data.mainImage
   
   const [fullImg, setFullImg] = useState(false)
-  const [height, setHeight] = useState(0)
+  const [height, setHeight] = useState(0);
   const [imgWidth, setImgWidth] = useState(0);
   const [hideMap, setHideMap] = useState(false)
   const [showShare, setShare] = useState(false)
@@ -70,11 +70,6 @@ function Artwork({ config, data = {} }: ArtworkProps) {
   const [nearWorks, setNearWorks] = useState([]);
   const [fetching, setFetching] = useState(false);
   const [image, setImage] = useState("");
-  const [ popClicked, setPopClicked] = useState(0);
-
-  const popUpClick = () => {
-    setPopClicked(popClicked + 1)
-  }
 
   function useScreenOrientation() {
     if (process.browser){
@@ -132,17 +127,28 @@ function Artwork({ config, data = {} }: ArtworkProps) {
 
   
   useEffect(() => {
+    
+    function setSize(){
+      console.log('resize')
+      setHeight(window.innerHeight)
+      setImgWidth(window.innerWidth)
+    }
+    window.addEventListener("resize", setSize);
+    var mql = window.matchMedia("(orientation: portrait)");
+
     let agent = navigator.userAgent;
     var isDesktop = /Linux/i.test(agent)
     setImage(`url(${builder.image(data.image).auto("format").width(imgWidth).height(height).dpr(1).url()})`)
-    if ((window.orientation == 90 || window.orientation == -90) && !isDesktop ){
+    if (!mql.matches && !isDesktop ){
       setImage(`url(${builder.image(data.image).auto("format").width(imgWidth).height(height).dpr(1).url()})`)
     }
+
     if (window !== undefined){
       setImgWidth(window.innerWidth );
       setHeight(window.innerHeight);
     }
-  }, [imgWidth, height, orient, popClicked, router.asPath])
+
+  }, [imgWidth, height, orient, router.asPath])
 
 
   return (
@@ -206,7 +212,7 @@ function Artwork({ config, data = {} }: ArtworkProps) {
           nearWorks.length < 1 ?
           <SingleMap artWorks={data} width={width} height={width > 425 ? `42vh` : 220} />
           :
-          <NearMap popUpClick={popUpClick} artWorks={nearWorks} width={width} height={width > 425 ? `42vh` : 220}
+          <NearMap artWorks={nearWorks} width={width} height={width > 425 ? `42vh` : 220}
             zoom={15}
           />
         }
