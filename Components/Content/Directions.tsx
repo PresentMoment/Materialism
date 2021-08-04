@@ -13,6 +13,7 @@ export default function Directions(props) {
   
   const safariMobile = useAppContext();
   
+
   const fetchUserLocation = () => {
     setIsFetching(true)
     const options = {timeout: 7000}
@@ -38,7 +39,7 @@ export default function Directions(props) {
 
   return (
     <Container onClick={handleClick}>
-    {dirClicked && !safariMobile ?
+    {dirClicked && safariMobile ?
     <span>Directional popup not allowed in this browser (try viewing Materialism in Chrome)</span>
     :
       locError ? <span>Location service not available in this browser (try viewing Materialism in Chrome or Firefox)</span>
