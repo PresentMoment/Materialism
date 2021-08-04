@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react'
+import React, {useState} from 'react'
 import styled from "styled-components"
 import Link from "next/link";
 
@@ -13,7 +13,7 @@ export default function Directions(props) {
   const [locError, setLocError] = useState(false);
   const [dirClicked, setDirClicked] = useState(false);
   
-  const safariMobile = useAppContext();
+  const {safariMobile} = useAppContext();
   
 
   const fetchUserLocation = () => {
@@ -41,7 +41,7 @@ export default function Directions(props) {
   }
 
   return (
-    <Container onClick={handleClick}>
+    <Container>
     {dirClicked && safariMobile ?
     <>
     <Link href={`https://www.google.com/maps/dir/?api=1&destination=${lat}%2C${lng}&origin=${userLocation[0]}%2C${userLocation[1]}`}>
@@ -53,7 +53,7 @@ export default function Directions(props) {
     :
       locError ? <span>Location service not available in this browser (try viewing Materialism in Chrome or Firefox)</span>
       :
-      <span>{!isFetching ? 'Directions' : 'Fetching location...map will open in new window'}</span>
+      <div  onClick={handleClick}><span>{!isFetching ? 'Directions' : 'Fetching location...map will open in new window'}</span></div>
   }
 
     </Container>
