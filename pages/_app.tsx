@@ -23,7 +23,7 @@ function Materialism({ Component, pageProps }: AppProps) {
       console.log(ua);
       const regexSafariMobile = /(?=^.*Safari)(?=^.*Mobile)(?!^.*CriOS)(?!^.*Firefox)(?!^.*Chrome)(?!^.*Edg)(?!^.*Linux).*/;
       const regexSafariDesktop = /(?=^.*Safari)(?=^.*Macintosh)(?!^.*Chrome)(?!^.*Linux).*/;
-      const regexInsta = /(?=^.*FB4A).*/;
+      const regexInsta = /(?=^.*FBAV).*/;
       let safariMobiletest = regexSafariMobile.test(ua);
       let safariDesktopTest = regexSafariDesktop.test(ua);
       let instaTest = regexInsta.test(ua);
