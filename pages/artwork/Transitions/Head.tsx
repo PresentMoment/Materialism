@@ -3,10 +3,11 @@ import { Transition } from "react-transition-group";
 
 export default function Head(props) {
 
-  const fullImg = props.fullImg
+  const fullImg = props.fullImg;
+  const safariDesktop = props.safariDesktop;
 
   const headerStyle = {
-    transition: `height ${1000}ms cubic-bezier(0.47, 0, 0.75, 0.72)`,
+    transition: `height ${safariDesktop ? 10 : 1000}ms cubic-bezier(0.47, 0, 0.75, 0.72)`,
     height: '61px',
     overflow: 'hidden'
   };
@@ -23,7 +24,7 @@ export default function Head(props) {
   };
 
   return (
-<Transition in={fullImg} timeout={1000}>
+<Transition in={fullImg} timeout={safariDesktop ? 10 : 1000}>
 {(state) => (
             <div
                 style={{

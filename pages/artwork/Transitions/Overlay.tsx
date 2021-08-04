@@ -3,10 +3,11 @@ import { Transition } from "react-transition-group";
 
 export default function Overlay(props) {
 
-  const fullImg = props.fullImg
+  const fullImg = props.fullImg;
+  const safariDesktop = props.safariDesktop;
 
   const overlayStyle = {
-    transition: `height 1000ms cubic-bezier(0.47, 0, 0.75, 0.72), opacity 1000ms ease`,
+    transition: `height ${safariDesktop ? 10 : 1000}ms cubic-bezier(0.47, 0, 0.75, 0.72), opacity ${safariDesktop ? 10 : 1000}ms ease`,
     height: '100%',
     backgroundColor: 'black',
     opacity: 0,
@@ -25,7 +26,7 @@ export default function Overlay(props) {
   };
 
   return (
-<Transition in={fullImg} timeout={1000}>
+<Transition in={fullImg} timeout={safariDesktop ? 10 : 1000}>
 {(state) => (
             <div
                 style={{

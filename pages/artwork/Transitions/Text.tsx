@@ -4,10 +4,11 @@ import { Transition } from "react-transition-group";
 import styles from '../[pid].module.css'
 
 export default function Text(props) {
-const fullImg = props.fullImg
+const fullImg = props.fullImg;
+const safariDesktop = props.safariDesktop;
 
   const textStyle = {
-    transition: `opacity ${1000}ms cubic-bezier(0.47, 0, 0.75, 0.72)`,
+    transition: `opacity ${safariDesktop ? 10 : 1000}ms cubic-bezier(0.47, 0, 0.75, 0.72)`,
     opacity: 1
   }
 
@@ -18,7 +19,7 @@ const fullImg = props.fullImg
     exited: { opacity: 1},
   };
   return (
-    <Transition in={fullImg} timeout={1000}>
+    <Transition in={fullImg} timeout={safariDesktop ? 10 : 1000}>
     {(state) => (
     <div 
       style={{

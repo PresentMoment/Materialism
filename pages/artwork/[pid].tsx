@@ -57,6 +57,7 @@ type ArtworkProps = {
 
 function Artwork({ config, data = {} }: ArtworkProps) {
   const artContext = useAppContext();
+  const {safariDesktop} = useAppContext();
   const { width } = useWindowDimensions();
   const router = useRouter();
   const mainImage = data.mainImage
@@ -176,22 +177,22 @@ function Artwork({ config, data = {} }: ArtworkProps) {
         cardType: "summary_large_image",
       }}
     />
-    <Head fullImg={fullImg}>
+    <Head fullImg={fullImg} safariDesktop={safariDesktop}>
       <Header paddingBottom={0} />
         </Head>
         <div className={styles.container} style={{maxHeight: `${height}px`, minHeight: `${height - 100}px`}}>
-        <Overlay fullImg={fullImg} handleDivClick={handleDivClick} height={height} />
+        <Overlay fullImg={fullImg} handleDivClick={handleDivClick} height={height} safariDesktop={safariDesktop} />
         <div className={styles.fade} style={{
           backgroundColor: mainImage.metadata.palette.dominant.background,
           color: mainImage.metadata.palette.dominant.foreground }}>
-        <CSSTransition in={fullImg} timeout={1000}>
-          {(state) => <Animation state={state} style={{
+        <CSSTransition in={fullImg} timeout={safariDesktop ? 10 : 1000}>
+          {(state) => <Animation state={state} safariDesktop={safariDesktop} style={{
             backgroundImage: `${image}`,
           }}>
             
           <TextContainer>
             <Spacer flex={1} />
-            <Text fullImg={fullImg}>
+            <Text fullImg={fullImg} safariDesktop={safariDesktop}>
               <TextSpan onClick={() => {setFullImg(!fullImg); handleExpand()}}>{data.title}, {data.year}</TextSpan>
               <Link href={{ pathname: '/artist/' + data.artist}}>
                 <a style={{textAlign: 'start'}}>
@@ -281,11 +282,11 @@ export async function getStaticPaths() {
 
 export default Artwork;
 
-const Animation = styled.div<{state: string}>`
+const Animation = styled.div<{state: string, safariDesktop: boolean}>`
 background-position: 0% 0%;
 background-repeat: no-repeat;
 background-attachment: fixed;
-transition: height 1000ms cubic-bezier(0.47, 0, 0.75, 0.72);
+transition: ${(p) => `height ${p.safariDesktop ? '10ms' : '1000ms'} cubic-bezier(0.47, 0, 0.75, 0.72)`};
 height: ${({ state }) => (state === 'entering' || state === 'entered' ? '100vh' : '42vh')};
 `
 
