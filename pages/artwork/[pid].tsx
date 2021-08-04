@@ -129,7 +129,6 @@ function Artwork({ config, data = {} }: ArtworkProps) {
   useEffect(() => {
     
     function setSize(){
-      console.log('resize')
       setHeight(window.innerHeight)
       setImgWidth(window.innerWidth)
     }

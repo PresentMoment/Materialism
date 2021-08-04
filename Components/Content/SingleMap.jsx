@@ -16,8 +16,8 @@ export default function SingleMap(props) {
     zoom: 16,
     latitude: props.artWorks.location.lat,
     longitude: props.artWorks.location.lng,
-  })
-
+  });
+  
   return (
     <ReactMapGL
       mapStyle="mapbox://styles/jawsjawsjaws/ckq7ymef20qlw18nwfxt7w4wk"

@@ -1,11 +1,16 @@
 import React, {useState} from 'react'
 import styled from "styled-components"
 
+import { useAppContext } from '../../Utils/state'
+
 export default function Directions(props) {
   const lat = props.data.location.lat;
   const lng = props.data.location.lng;
+  const address = props.data.address;
   const [isFetching, setIsFetching] = useState(false);
   const [locError, setLocError] = useState(false);
+
+  const safariMobile = useAppContext();
 
   const fetchUserLocation = () => {
     setIsFetching(true)
@@ -21,7 +26,10 @@ export default function Directions(props) {
   
     function showPosition(position) {
       setIsFetching(false)
-      var win = window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat}%2C${lng}&origin=${position.coords.latitude}%2C${position.coords.longitude}`, '_blank', "modal=yes");
+      var win =  window.open(
+        safariMobile ?
+        `http://maps.apple.com/?&daddr=${address}` :
+        `https://www.google.com/maps/dir/?api=1&destination=${lat}%2C${lng}&origin=${position.coords.latitude}%2C${position.coords.longitude}`, '_blank');
       win.focus();
     }
 

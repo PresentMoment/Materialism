@@ -9,10 +9,20 @@ import '../styles/globals.css'
 
 
 function Materialism({ Component, pageProps }: AppProps) {
+
   const [artData, setArtData] = useState([]);
+  const [safariMobile, setSafariMobile] = useState(false);
+
   useEffect(() => {
-      pageProps.props && setArtData(pageProps.props)
+      pageProps.props && setArtData(pageProps.props);
+
+      let ua = navigator.userAgent;
+      const regex = /(?=^.*Safari)(?=^.*Mobile)(?!^.*CriOS)(?!^.*Linux).*/;
+      let test = regex.test(ua)
+      setSafariMobile(test);
+      
   }, [])
+
   return <>
       <NextSeo
       title="Materialism"
@@ -54,7 +64,7 @@ function Materialism({ Component, pageProps }: AppProps) {
     height={3}
     showOnShallow={true}
     />
-  <AppWrapper works={artData}>
+  <AppWrapper works={artData} safariMobile={safariMobile}>
       <Component {...pageProps} />
   </AppWrapper>
   </>
