@@ -14,6 +14,7 @@ export default function Directions(props) {
   const [dirClicked, setDirClicked] = useState(false);
   
   const {safariMobile} = useAppContext();
+  const {insta} = useAppContext();
   
 
   const fetchUserLocation = () => {
@@ -42,7 +43,8 @@ export default function Directions(props) {
 
   return (
     <Container>
-    {dirClicked && safariMobile ?
+    {!insta &&
+    dirClicked && safariMobile ?
     <>
     <Link href={`https://www.google.com/maps/dir/?api=1&destination=${lat}%2C${lng}&origin=${userLocation[0]}%2C${userLocation[1]}`}>
       <a target="_blank">
@@ -54,8 +56,8 @@ export default function Directions(props) {
       locError ? <span>Location service not available in this browser (try viewing Materialism in Chrome or Firefox)</span>
       :
       <div  onClick={handleClick}><span>{!isFetching ? 'Directions' : 'Fetching location...map will open in new window'}</span></div>
-  }
-
+    
+    }
     </Container>
   )
 }

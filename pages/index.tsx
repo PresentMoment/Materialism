@@ -23,7 +23,7 @@ export default function Home(props) {
   const [geoFetched, setGeoFetched] = useState(false)
   const [errMsg, setErrMsg] = useState([])
   const [view, setView] = useState("list")
-  const isBreakPoint = useMediaQuery(625)
+  const isBreakPoint = useMediaQuery(625);
 
   function getLocation() {
     const options = {timeout: 7000}
