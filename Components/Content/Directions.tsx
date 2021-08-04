@@ -26,10 +26,10 @@ export default function Directions(props) {
   
     function showPosition(position) {
       setIsFetching(false)
-      var win =  window.open(
-        safariMobile ?
-        `http://maps.apple.com/?&daddr=${address}` :
-        `https://www.google.com/maps/dir/?api=1&destination=${lat}%2C${lng}&origin=${position.coords.latitude}%2C${position.coords.longitude}`, '_blank');
+      var win =  
+      safariMobile ?
+        window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat}%2C${lng}&origin=${position.coords.latitude}%2C${position.coords.longitude}`, '_blank')
+        : window.open(`http://maps.apple.com/?&daddr=${address}`)
       win.focus();
     }
 
