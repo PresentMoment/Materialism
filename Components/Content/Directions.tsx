@@ -1,5 +1,6 @@
-import React, {useState} from 'react'
+import React, {Fragment, useState} from 'react'
 import styled from "styled-components"
+import Link from "next/link";
 
 import { useAppContext } from '../../Utils/state'
 
@@ -8,6 +9,7 @@ export default function Directions(props) {
   const lat = props.data.location.lat;
   const lng = props.data.location.lng;
   const [isFetching, setIsFetching] = useState(false);
+  const [userLocation, setUserLocation] = useState([])
   const [locError, setLocError] = useState(false);
   const [dirClicked, setDirClicked] = useState(false);
   
@@ -27,7 +29,8 @@ export default function Directions(props) {
   }
   
   function showPosition(position) {
-    setIsFetching(false)
+    setIsFetching(false);
+    setUserLocation([position.coords.latitude, position.coords.longitude])
     var win = window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat}%2C${lng}&origin=${position.coords.latitude}%2C${position.coords.longitude}`, '_blank');
     win.focus();
   }
@@ -40,7 +43,13 @@ export default function Directions(props) {
   return (
     <Container onClick={handleClick}>
     {dirClicked && safariMobile ?
-    <span>Directional popup not allowed in this browser (try viewing Materialism in Chrome)</span>
+    <>
+    <Link href={`https://www.google.com/maps/dir/?api=1&destination=${lat}%2C${lng}&origin=${userLocation[0]}%2C${userLocation[1]}`}>
+      <a target="_blank">
+      <span>Pop ups not allowed in this browser. Click here to open Directions in new window.</span>
+      </a>
+    </Link>
+    </>
     :
       locError ? <span>Location service not available in this browser (try viewing Materialism in Chrome or Firefox)</span>
       :

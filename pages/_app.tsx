@@ -12,15 +12,19 @@ function Materialism({ Component, pageProps }: AppProps) {
 
   const [artData, setArtData] = useState([]);
   const [safariMobile, setSafariMobile] = useState(false);
+  const [safariDesktop, setSafariDesktop] = useState(false);
 
   useEffect(() => {
       pageProps.props && setArtData(pageProps.props);
 
       let ua = navigator.userAgent;
-      const regex = /(?=^.*Safari)(?=^.*Mobile)(?!^.*CriOS)(?!^.*Linux).*/;
-      let test = regex.test(ua)
-      setSafariMobile(test);
-      
+      const regexSafariMobile = /(?=^.*Safari)(?=^.*Mobile)(?!^.*CriOS)(?!^.*Linux).*/;
+      const regexSafariDesktop = /(?=^.*Safari)(?=^.*Macintosh)(?!^.*Chrome)(?!^.*Linux).*/;
+      let safariMobiletest = regexSafariMobile.test(ua);
+      let safariDesktopTest = regexSafariDesktop.test(ua);
+      setSafariDesktop(safariDesktopTest);
+      setSafariMobile(safariMobiletest);
+
   }, [])
 
   return <>
@@ -64,7 +68,7 @@ function Materialism({ Component, pageProps }: AppProps) {
     height={3}
     showOnShallow={true}
     />
-  <AppWrapper works={artData} safariMobile={safariMobile}>
+  <AppWrapper works={artData} safariMobile={safariMobile} safariDesktop={safariDesktop}>
       <Component {...pageProps} />
   </AppWrapper>
   </>
