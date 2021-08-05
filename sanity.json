@@ -1,0 +1,30 @@
+{
+  "root": true,
+  "project": {
+    "name": "Material",
+    "basePath": "/studio"
+  },
+  "api": {
+    "projectId": "mquooija",
+    "dataset": "production"
+  },
+  "plugins": [
+    "@sanity/base",
+    "@sanity/components",
+    "@sanity/default-layout",
+    "@sanity/default-login",
+    "@sanity/desk-tool",
+    "media"
+  ],
+  "env": {
+    "development": {
+      "plugins": ["@sanity/vision"]
+    }
+  },
+  "parts": [
+    {
+      "name": "part:@sanity/base/schema",
+      "path": "./schemas/schema"
+    }
+  ]
+}
