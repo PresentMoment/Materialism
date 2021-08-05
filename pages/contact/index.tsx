@@ -9,7 +9,7 @@ function contact({data = {}}) {
     <Layout>
       <Container>
         <ContactText>
-      <span><a href="mailto:materialismnyc@gmail.com" target="_blank" rel="noopener noreferrer">materialismnyc@gmail.com</a></span>
+      <span><a href="mailto:info@materialism.nyc" target="_blank" rel="noopener noreferrer">info@materialism.nyc</a></span>
       <div />
       <span><a href='https://www.instagram.com/materialism.nyc/' target="_blank" rel="noopener noreferrer">Instagram: @materialism.nyc</a></span>
       <div />

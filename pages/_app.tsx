@@ -20,7 +20,6 @@ function Materialism({ Component, pageProps }: AppProps) {
 
       
       let ua = navigator.userAgent;
-      console.log(ua);
       const regexSafariMobile = /(?=^.*Safari)(?=^.*Mobile)(?!^.*CriOS)(?!^.*Firefox)(?!^.*Chrome)(?!^.*Edg)(?!^.*Linux).*/;
       const regexSafariDesktop = /(?=^.*Safari)(?=^.*Macintosh)(?!^.*Chrome)(?!^.*Linux).*/;
       const regexInsta = /(?=^.*FBAN).*/;
