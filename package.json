@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export ",
-    "start": "next start"
+    "start": "next start",
+    "build-studio": "lerna bootstrap && (cd studio && yarn build)"
   },
   "dependencies": {
     "@artsy/fresnel": "^1.5.0",
