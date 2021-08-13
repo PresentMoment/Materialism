@@ -138,9 +138,9 @@ function Artwork({ config, data = {} }: ArtworkProps) {
 
     let agent = navigator.userAgent;
     var isDesktop = /Linux/i.test(agent)
-    setImage(`url(${builder.image(data.image).auto("format").width(imgWidth).height(height).dpr(1).url()})`)
+    setImage(`url(${builder.image(data.image).auto(`format`).width(imgWidth).height(height).dpr(1).url()})`)
     if (!mql.matches && !isDesktop ){
-      setImage(`url(${builder.image(data.image).auto("format").width(imgWidth).height(height).dpr(1).url()})`)
+      setImage(`url(${builder.image(data.image).auto(`format`).width(imgWidth).height(height).dpr(1).url()})`)
     }
 
     if (window !== undefined){
