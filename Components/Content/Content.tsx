@@ -44,7 +44,7 @@ export default function Content(props) {
   useEffect(() => {
     setGradientWidth(artistCard.current.offsetWidth);
     props.userlocation[0] !== undefined ? setFindLocale(false) : null;
-  }, [artistCard, gradientWidth, props.userlocation])
+  }, [artistCard, props.userlocation])
 
 
   return (

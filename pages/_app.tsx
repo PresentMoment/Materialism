@@ -18,7 +18,6 @@ function Materialism({ Component, pageProps }: AppProps) {
   useEffect(() => {
       pageProps.props && setArtData(pageProps.props);
 
-      
       let ua = navigator.userAgent;
       const regexSafariMobile = /(?=^.*Safari)(?=^.*Mobile)(?!^.*CriOS)(?!^.*Firefox)(?!^.*Chrome)(?!^.*Edg)(?!^.*Linux).*/;
       const regexSafariDesktop = /(?=^.*Safari)(?=^.*Macintosh)(?!^.*Chrome)(?!^.*Linux).*/;
