@@ -128,10 +128,7 @@ function Artwork({ config, data = {} }: ArtworkProps) {
 
   
   useEffect(() => {
-    if (window !== undefined && height < 1 && imgWidth < 1 ){
-      setImgWidth(window.innerWidth );
-      setHeight(window.innerHeight);
-    }
+    
     function setSize(){
       setHeight(window.innerHeight)
       setImgWidth(window.innerWidth)
@@ -145,6 +142,12 @@ function Artwork({ config, data = {} }: ArtworkProps) {
     if (!mql.matches && !isDesktop ){
       setImage(`url(${builder.image(data.image).auto(`format`).width(imgWidth).height(height).dpr(1).url()})`)
     }
+
+    if (window !== undefined){
+      setImgWidth(window.innerWidth );
+      setHeight(window.innerHeight);
+    }
+
   }, [imgWidth, height, orient, router.asPath])
 
 
