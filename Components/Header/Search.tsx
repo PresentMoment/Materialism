@@ -14,7 +14,7 @@ export default function Search(props) {
 }
 
 const SearchContainer = styled.div<{isBreakPoint: boolean}>`
-min-width: ${(p) => p.isBreakPoint ? '80vw': '30vw'};
+min-width: ${(p) => p.isBreakPoint ? '53vw': '30vw'};
 text-align: center;
 `
 
