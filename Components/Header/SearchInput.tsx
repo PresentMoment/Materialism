@@ -35,7 +35,7 @@ export default function SearchInput(props) {
         id="search"
         ref={inputElement}
         autoFocus={true}
-        placeholder={'Search by artist, artwork or city'}
+        placeholder={'Search by artist, artwork or year'}
         style={{width: '100%', border: 'none', borderBottom: '1px solid rgb(0, 0, 0)', fontFamily: 'Cormorant Garamond,serif', fontSize: '1.8em', backgroundColor: 'rgba(255,255,255,0)', outline: '0', background: 'none', color: 'rgb(0,0,0)', textAlign: 'center', marginTop: '-2px'}}
         />
       </Media>
@@ -46,7 +46,7 @@ export default function SearchInput(props) {
         id="search"
         ref={inputElement}
         autoFocus={true}
-        placeholder={'Search by artist, artwork or city'}
+        placeholder={'Search by artist, artwork or year'}
         style={{width: '100%', border: 'none', borderBottom: '1px solid rgb(0, 0, 0)', fontFamily: 'Cormorant Garamond,serif', fontSize: '1.8em', backgroundColor: 'rgba(255,255,255,0)', outline: '0', background: 'none', color: 'rgb(0,0,0)', textAlign: 'center', marginTop: '0'}}
         />
       </Media>
