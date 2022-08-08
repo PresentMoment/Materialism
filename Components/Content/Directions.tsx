@@ -26,7 +26,7 @@ export default function Directions(props) {
   }
   function locationError(err){
     setLocError(true);
-    console.log('Location service not available in this browser (try viewing Materialism in Chrome or Firefox)')
+    console.log('Location service not enabled, (check your browser settings)')
   }
   
   function showPosition(position) {
@@ -53,7 +53,7 @@ export default function Directions(props) {
     </Link>
     </>
     :
-      locError ? <span>Location service not available in this browser (try viewing Materialism in Chrome or Firefox)</span>
+      locError ? <span>Location service not enabled, (check your browser settings)</span>
       :
       <div  onClick={handleClick}><span>{!isFetching ? 'Directions' : 'Fetching location...map will open in new window'}</span></div>
     

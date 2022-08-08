@@ -18,11 +18,11 @@ const pageQuery = groq`
 
 export default function Home(props) {
 
-  const [artWorks, setArtworks] = useState(props.props)
+  const [artWorks, setArtworks] = useState(props.props);
   const [userlocation, setUserLocation] = useState([undefined, undefined])
-  const [geoFetched, setGeoFetched] = useState(false)
-  const [errMsg, setErrMsg] = useState([])
-  const [view, setView] = useState("list")
+  const [geoFetched, setGeoFetched] = useState(false);
+  const [errMsg, setErrMsg] = useState([]);
+  const [view, setView] = useState("list");
   const isBreakPoint = useMediaQuery(625);
 
   function getLocation() {
@@ -31,7 +31,8 @@ export default function Home(props) {
 }
 
 function locationError(err){
-  setErrMsg([`Location service not available in this browser`, '(try viewing Materialism in Chrome or Firefox)'])
+  console.log(err)
+  setErrMsg([`Location service not enabled`, '(check your browser settings)'])
 }
 
   function showPosition(position) {
