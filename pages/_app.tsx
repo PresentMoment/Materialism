@@ -43,7 +43,7 @@ function Materialism({ Component, pageProps }: AppProps) {
         description: 'Materialism - art within reach',
         images: [
           {
-            url: '/public/Logo3.jpg',
+            url: '/Logo3.jpg',
             width: 800,
             height: 800,
             alt: `Materialism`,
