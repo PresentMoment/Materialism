@@ -1,6 +1,7 @@
 import React, {useEffect, useRef } from 'react'
 import styled from "styled-components"
 import Link from "next/link";
+import Image from 'next/image'
 import imageUrlBuilder from "@sanity/image-url";
 import useMediaQuery from '../../Utils/useMediaQuery'
 import client from '../../client'
@@ -31,9 +32,11 @@ export default function ArtistCard(props) {
             <span>{artwork.artist.name && artwork.artist.name || artwork.name && artwork.name}</span>
             <span>{artwork.title}</span>
             </ArtistInfo>
-            <img
+            <Image
               src={builder.image(artwork.image).auto("format").width(100).height(100).url()}
               alt={""}
+              width={100}
+              height={100}
             />
             </InfoWrapper>
             <LineBreak width='100%' />
