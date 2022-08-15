@@ -23,6 +23,7 @@ export default function ArtistCard(props) {
       <List is425={is425}>
       {
       props.artWorks.map((artwork)=> {
+        const src = builder.image(artwork.image).auto("format").width(100).height(100).url()
         return(
           <div key={artwork._id} ref={props.clickedWork[0] && props.clickedWork[0]._id == artwork._id ? clickRef : null}>
             <Link href={{ pathname: '/artwork/' + artwork.slug.current}}>
@@ -33,7 +34,8 @@ export default function ArtistCard(props) {
             <span>{artwork.title}</span>
             </ArtistInfo>
             <Image
-              src={builder.image(artwork.image).auto("format").width(100).height(100).url()}
+              loader={() => src}
+              src={src}
               alt={""}
               width={100}
               height={100}
