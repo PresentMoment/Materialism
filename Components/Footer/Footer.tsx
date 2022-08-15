@@ -10,8 +10,8 @@ export default function Footer() {
       {/* <div style={{display: 'flex', flex: 1}}>{" "}</div> */}
       <FooterLinks>
       <Link href={{ pathname: '/about/'}}>
-      <a><span>About</span></a></Link><Link href={{ pathname: '/contact/'}}>
-      <a><span>Contact</span></a></Link>
+      <a><EachLink>About</EachLink></a></Link><Link href={{ pathname: '/contact/'}}>
+      <a><EachLink>Contact</EachLink></a></Link>
       </FooterLinks>
       {/* <Link href={{ pathname: '/add/'}}>
       <a>
@@ -38,4 +38,14 @@ width: 100%;
 justify-content: space-around;
 font-size: 2.3rem;
 margin-bottom: 10px;
+`
+
+const EachLink = styled('span')`
+&:hover,
+  &:focus {
+    color: #bfbdbd;
+  },
+&:active {
+  color: black;
+}
 `
