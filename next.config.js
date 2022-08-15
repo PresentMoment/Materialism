@@ -1,7 +1,4 @@
 module.exports = {
-  images: {
-    domains: ["cdn.sanity.io"],
-  },
   env: {
     MAPBOX_KEY: process.env.MAPBOX_KEY,
     MAPQUEST_KEY: process.env.MAPQUEST_KEY,

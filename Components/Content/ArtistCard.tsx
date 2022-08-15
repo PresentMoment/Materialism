@@ -1,18 +1,17 @@
 import React, {useEffect, useRef } from 'react'
 import styled from "styled-components"
 import Link from "next/link";
-import Image from 'next/image'
 import imageUrlBuilder from "@sanity/image-url";
 import useMediaQuery from '../../Utils/useMediaQuery'
 import client from '../../client'
 
 const builder = imageUrlBuilder(client);
 export default function ArtistCard(props) {
-  const isBreakPoint = useMediaQuery(768);
-  const is425 = useMediaQuery(425);
-  const is950 = useMediaQuery(950);
+const isBreakPoint = useMediaQuery(768);
+const is425 = useMediaQuery(425);
+const is950 = useMediaQuery(950);
 
-  const clickRef = useRef<HTMLDivElement>(null);
+const clickRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     clickRef.current !== null && clickRef.current.scrollIntoView();
@@ -23,7 +22,6 @@ export default function ArtistCard(props) {
       <List is425={is425}>
       {
       props.artWorks.map((artwork)=> {
-        const src = builder.image(artwork.image).auto("format").width(100).height(100).url()
         return(
           <div key={artwork._id} ref={props.clickedWork[0] && props.clickedWork[0]._id == artwork._id ? clickRef : null}>
             <Link href={{ pathname: '/artwork/' + artwork.slug.current}}>
@@ -33,12 +31,9 @@ export default function ArtistCard(props) {
             <span>{artwork.artist.name && artwork.artist.name || artwork.name && artwork.name}</span>
             <span>{artwork.title}</span>
             </ArtistInfo>
-            <Image
-              loader={() => src}
-              src={src}
+            <img
+              src={builder.image(artwork.image).auto("format").width(100).height(100).quality(40).url()}
               alt={""}
-              width={100}
-              height={100}
             />
             </InfoWrapper>
             <LineBreak width='100%' />
