@@ -27,4 +27,11 @@ font-family: 'EB Garamond', 'CormorantGaramond', serif;
 font-size: 3em;
 font-style: italic;
 text-align: center;
+&:hover,
+  &:focus {
+    color: #bfbdbd;
+  },
+&:active {
+  color: black;
+}
 `
