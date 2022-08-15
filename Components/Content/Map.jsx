@@ -54,7 +54,7 @@ export default function Map(props) {
         }}>
           <svg height={artwork[1]._id && artwork[1]._id == markerClicked ? 50 : 20} viewBox="0 0 24 26" style={{ 
           transform: `translate(${-20 / 2}px,${-20}px)`, overflow: 'visible' }}>
-            <path style={{fill: 'black',
+            <path style={{fill: props.hoveredArt == artwork[1]._id || artwork[1]._id == markerClicked ? '#F0A001' : 'black',
               stroke: '#a3a3a3',
               strokeWidth: '3px',
               strokeLinejoin: 'round'}}

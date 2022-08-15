@@ -16,15 +16,25 @@ const MobileMap = dynamic(() => import("./MobileMap"), {
 });
 
 export default function Content(props) {
+
   const {artWorks} = props;
+
   const isBreakPoint = useMediaQuery(625)
   const isMobile = useMediaQuery(425);
+
   const artistCard = useRef(null);
   const contentList = useRef(null);
+
   const [gradientWidth, setGradientWidth] = useState(null)
   const [findLocale, setFindLocale] = useState(true)
   const [clickedWork, setClickedWork] = useState([])
   const [scrollBottom, setScrollBottom] = useState(false)
+  const [hoveredArt, setHoveredArt] = useState(null);
+
+  const handleArtHover = (e) => {
+    setHoveredArt(e)
+  }
+
 
   const clickedPopUp = (artworkID) => {
     var res = artWorks.filter(obj => {
@@ -57,7 +67,7 @@ export default function Content(props) {
         ref={el => { contentList.current = el}}
         >
         <div ref={el => { artistCard.current = el}} style={{width: '100%'}}>
-        <ArtistCard artWorks={artWorks} clickedWork={clickedWork} />
+        <ArtistCard artWorks={artWorks} clickedWork={clickedWork} handleArtHover={handleArtHover} />
         </div>
       {!scrollBottom ?
       <GradientWrapper gradientWidth={gradientWidth} isMobile={isMobile}><Gradient isMobile={isMobile} /></GradientWrapper>
@@ -76,14 +86,14 @@ export default function Content(props) {
         ref={el => { contentList.current = el}}
         >
         <div ref={el => { artistCard.current = el}} style={{width: '100%'}} >
-        <ArtistCard artWorks={artWorks} clickedWork={clickedWork} />
+        <ArtistCard artWorks={artWorks} clickedWork={clickedWork} handleArtHover={handleArtHover} />
         </div>
         {!scrollBottom ?
         <GradientWrapper gradientWidth={gradientWidth} isMobile={isMobile}><Gradient isMobile={isMobile} /></GradientWrapper>
         : null}
         </ContentList>
       <MapWrapper isBreakPoint={isBreakPoint} isMobile={isMobile}>
-        <Map artWorks={artWorks} userlocation={props.userlocation} passIDtoContent={clickedPopUp} />
+        <Map artWorks={artWorks} userlocation={props.userlocation} passIDtoContent={clickedPopUp} hoveredArt={hoveredArt} />
       </MapWrapper>
       </>
       }
