@@ -6,7 +6,10 @@ import useMediaQuery from '../../Utils/useMediaQuery'
 import client from '../../client'
 
 const builder = imageUrlBuilder(client);
-export default function ArtistCard(props) {
+
+
+export default function ArtistCard (props) {
+  
 const isBreakPoint = useMediaQuery(768);
 const is425 = useMediaQuery(425);
 const is950 = useMediaQuery(950);
@@ -26,7 +29,7 @@ const clickRef = useRef<HTMLDivElement>(null);
           <div key={artwork._id} ref={props.clickedWork[0] && props.clickedWork[0]._id == artwork._id ? clickRef : null}>
             <Link href={{ pathname: '/artwork/' + artwork.slug.current}}>
               <a>
-            <InfoWrapper clickedWork={props.clickedWork[0]} artwork={artwork}>
+            <InfoWrapper clickedWork={props.clickedWork[0]} artwork={artwork} onMouseEnter={() => props.handleArtHover(artwork._id)} onMouseLeave={() => props.handleArtHover(null)}>
             <ArtistInfo isBreakPoint={isBreakPoint} is950={is950} key={artwork._id}>
             <span>{artwork.artist.name && artwork.artist.name || artwork.name && artwork.name}</span>
             <span>{artwork.title}</span>
@@ -47,7 +50,7 @@ const clickRef = useRef<HTMLDivElement>(null);
     </Wrapper>
       </>
   )
-}
+};
 
 const Wrapper = styled("div")<{isBreakPoint: boolean}>`
 display: flex;
@@ -92,6 +95,7 @@ const InfoWrapper = styled.div<{clickedWork, artwork}>`
 background-color:${(p) => p.clickedWork && p.clickedWork._id == p.artwork._id ?  `#e6e6e6` : `transparent`};
 border-bottom: ${(p) => p.clickedWork && p.clickedWork._id == p.artwork._id ? `3px solid #919191` : `none`};
 font-weight: ${(p) => p.clickedWork && p.clickedWork._id == p.artwork._id ? `600` : `500`};
+padding-left: ${(p) => p.clickedWork && p.clickedWork._id == p.artwork._id ? `5px` : `0`};
 display: flex;
 flex-direction: row;
 max-height: 100px;
