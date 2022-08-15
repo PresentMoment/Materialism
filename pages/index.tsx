@@ -55,7 +55,7 @@ function locationError(err){
         {isBreakPoint ?
               <ViewOption>
                 <ViewWrapper>
-                  <span onClick={() => setView('list')}>List View</span><Spacer /><span>|</span><Spacer /><span onClick={() => setView('map')}>Map View</span>
+                  <ListView view={view} onClick={() => setView('list')}>List View</ListView><Spacer /><span>|</span><Spacer /><MapView view={view} onClick={() => setView('map')}>Map View</MapView>
                 </ViewWrapper>
             </ViewOption>
             : <></>
@@ -84,6 +84,25 @@ cursor: pointer;
 
 const Spacer = styled.div`
 width: 10px
+`
+
+const ListView = styled.span<{view: string}>`
+color: ${(p) => p.view === 'list' ? '#bfbdbd' : 'black'};
+&:hover {
+  color: #bfbdbd
+};
+&:active {
+  color: black
+}
+`
+const MapView = styled.span<{view: string}>`
+color: ${(p) => p.view === 'map' ? '#bfbdbd' : 'black'};
+&:hover {
+  color: #bfbdbd
+};
+&:active {
+  color: black
+}
 `
 
 Home.getInitialProps = async() => {

@@ -44,7 +44,7 @@ const EachLink = styled('span')`
 &:hover,
   &:focus {
     color: #bfbdbd;
-  },
+  };
 &:active {
   color: black;
 }
