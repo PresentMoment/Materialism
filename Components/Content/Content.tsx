@@ -30,6 +30,7 @@ export default function Content(props) {
   const [clickedWork, setClickedWork] = useState([])
   const [scrollBottom, setScrollBottom] = useState(false)
   const [hoveredArt, setHoveredArt] = useState(null);
+  const [winHeight, setWinHeight] = useState(null);
 
   const handleArtHover = (e) => {
     setHoveredArt(e)
@@ -53,12 +54,13 @@ export default function Content(props) {
 
   useEffect(() => {
     setGradientWidth(artistCard.current.offsetWidth);
+    setWinHeight(window.innerHeight);
     props.userlocation[0] !== undefined ? setFindLocale(false) : null;
   }, [artistCard, props.userlocation])
 
 
   return (
-    <ContentContainer isBreakPoint={isBreakPoint} findLocale={findLocale}>
+    <ContentContainer isBreakPoint={isBreakPoint} findLocale={findLocale} winHeight={winHeight}>
       {isBreakPoint ?
       props.view == 'list' ?
       <ContentList 
@@ -101,18 +103,21 @@ export default function Content(props) {
   )
 }
 
-const ContentContainer = styled.div<{isBreakPoint: boolean, findLocale: boolean}>`
+const ContentContainer = styled.div<{isBreakPoint: boolean, findLocale: boolean, winHeight: number}>`
 display: flex;
 flex-direction: ${(p) => p.isBreakPoint ? 'column' : 'row'};
 height: 100%;
 margin: 10px ${(p) => p.isBreakPoint ? '4px' : '30px'};
 border: 1px solid black;
 padding: ${(p) => p.isBreakPoint ? '4px' : '10px'};
-height: ${(p) => 
-  !p.isBreakPoint && !p.findLocale && '88vh' ||
-  !p.isBreakPoint && p.findLocale && '83vh' ||
-  p.isBreakPoint && p.findLocale && '60vh' ||
-  p.isBreakPoint && !p.findLocale && '68vh'
+height: 
+${(p) => 
+  !p.findLocale && p.winHeight - 260+'px' ||
+  p.findLocale && p.winHeight - 210+'px'
+  // !p.isBreakPoint && !p.findLocale && '88vh' ||
+  // !p.isBreakPoint && p.findLocale && '83vh' ||
+  // p.isBreakPoint && p.findLocale && '60vh' ||
+  // p.isBreakPoint && !p.findLocale && '68vh'
 };
 `
 const ContentList = styled.div<{isBreakPoint: boolean}>`
