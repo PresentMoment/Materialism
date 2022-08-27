@@ -112,7 +112,7 @@ border: 1px solid black;
 padding: ${(p) => p.isBreakPoint ? '4px' : '10px'};
 height: 
 ${(p) => 
-  !p.findLocale && p.winHeight - 160+'px' ||
+  !p.findLocale && p.winHeight - 165+'px' ||
   p.findLocale && p.winHeight - 210+'px'
 };
 `
